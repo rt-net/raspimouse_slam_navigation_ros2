@@ -14,15 +14,19 @@
 
 
 from ament_index_python.packages import get_package_share_directory
-from launch import LaunchDesription
+from launch import LaunchDescription
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    slam_noede = Node(
+    slam_node = Node(
         package='slam_toolbox', executable='sync_slam_toolbox_node',
         output='screen',
-        parameters=[ ],
+        parameters=[ 
+            get_package_share_directory(
+                'raspimouse_slam')
+            + '/config/mapper_params_offline.yaml'
+        ],
     )
 
     rviz2_node = Node(
