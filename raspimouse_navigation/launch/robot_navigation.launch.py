@@ -21,6 +21,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.actions import OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode
+from launch_ros.actions import Node
 
 def generate_launch_description():
     declare_lidar = DeclareLaunchArgument(
@@ -44,13 +45,14 @@ def generate_launch_description():
                     '/hlds_laser.launch.py'
                     ]),)]
     launch_lidar_node = OpaqueFunction(function=func_launch_lidar_node)
-
+    
     static_transform_publisher_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher', output='screen',
         arguments=['0', '0', '0.1', '0', '3.14',
             '3.14', 'base_footprint', 'laser'],
     )
+
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
