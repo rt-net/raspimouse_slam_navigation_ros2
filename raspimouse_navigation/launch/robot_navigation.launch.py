@@ -37,12 +37,6 @@ def generate_launch_description():
 
     def func_launch_lidar_node(context):
         if context.launch_configurations['lidar'] == 'lds':
-            static_transform_publisher_node = Node(
-                package='tf2_ros',
-                executable='static_transform_publisher', output='screen',
-                arguments=['0', '0', '0.1', '0', '3.14',
-                   '3.14', 'base_footprint', 'laser'],
-            )
             return [IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('hls_lfcd_lds_driver'),
@@ -51,6 +45,12 @@ def generate_launch_description():
                     ]),)]
     launch_lidar_node = OpaqueFunction(function=func_launch_lidar_node)
 
+    static_transform_publisher_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher', output='screen',
+        arguments=['0', '0', '0.1', '0', '3.14',
+            '3.14', 'base_footprint', 'laser'],
+    )
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
