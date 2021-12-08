@@ -46,7 +46,8 @@ ros2 launch raspimouse_slam teleop.launch.py joyconfig:=f710
 ## PC側で次のコマンドを実行実行
 ros2 launch raspimouse_slam raspimouse_slam.launch
 ## 地図ができたら引き続きPC側で実行
-cd ~/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam/maps
+cd ~/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam
+mkdir maps && cd maps
 ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
 
 # Navigation
