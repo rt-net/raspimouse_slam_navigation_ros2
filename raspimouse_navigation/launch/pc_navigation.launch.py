@@ -24,7 +24,7 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     map_file = LaunchConfiguration('map_file')
-    param_file = LaunchConfiguration('param_file')
+    params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
     declare_robot = DeclareLaunchArgument(
@@ -40,10 +40,10 @@ def generate_launch_description():
         description='The path to the map file.'
     )
     
-    param_dir = DeclareLaunchArgument(
-        'param_file', default_value=os.path.join(
+    params_dir = DeclareLaunchArgument(
+        'params_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_navigation'),
-            'param',
+            'params',
             'raspimouse.yaml'),
         description='The path to the param file.'
     )
@@ -65,7 +65,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
         launch_arguments={
             'map': map_file,
-            'params_file': param_file,
+            'params_file': params_file,
             'use_sim_time': use_sim_time}.items(),
     )
 
@@ -79,7 +79,7 @@ def generate_launch_description():
     ld = LaunchDescription()
     ld.add_action(declare_robot)
     ld.add_action(map_dir)
-    ld.add_action(param_dir)
+    ld.add_action(params_dir)
     ld.add_action(rviz2_config_dir)
 
     ld.add_action(nav2_node)
