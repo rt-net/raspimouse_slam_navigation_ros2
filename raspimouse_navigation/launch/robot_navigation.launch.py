@@ -34,8 +34,8 @@ def generate_launch_description():
         'xacro_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_description'),
             'urdf',
-            'raspimouse.urdf.xacro'
-        )
+            'raspimouse.urdf.xacro'),
+        description='Path to xacro file.'
     )
 
     mouse_node = LifecycleNode(
@@ -68,8 +68,7 @@ def generate_launch_description():
         name='robot_state_publisher',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time,
-        'robot_description': Command(['xacro ', xacro_file])}],
-#        urdf=xacro_file
+        'robot_description': Command(['xacro ', xacro_file])}]
     )
 
 
