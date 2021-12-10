@@ -25,6 +25,9 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     xacro_file = LaunchConfiguration('xacro_file')
 
+    remappings = [('/tf', 'tf'),
+                    ('/tf_static', 'tf_static')]
+
     declare_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
         description='LiDAR: lds only, for now.'
@@ -68,7 +71,8 @@ def generate_launch_description():
         name='robot_state_publisher',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time,
-        'robot_description': Command(['xacro ', xacro_file])}]
+        'robot_description': Command(['xacro ', xacro_file])}],
+        remappings=remappings
     )
 
 
