@@ -16,17 +16,26 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.actions import IncludeLaunchDescription
-from launch.actions import OpaqueFunction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+from launch.substitutions import LaunchConfiguration, Command
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.actions import LifecycleNode
-from launch_ros.actions import Node
+from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    xacro_file = LaunchConfiguration('xacro_file')
+
     declare_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
         description='LiDAR: lds only, for now.'
+    )
+
+    xacro_path = DeclareLaunchArgument(
+        'xacro_file', default_value=os.path.join(
+            get_package_share_directory('raspimouse_description'),
+            'urdf',
+            'raspimouse.urdf.xacro'
+        )
     )
 
     mouse_node = LifecycleNode(
@@ -53,12 +62,24 @@ def generate_launch_description():
             '3.14', 'base_footprint', 'laser'],
     )
 
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time,
+        'robot_description': Command(['xacro ', xacro_file])}],
+#        urdf=xacro_file
+    )
+
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
+    ld.add_action(xacro_path)
 
     ld.add_action(mouse_node)
     ld.add_action(launch_lidar_node)
     ld.add_action(static_transform_publisher_node)
+    ld.add_action(robot_state_publisher)
 
     return ld
