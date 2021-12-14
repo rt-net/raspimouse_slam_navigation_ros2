@@ -24,13 +24,33 @@ Some requirements...
 ### Raspberry Pi Mouse V3
 以下のコマンドをロボット側で実行してインストールを行います。
 ```sh
-Commands...
+cd ~/ros2_ws/src
+# Clone the ROS packages
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_ros2_examples
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_descriptions
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
+# Install dependencies
+rosdep install -r -y --from-paths . --ignore-src
+
+# make and install
+cd ~/ros2_ws
+colcon build --symlink-install
+source ~/ros2_ws/install/setup.bash
 ```
 
 ### Remote PC
 以下のコマンドをRemote PC側で実行してインストールを行います。
 ```sh
-Commands...
+cd ~/catkin_ws/src
+# Clone the ROS packages
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
+# Install dependencies
+rosdep install -r -y --from-paths . --ignore-src
+
+# make and install
+cd ~/catkin_ws
+catkin_make
+source ~/catkin_ws/devel/setup.bash
 ```
 
 <a name="QuickStart"></a>
