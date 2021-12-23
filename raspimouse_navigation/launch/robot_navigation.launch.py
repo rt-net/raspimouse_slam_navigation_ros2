@@ -89,6 +89,11 @@ def generate_launch_description():
         remappings=remappings
     )
 
+    joint_state_publisher = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        output='screen'
+    )
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
@@ -100,5 +105,5 @@ def generate_launch_description():
     ld.add_action(mouse_node)
     ld.add_action(launch_lidar_node)
     ld.add_action(robot_state_publisher)
-
+    ld.add_action(joint_state_publisher)
     return ld
