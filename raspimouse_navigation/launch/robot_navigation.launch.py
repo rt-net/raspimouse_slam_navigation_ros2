@@ -28,8 +28,23 @@ def generate_launch_description():
     remappings = [('/tf', 'tf'),
                     ('/tf_static', 'tf_static')]
 
+    declare_arg_lidar = DeclareLaunchArgument(
+        'lidar',
+        default_value='none',
+        description='Set "none" or "urg".')
+
+    declare_arg_lidar_frame = DeclareLaunchArgument(
+        'lidar_frame',
+        default_value='laser',
+        description='Set lidar link name.')
+
+    declare_arg_namespace = DeclareLaunchArgument(
+        'namespace',
+        default_value='',
+        description='Set namespace for tf tree.')
+
     declare_lidar = DeclareLaunchArgument(
-        'lidar', default_value='lds',
+        'lidarconfig', default_value='lds',
         description='LiDAR: lds only, for now.'
     )
 
@@ -49,7 +64,7 @@ def generate_launch_description():
     )
 
     def func_launch_lidar_node(context):
-        if context.launch_configurations['lidar'] == 'lds':
+        if context.launch_configurations['lidarconfig'] == 'lds':
             return [IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('hls_lfcd_lds_driver'),
@@ -57,32 +72,33 @@ def generate_launch_description():
                     '/hlds_laser.launch.py'
                     ]),)]
     launch_lidar_node = OpaqueFunction(function=func_launch_lidar_node)
-    
-    static_transform_publisher_node = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher', output='screen',
-        arguments=['0', '0', '0.1', '0', '3.14',
-            '3.14', 'base_footprint', 'laser'],
-    )
+
+    params = {'use_sim_time': use_sim_time,
+                'robot_description': Command(['xacro ', xacro_file,
+                                            ' lidar:=', LaunchConfiguration('lidar'),
+                                            ' lidar_frame:=', LaunchConfiguration('lidar_frame'),
+                                            ]),
+                'frame_prefix': [LaunchConfiguration('namespace'), '/']}
 
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
         output='screen',
-        parameters=[{'use_sim_time': use_sim_time,
-        'robot_description': Command(['xacro ', xacro_file])}],
+        parameters=[params],
         remappings=remappings
     )
 
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
+    ld.add_action(declare_arg_lidar)
+    ld.add_action(declare_arg_lidar_frame)
+    ld.add_action(declare_arg_namespace)
     ld.add_action(xacro_path)
 
     ld.add_action(mouse_node)
     ld.add_action(launch_lidar_node)
-    ld.add_action(static_transform_publisher_node)
     ld.add_action(robot_state_publisher)
 
     return ld
