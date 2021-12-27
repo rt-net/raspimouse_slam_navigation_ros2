@@ -17,6 +17,8 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+from launch.actions import ExecuteProcess, RegisterEventHandler
+from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.substitutions import LaunchConfiguration, Command
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
@@ -54,6 +56,18 @@ def generate_launch_description():
             'urdf',
             'raspimouse.urdf.xacro'),
         description='Path to xacro file.'
+    )
+
+    configure_raspimouse_node = ExecuteProcess(
+        cmd=[['sleep 5 && ros2 lifecycle set raspimouse configure']],
+        shell=True,
+        output='screen',
+    )
+
+    activate_raspimouse_node = ExecuteProcess(
+        cmd=[['ros2 lifecycle set raspimouse activate']],
+        shell=True,
+        output='screen',
     )
 
     mouse_node = LifecycleNode(
@@ -95,6 +109,20 @@ def generate_launch_description():
         output='screen'
     )
 
+    config_mouse_node = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=mouse_node,
+            on_start=[configure_raspimouse_node],
+        )
+    )
+
+    active_mouse_node = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=configure_raspimouse_node,
+            on_exit=[activate_raspimouse_node],
+        )
+    )
+
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
     ld.add_action(declare_arg_lidar)
@@ -106,4 +134,6 @@ def generate_launch_description():
     ld.add_action(launch_lidar_node)
     ld.add_action(robot_state_publisher)
     ld.add_action(joint_state_publisher)
+    ld.add_action(config_mouse_node)
+    ld.add_action(active_mouse_node)
     return ld
