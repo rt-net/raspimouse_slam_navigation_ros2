@@ -29,7 +29,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     xacro_file = LaunchConfiguration('xacro_file')
     urg_port = LaunchConfiguration(
-        'urg_port', default_value='/dev/ttyACM0')
+        'urg_port', default='/dev/ttyACM0')
 
     remappings = [('/tf', 'tf'),
                     ('/tf_static', 'tf_static')]
