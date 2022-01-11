@@ -72,7 +72,8 @@ ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
 
 # Navigation
 ## ロボット側で以下のコマンドを実行
-ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds use_lds:=true
+## 注意：今はLDSのURDFがないので、URGで代用している
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg use_lds:=true
 ## PC側で以下のコマンドを実行
 ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$HOME/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam/maps/$MAP_NAME.yaml
 ```
