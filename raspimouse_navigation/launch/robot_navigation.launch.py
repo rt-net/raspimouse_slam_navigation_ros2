@@ -152,7 +152,6 @@ def generate_launch_description():
     ld.add_action(declare_arg_namespace)
     ld.add_action(declare_use_lds)
     ld.add_action(declare_use_urg)
-    ld.add_action(declare_urg_port)
     ld.add_action(xacro_path)
 
     ld.add_action(mouse_node)
