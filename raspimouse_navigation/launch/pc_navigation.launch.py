@@ -27,12 +27,12 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
-    declare_robot = DeclareLaunchArgument(
+    declare_arg_robot = DeclareLaunchArgument(
         'robot', default_value='raspimouse',
         description='The name of the robot.'
     )
 
-    map_dir = DeclareLaunchArgument(
+    declare_arg_map_path = DeclareLaunchArgument(
         'map_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_slam'),
             'maps',
@@ -40,7 +40,7 @@ def generate_launch_description():
         description='The path to the map file.'
     )
     
-    params_dir = DeclareLaunchArgument(
+    declare_arg_params_path = DeclareLaunchArgument(
         'params_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_navigation'),
             'params',
@@ -48,7 +48,7 @@ def generate_launch_description():
         description='The path to the param file.'
     )
 
-    rviz2_config_dir = DeclareLaunchArgument(
+    declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file', default_value=os.path.join(
             get_package_share_directory('nav2_bringup'),
             'rviz',
@@ -77,10 +77,10 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
-    ld.add_action(declare_robot)
-    ld.add_action(map_dir)
-    ld.add_action(params_dir)
-    ld.add_action(rviz2_config_dir)
+    ld.add_action(declare_arg_robot)
+    ld.add_action(declare_arg_map_path)
+    ld.add_action(declare_arg_params_path)
+    ld.add_action(declare_arg_rviz2_config_path)
 
     ld.add_action(nav2_node)
     ld.add_action(rviz2_node)

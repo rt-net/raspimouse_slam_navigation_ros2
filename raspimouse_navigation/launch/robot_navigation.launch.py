@@ -59,7 +59,7 @@ def generate_launch_description():
         default_value='false',
         description='Set "true" when using urg.')
     
-    xacro_path = DeclareLaunchArgument(
+    declare_arg_xacro_path = DeclareLaunchArgument(
         'xacro_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_description'),
             'urdf',
@@ -141,7 +141,7 @@ def generate_launch_description():
     ld.add_action(declare_arg_namespace)
     ld.add_action(declare_use_lds)
     ld.add_action(declare_use_urg)
-    ld.add_action(xacro_path)
+    ld.add_action(declare_arg_xacro_path)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
