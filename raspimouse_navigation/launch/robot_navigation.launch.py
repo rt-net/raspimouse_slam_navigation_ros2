@@ -101,16 +101,6 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('use_urg'))
     )
 
-    # def func_launch_lidar_node(context):
-    #     if context.launch_configurations['lidarconfig'] == 'lds':
-    #         return [IncludeLaunchDescription(
-    #             PythonLaunchDescriptionSource([os.path.join(
-    #                 get_package_share_directory('hls_lfcd_lds_driver'),
-    #                 'launch'),
-    #                 '/hlds_laser.launch.py'
-    #                 ]),)]
-    # launch_lidar_node = OpaqueFunction(function=func_launch_lidar_node)
-
     params = {'use_sim_time': use_sim_time,
                 'robot_description': Command(['xacro ', xacro_file,
                                             ' lidar:=', LaunchConfiguration('lidar'),
@@ -146,7 +136,6 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
-    # ld.add_action(declare_lidar)
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_namespace)
@@ -155,7 +144,6 @@ def generate_launch_description():
     ld.add_action(xacro_path)
 
     ld.add_action(mouse_node)
-    # ld.add_action(launch_lidar_node)
     ld.add_action(lds_launch)
     ld.add_action(urg_launch)
     ld.add_action(robot_state_publisher)
