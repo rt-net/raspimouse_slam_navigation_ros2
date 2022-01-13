@@ -30,9 +30,6 @@ def generate_launch_description():
     urg_port = LaunchConfiguration(
         'urg_port', default='/dev/ttyACM0')
 
-    remappings = [('/tf', 'tf'),
-                    ('/tf_static', 'tf_static')]
-
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
@@ -111,7 +108,6 @@ def generate_launch_description():
         name='robot_state_publisher',
         package='robot_state_publisher', executable='robot_state_publisher', output='screen',
         parameters=[params],
-        remappings=remappings
     )
 
     joint_state_publisher = Node(
