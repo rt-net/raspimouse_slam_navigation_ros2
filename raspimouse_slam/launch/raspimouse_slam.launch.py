@@ -16,6 +16,7 @@
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
@@ -28,6 +29,11 @@ def generate_launch_description():
         'use_urg',
         default_value='false',
         description='Set "true" when using urg.')
+
+    declare_arg_lidar_frame = DeclareLaunchArgument(
+        'lidar_frame',
+        default_value='laser',
+        description='Set lidar frame name.')
 
     slam_node = Node(
         package='slam_toolbox', executable='sync_slam_toolbox_node',
@@ -53,12 +59,13 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher', output='screen',
         arguments=['0', '0', '0.1', '0', '3.14',
-                   '3.14', 'base_footprint', 'laser'],
+                   '3.14', 'base_footprint', LaunchConfiguration('lidar_frame')],
     )
 
     ld = LaunchDescription()
     ld.add_action(declare_use_lds)
     ld.add_action(declare_use_urg)
+    ld.add_action(declare_arg_lidar_frame)
 
     ld.add_action(slam_node)
     ld.add_action(rviz2_node)
