@@ -38,7 +38,7 @@ def generate_launch_description():
     declare_arg_lidar_frame = DeclareLaunchArgument(
         'lidar_frame',
         default_value='laser',
-        description='Set lidar link name.')
+        description='Set lidar frame name.')
 
     declare_arg_namespace = DeclareLaunchArgument(
         'namespace',
