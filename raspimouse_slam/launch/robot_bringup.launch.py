@@ -16,18 +16,31 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.actions import IncludeLaunchDescription
-from launch.actions import OpaqueFunction
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.actions import LifecycleNode
+from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
+    urg_port = LaunchConfiguration(
+        'urg_port', default='/dev/ttyACM0')
+
     declare_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
         description='LiDAR: lds only, for now.'
     )
 
+    declare_use_lds = DeclareLaunchArgument(
+        'use_lds',
+        default_value='false',
+        description='Set "true" when using lds.')
+
+    declare_use_urg = DeclareLaunchArgument(
+        'use_urg',
+        default_value='false',
+        description='Set "true" when using urg.')
+    
     mouse_node = LifecycleNode(
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
@@ -35,20 +48,28 @@ def generate_launch_description():
             'raspimouse_ros2_examples'), 'config', 'mouse.yml')]
     )
 
-    def func_launch_lidar_node(context):
-        if context.launch_configurations['lidar'] == 'lds':
-            return [IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory('hls_lfcd_lds_driver'),
-                    'launch'),
-                    '/hlds_laser.launch.py'
-                    ]),)]
-    launch_lidar_node = OpaqueFunction(function=func_launch_lidar_node)
+    lds_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory('hls_lfcd_lds_driver'),
+                'launch'),
+                '/hlds_laser.launch.py']),
+        condition=IfCondition(LaunchConfiguration('use_lds'))
+    )
+
+    urg_launch = Node(
+        name='urg_node_driver',
+        package='urg_node', executable='urg_node_driver', output='screen',
+        parameters=[{'serial_port': urg_port}],
+        condition=IfCondition(LaunchConfiguration('use_urg'))
+    )
 
     ld = LaunchDescription()
     ld.add_action(declare_lidar)
+    ld.add_action(declare_use_lds)
+    ld.add_action(declare_use_urg)
 
     ld.add_action(mouse_node)
-    ld.add_action(launch_lidar_node)
+    ld.add_action(lds_launch)
+    ld.add_action(urg_launch)
 
     return ld

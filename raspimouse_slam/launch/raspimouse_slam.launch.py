@@ -15,10 +15,20 @@
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 
-
 def generate_launch_description():
+    declare_use_lds = DeclareLaunchArgument(
+        'use_lds',
+        default_value='false',
+        description='Set "true" when using lds.')
+
+    declare_use_urg = DeclareLaunchArgument(
+        'use_urg',
+        default_value='false',
+        description='Set "true" when using urg.')
+
     slam_node = Node(
         package='slam_toolbox', executable='sync_slam_toolbox_node',
         output='screen',
@@ -38,6 +48,7 @@ def generate_launch_description():
             + '/rviz/default.rviz'],
     )
 
+    # This is for LDS.
     static_transform_publisher_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher', output='screen',
@@ -46,6 +57,9 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
+    ld.add_action(declare_use_lds)
+    ld.add_action(declare_use_urg)
+
     ld.add_action(slam_node)
     ld.add_action(rviz2_node)
     ld.add_action(static_transform_publisher_node)
