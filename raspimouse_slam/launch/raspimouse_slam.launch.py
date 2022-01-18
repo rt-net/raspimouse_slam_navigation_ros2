@@ -16,6 +16,7 @@
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -54,12 +55,20 @@ def generate_launch_description():
             + '/rviz/default.rviz'],
     )
 
-    # This is for LDS.
-    static_transform_publisher_node = Node(
+    static_tf_lds_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher', output='screen',
         arguments=['0', '0', '0.1', '0', '3.14',
                    '3.14', 'base_footprint', LaunchConfiguration('lidar_frame')],
+        condition=IfCondition(LaunchConfiguration('use_lds'))
+    )
+
+    static_tf_urg_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher', output='screen',
+        arguments=['0', '0', '0.1', '0', '3.14',
+                   '3.14', 'base_footprint', LaunchConfiguration('lidar_frame')],
+        condition=IfCondition(LaunchConfiguration('use_urg'))
     )
 
     ld = LaunchDescription()
@@ -69,6 +78,7 @@ def generate_launch_description():
 
     ld.add_action(slam_node)
     ld.add_action(rviz2_node)
-    ld.add_action(static_transform_publisher_node)
+    ld.add_action(static_tf_lds_node)
+    ld.add_action(static_tf_urg_node)
 
     return ld
