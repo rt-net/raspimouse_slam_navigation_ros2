@@ -27,8 +27,8 @@ from launch_ros.actions import LifecycleNode, Node
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     xacro_file = LaunchConfiguration('xacro_file')
-    urg_port = LaunchConfiguration(
-        'urg_port', default='/dev/ttyACM0')
+    lidar_port = LaunchConfiguration(
+        'lidar_port', default='/dev/ttyACM0')
 
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
@@ -45,12 +45,12 @@ def generate_launch_description():
         default_value='',
         description='Set namespace for tf tree.')
 
-    declare_use_lds = DeclareLaunchArgument(
+    declare_arg_use_lds = DeclareLaunchArgument(
         'use_lds',
         default_value='false',
         description='Set "true" when using lds.')
 
-    declare_use_urg = DeclareLaunchArgument(
+    declare_arg_use_urg = DeclareLaunchArgument(
         'use_urg',
         default_value='false',
         description='Set "true" when using urg.')
@@ -93,7 +93,7 @@ def generate_launch_description():
     urg_launch = Node(
         name='urg_node_driver',
         package='urg_node', executable='urg_node_driver', output='screen',
-        parameters=[{'serial_port': urg_port}],
+        parameters=[{'serial_port': lidar_port}],
         condition=IfCondition(LaunchConfiguration('use_urg'))
     )
 
@@ -134,8 +134,8 @@ def generate_launch_description():
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_namespace)
-    ld.add_action(declare_use_lds)
-    ld.add_action(declare_use_urg)
+    ld.add_action(declare_arg_use_lds)
+    ld.add_action(declare_arg_use_urg)
     ld.add_action(declare_arg_xacro_path)
 
     ld.add_action(mouse_node)
