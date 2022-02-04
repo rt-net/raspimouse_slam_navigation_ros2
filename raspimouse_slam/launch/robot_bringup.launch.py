@@ -23,20 +23,19 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
-    urg_port = LaunchConfiguration(
-        'urg_port', default='/dev/ttyACM0')
+    lidar_port = LaunchConfiguration(
+        'lidar_port', default='/dev/ttyACM0')
 
-    declare_lidar = DeclareLaunchArgument(
+    declare_arg_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
-        description='LiDAR: lds only, for now.'
-    )
+        description='LiDAR: LDS or URG only, for now.')
 
-    declare_use_lds = DeclareLaunchArgument(
+    declare_arg_use_lds = DeclareLaunchArgument(
         'use_lds',
         default_value='false',
         description='Set "true" when using lds.')
 
-    declare_use_urg = DeclareLaunchArgument(
+    declare_arg_use_urg = DeclareLaunchArgument(
         'use_urg',
         default_value='false',
         description='Set "true" when using urg.')
@@ -59,14 +58,14 @@ def generate_launch_description():
     urg_launch = Node(
         name='urg_node_driver',
         package='urg_node', executable='urg_node_driver', output='screen',
-        parameters=[{'serial_port': urg_port}],
+        parameters=[{'serial_port': lidar_port}],
         condition=IfCondition(LaunchConfiguration('use_urg'))
     )
 
     ld = LaunchDescription()
-    ld.add_action(declare_lidar)
-    ld.add_action(declare_use_lds)
-    ld.add_action(declare_use_urg)
+    ld.add_action(declare_arg_lidar)
+    ld.add_action(declare_arg_use_lds)
+    ld.add_action(declare_arg_use_urg)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)

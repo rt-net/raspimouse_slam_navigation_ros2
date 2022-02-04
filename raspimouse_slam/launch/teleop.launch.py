@@ -28,21 +28,20 @@ from launch_ros.actions import LifecycleNode
 
 def generate_launch_description():
     joydev = LaunchConfiguration('joydev')
-    declare_joydev = DeclareLaunchArgument(
+    declare_arg_joydev = DeclareLaunchArgument(
         'joydev', default_value='/dev/input/js0',
         description='Device file for JoyStick Controller'
     )
 
-    declare_joyconfig = DeclareLaunchArgument(
+    declare_arg_joyconfig = DeclareLaunchArgument(
         'joyconfig', default_value='f710',
         description='Keyconfig of joystick controllers: supported: f710, dualshock3, dualshock4'
     )
-    '''
-    declare_mouse = DeclareLaunchArgument(
-        'mouse', default_value="true",
-        description='Launch raspimouse node'
-    )
-    '''
+    
+    declare_arg_mouse = DeclareLaunchArgument(
+        'mouse', default_value="false",
+        description='Launch raspimouse node')
+    
     def func_get_joyconfig_file_name(context):
         param_file = os.path.join(
             get_package_share_directory('raspimouse_ros2_examples'),
@@ -66,27 +65,25 @@ def generate_launch_description():
         executable='joystick_control.py',
         parameters=[LaunchConfiguration('joyconfig_filename')]
     )
-    '''
-    def func_launch_mouse_node(context):
-        if context.launch_configurations['mouse'] == "true":
-            return [LifecycleNode(
-                name='raspimouse',
-                package='raspimouse', executable='raspimouse', output='screen',
-                parameters=[os.path.join(get_package_share_directory(
-                    'raspimouse_ros2_examples'), 'config', 'mouse.yml')]
-            )]
-    mouse_node = OpaqueFunction(function=func_launch_mouse_node)
-    '''
+
+    mouse_node = LifecycleNode(
+        name='raspimouse',
+        package='raspimouse', executable='raspimouse', output='screen',
+        parameters=[os.path.join(get_package_share_directory(
+            'raspimouse_ros2_examples'), 'config', 'mouse.yml')],
+        condition=IfCondition(LaunchConfiguration('mouse'))
+    )
+
     ld = LaunchDescription()
-    ld.add_action(declare_joydev)
-    ld.add_action(declare_joyconfig)
-    # ld.add_action(declare_mouse)
+    ld.add_action(declare_arg_joydev)
+    ld.add_action(declare_arg_joyconfig)
+    ld.add_action(declare_arg_mouse)
 
     ld.add_action(get_joyconfig_file_name)
 
     ld.add_action(joy_node)
     ld.add_action(joystick_control_node)
-    # ld.add_action(mouse_node)
+    ld.add_action(mouse_node)
 
     print(LaunchIntrospector().format_launch_description(ld))
 
