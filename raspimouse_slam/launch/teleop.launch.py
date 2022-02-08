@@ -18,9 +18,6 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch import LaunchIntrospector
 from launch.actions import DeclareLaunchArgument
-from launch.actions import LogInfo
-from launch.actions import OpaqueFunction
-from launch.actions import SetLaunchConfiguration
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.actions import LifecycleNode
@@ -42,18 +39,10 @@ def generate_launch_description():
         'mouse', default_value="false",
         description='Launch raspimouse node')
     
-    def func_get_joyconfig_file_name(context):
-        param_file = os.path.join(
-            get_package_share_directory('raspimouse_ros2_examples'),
-            'config',
-            'joy_' + context.launch_configurations['joyconfig'] + '.yml')
 
-        if os.path.exists(param_file):
-            return [SetLaunchConfiguration('joyconfig_filename', param_file)]
-        else:
-            return [LogInfo(msg=param_file + " is not exist.")]
-    get_joyconfig_file_name = OpaqueFunction(function=func_get_joyconfig_file_name)
-
+    joycon_param = [os.path.join('raspimouse_ros2_examples','config/'), 
+                'joy_', LaunchConfiguration('joyconfig'), '.yml']
+ 
     joy_node = Node(
         package='joy_linux',
         executable='joy_linux_node',
@@ -63,7 +52,7 @@ def generate_launch_description():
     joystick_control_node = Node(
         package='raspimouse_ros2_examples',
         executable='joystick_control.py',
-        parameters=[LaunchConfiguration('joyconfig_filename')]
+        parameters=[joycon_param]
     )
 
     mouse_node = LifecycleNode(
@@ -78,8 +67,6 @@ def generate_launch_description():
     ld.add_action(declare_arg_joydev)
     ld.add_action(declare_arg_joyconfig)
     ld.add_action(declare_arg_mouse)
-
-    ld.add_action(get_joyconfig_file_name)
 
     ld.add_action(joy_node)
     ld.add_action(joystick_control_node)
