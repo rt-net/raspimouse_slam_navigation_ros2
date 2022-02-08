@@ -97,7 +97,7 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('use_urg'))
     )
 
-    params = {'use_sim_time': use_sim_time,
+    robot_state_params = {'use_sim_time': use_sim_time,
                 'robot_description': Command(['xacro ', xacro_file,
                                             ' lidar:=', LaunchConfiguration('lidar'),
                                             ' lidar_frame:=', LaunchConfiguration('lidar_frame'),
@@ -107,7 +107,7 @@ def generate_launch_description():
     robot_state_publisher = Node(
         name='robot_state_publisher',
         package='robot_state_publisher', executable='robot_state_publisher', output='screen',
-        parameters=[params],
+        parameters=[robot_state_params],
     )
 
     joint_state_publisher = Node(
