@@ -88,7 +88,7 @@ def generate_launch_description():
     ld.add_action(declare_arg_params_path)
     ld.add_action(declare_arg_rviz2_config_path)
 
-    ld.add_action(turn_motor_on)
+    # ld.add_action(turn_motor_on)
     ld.add_action(nav2_node)
     ld.add_action(rviz2_node)
 

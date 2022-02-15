@@ -79,7 +79,7 @@ def generate_launch_description():
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
         parameters=[os.path.join(get_package_share_directory(
-            'raspimouse_ros2_examples'), 'config', 'mouse.yml')]
+            'raspimouse_slam'), 'config', 'mouse.yml')]
     )
 
     lds_launch = IncludeLaunchDescription(
