@@ -69,12 +69,6 @@ def generate_launch_description():
             'use_sim_time': use_sim_time}.items(),
     )
 
-    turn_motor_on = ExecuteProcess(
-        cmd=[['sleep 3 && ros2 service call /motor_power std_srvs/srv/SetBool data:\ true\ ']],
-        shell=True,
-        output='screen',
-    )
-
     rviz2_node = Node(
         name='rviz2',
         package='rviz2', executable='rviz2', output='screen',
@@ -88,7 +82,6 @@ def generate_launch_description():
     ld.add_action(declare_arg_params_path)
     ld.add_action(declare_arg_rviz2_config_path)
 
-    # ld.add_action(turn_motor_on)
     ld.add_action(nav2_node)
     ld.add_action(rviz2_node)
 
