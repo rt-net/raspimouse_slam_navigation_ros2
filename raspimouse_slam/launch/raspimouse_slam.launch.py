@@ -19,22 +19,13 @@ from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    declare_arg_lidar_frame = DeclareLaunchArgument(
-        'lidar_frame',
-        default_value='laser',
-        description='Set lidar frame name.')
-
-    declare_arg_lidar = DeclareLaunchArgument(
-        'lidar',
-        default_value='rplidar',
-        description='Set to "urg", "lds", or "rplidar"')
-
     slam_node = Node(
         package='slam_toolbox', executable='sync_slam_toolbox_node',
         output='screen',
         parameters=[ 
             get_package_share_directory(
                 'raspimouse_slam')
+                #TODO: Replace this with a launch argument
             + '/config/mapper_params_offline.yaml'
         ],
     )
@@ -45,12 +36,11 @@ def generate_launch_description():
         arguments=[
             '-d',
             get_package_share_directory('raspimouse_slam')
+            #TODO: Replace this with a launch argument
             + '/rviz/default.rviz'],
     )
 
     ld = LaunchDescription()
-    ld.add_action(declare_arg_lidar_frame)
-    ld.add_action(declare_arg_lidar)
 
     ld.add_action(slam_node)
     ld.add_action(rviz2_node)
