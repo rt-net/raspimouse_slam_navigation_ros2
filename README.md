@@ -29,6 +29,7 @@ cd ~/ros2_ws/src
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_ros2_examples
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_descriptions
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
+git clone https://github.com/Slamtec/sllidar_ros2
 # Install dependencies
 rosdep install -r -y --from-paths . --ignore-src
 
@@ -56,12 +57,12 @@ source ~/ros2_ws/install/setup.bash
 <a name="QuickStart"></a>
 ## QuickStart
 無事インストールが完了したら、以下の一連のコマンドを実行しましょう。SLAMで地図生成を行い、作った地図を利用してナビゲーションを行うことができます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。  
-ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのLDS-01を使用しています。
+ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
 ```sh
 # SLAM
 ## ロボット側で以下の2つのコマンドを実行
 ## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
-ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=lds
+ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar
 ros2 launch raspimouse_slam teleop.launch.py joyconfig:=f710
 ## PC側で以下のコマンドを実行
 ros2 launch raspimouse_slam raspimouse_slam.launch
@@ -72,8 +73,7 @@ ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
 
 # Navigation
 ## ロボット側で以下のコマンドを実行
-## 注意：今はLDSのURDFがないので、URGで代用している
-ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg use_lds:=true
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
 ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$HOME/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam/maps/$MAP_NAME.yaml
 ```
