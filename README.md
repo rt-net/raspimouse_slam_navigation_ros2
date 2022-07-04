@@ -62,7 +62,7 @@ source ~/ros2_ws/install/setup.bash
 # SLAM
 ## ロボット側で以下の2つのコマンドを実行
 ## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
-ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar
+ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar lidar_port:=/dev/ttyUSB0
 ros2 launch raspimouse_slam teleop.launch.py joyconfig:=f710
 ## PC側で以下のコマンドを実行
 ros2 launch raspimouse_slam raspimouse_slam.launch
