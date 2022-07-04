@@ -16,8 +16,8 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction
-from launch.conditions import IfCondition
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.conditions import IfCondition, LaunchConfigurationEquals
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
@@ -29,6 +29,11 @@ def generate_launch_description():
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
         description='LiDAR: LDS or URG only, for now.')
+    
+    declare_arg_lidar_frame = DeclareLaunchArgument(
+        'lidar_frame',
+        default_value='laser',
+        description='Set lidar frame name.')
 
     declare_arg_use_lds = DeclareLaunchArgument(
         'use_lds',
@@ -52,23 +57,37 @@ def generate_launch_description():
                 get_package_share_directory('hls_lfcd_lds_driver'),
                 'launch'),
                 '/hlds_laser.launch.py']),
-        condition=IfCondition(LaunchConfiguration('use_lds'))
+        # condition=IfCondition(LaunchConfiguration('use_lds'))
+        condition=LaunchConfigurationEquals('lidar', 'lds')
     )
 
     urg_launch = Node(
         name='urg_node_driver',
         package='urg_node', executable='urg_node_driver', output='screen',
         parameters=[{'serial_port': lidar_port}],
-        condition=IfCondition(LaunchConfiguration('use_urg'))
+        # condition=IfCondition(LaunchConfiguration('use_urg'))
+        condition=LaunchConfigurationEquals('lidar', 'urg')
+    )
+
+    rplidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('sllidar_ros2'),
+            'launch'),
+            '/sllidar_launch.py']),
+        parameters=[{'serial_port': lidar_port,
+                    'frame_id': LaunchConfiguration('lidar_frame')}],
+        condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
     ld = LaunchDescription()
     ld.add_action(declare_arg_lidar)
+    ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_use_lds)
     ld.add_action(declare_arg_use_urg)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
     ld.add_action(urg_launch)
+    ld.add_action(rplidar_launch)
 
     return ld
