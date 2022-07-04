@@ -18,7 +18,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import ExecuteProcess, RegisterEventHandler
-from launch.conditions import IfCondition
+from launch.conditions import LaunchConfigurationEquals
 from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.substitutions import LaunchConfiguration, Command
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -33,7 +33,7 @@ def generate_launch_description():
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
-        description='Set "none", "urg", or "lds".')
+        description='Set "none", "urg", "lds", or "rplidar".')
 
     declare_arg_lidar_frame = DeclareLaunchArgument(
         'lidar_frame',
@@ -45,16 +45,6 @@ def generate_launch_description():
         default_value='',
         description='Set namespace for tf tree.')
 
-    declare_arg_use_lds = DeclareLaunchArgument(
-        'use_lds',
-        default_value='false',
-        description='Set "true" when using lds.')
-
-    declare_arg_use_urg = DeclareLaunchArgument(
-        'use_urg',
-        default_value='false',
-        description='Set "true" when using urg.')
-    
     declare_arg_xacro_path = DeclareLaunchArgument(
         'xacro_file', default_value=os.path.join(
             get_package_share_directory('raspimouse_description'),
@@ -87,14 +77,24 @@ def generate_launch_description():
                 get_package_share_directory('hls_lfcd_lds_driver'),
                 'launch'),
                 '/hlds_laser.launch.py']),
-        condition=IfCondition(LaunchConfiguration('use_lds'))
+        condition=LaunchConfigurationEquals('lidar', 'lds')
     )
 
     urg_launch = Node(
         name='urg_node_driver',
         package='urg_node', executable='urg_node_driver', output='screen',
         parameters=[{'serial_port': lidar_port}],
-        condition=IfCondition(LaunchConfiguration('use_urg'))
+        condition=LaunchConfigurationEquals('lidar', 'urg')
+    )
+
+    rplidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('sllidar_ros2'),
+            'launch'),
+            '/sllidar_launch.py']),
+        parameters=[{'serial_port': lidar_port,
+                    'frame_id': LaunchConfiguration('lidar_frame')}],
+        condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
     robot_state_params = {'use_sim_time': use_sim_time,
@@ -134,13 +134,12 @@ def generate_launch_description():
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_namespace)
-    ld.add_action(declare_arg_use_lds)
-    ld.add_action(declare_arg_use_urg)
     ld.add_action(declare_arg_xacro_path)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
     ld.add_action(urg_launch)
+    ld.add_action(rplidar_launch)
     ld.add_action(robot_state_publisher)
     ld.add_action(joint_state_publisher)
     ld.add_action(config_mouse_node)
