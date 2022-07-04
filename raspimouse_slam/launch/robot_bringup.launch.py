@@ -17,7 +17,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import IfCondition, LaunchConfigurationEquals
+from launch.conditions import LaunchConfigurationEquals
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
@@ -35,16 +35,6 @@ def generate_launch_description():
         default_value='laser',
         description='Set lidar frame name.')
 
-    declare_arg_use_lds = DeclareLaunchArgument(
-        'use_lds',
-        default_value='false',
-        description='Set "true" when using lds.')
-
-    declare_arg_use_urg = DeclareLaunchArgument(
-        'use_urg',
-        default_value='false',
-        description='Set "true" when using urg.')
-    
     mouse_node = LifecycleNode(
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
@@ -57,7 +47,6 @@ def generate_launch_description():
                 get_package_share_directory('hls_lfcd_lds_driver'),
                 'launch'),
                 '/hlds_laser.launch.py']),
-        # condition=IfCondition(LaunchConfiguration('use_lds'))
         condition=LaunchConfigurationEquals('lidar', 'lds')
     )
 
@@ -65,7 +54,6 @@ def generate_launch_description():
         name='urg_node_driver',
         package='urg_node', executable='urg_node_driver', output='screen',
         parameters=[{'serial_port': lidar_port}],
-        # condition=IfCondition(LaunchConfiguration('use_urg'))
         condition=LaunchConfigurationEquals('lidar', 'urg')
     )
 
@@ -82,8 +70,6 @@ def generate_launch_description():
     ld = LaunchDescription()
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
-    ld.add_action(declare_arg_use_lds)
-    ld.add_action(declare_arg_use_urg)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
