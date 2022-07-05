@@ -18,7 +18,7 @@
     <depend>urg_node</depend>
     <depend>sllidar_ros2</depend>
     <depend>nav2_map_server</depend>
-    <depend>slam_toolbox</depend>
+    <exec_depend>slam_toolbox</exec_depend>
 
     <export>
         <build_type>ament_cmake</build_type>
