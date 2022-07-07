@@ -24,7 +24,7 @@ from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
     lidar_port = LaunchConfiguration(
-        'lidar_port', default='/dev/ttyACM0')
+        'lidar_port', default='/dev/ttyUSB0')
 
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar', default_value='lds',
@@ -62,8 +62,8 @@ def generate_launch_description():
             get_package_share_directory('sllidar_ros2'),
             'launch'),
             '/sllidar_launch.py']),
-        parameters=[{'serial_port': lidar_port,
-                    'frame_id': LaunchConfiguration('lidar_frame')}],
+        launch_arguments={'serial_port': lidar_port,
+                    'frame_id': LaunchConfiguration('lidar_frame')}.items(),
         condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
