@@ -38,8 +38,8 @@ def generate_launch_description():
         description='Launch raspimouse node')
     
 
-    joycon_param = [os.path.join('raspimouse_ros2_examples','config/'), 
-                'joy_', LaunchConfiguration('joyconfig'), '.yml']
+    joycon_param = [os.path.join(get_package_share_directory('raspimouse_ros2_examples')), 
+                '/config','/joy_', LaunchConfiguration('joyconfig'), '.yml']
  
     joy_node = Node(
         package='joy_linux',
@@ -57,7 +57,7 @@ def generate_launch_description():
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
         parameters=[os.path.join(get_package_share_directory(
-            'raspimouse_ros2_examples'), 'config', 'mouse.yml')],
+            'raspimouse_slam'), 'config', 'mouse.yaml')],
         condition=IfCondition(LaunchConfiguration('mouse'))
     )
 
@@ -70,6 +70,7 @@ def generate_launch_description():
     ld.add_action(joystick_control_node)
     ld.add_action(mouse_node)
 
+    print(joycon_param)
     print(LaunchIntrospector().format_launch_description(ld))
 
     return ld
