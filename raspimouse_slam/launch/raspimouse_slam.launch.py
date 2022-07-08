@@ -20,7 +20,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     declare_arg_slam_config_file = DeclareLaunchArgument(
-        'slam_config_file', default='mapper_params_offline.yaml',
+        'slam_config_file', default_value='mapper_params_offline.yaml',
         description='The file name of the config file for SLAM')
 
     slam_config_path = os.path.join(get_package_share_directory('raspimouse_slam'),
