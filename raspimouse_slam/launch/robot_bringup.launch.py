@@ -23,6 +23,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
+    ### Declare arguments ####
     declare_arg_namespace = DeclareLaunchArgument(
         'namespace', default_value='',
         description='Set namespace')
@@ -41,6 +42,18 @@ def generate_launch_description():
     declare_arg_description_launch_file = DeclareLaunchArgument(
         'description_launch_file', default_value='description.launch.py',
         description='The launch file to publish the robot description')
+
+    declare_arg_joydev = DeclareLaunchArgument(
+        'joydev', default_value='/dev/input/js0',
+        description='Device file for JoyStick Controller'
+    )
+
+    declare_arg_joyconfig = DeclareLaunchArgument(
+        'joyconfig', default_value='f710',
+        description='Keyconfig of joystick controllers: supported: f710, dualshock3, dualshock4'
+    )
+
+    ### Launch files and Nodes ###
 
     mouse_node = LifecycleNode(
         name='raspimouse',
@@ -85,10 +98,22 @@ def generate_launch_description():
         launch_arguments=description_params
     )
 
+    teleop_params = {'joydev': LaunchConfiguration('joydev'),
+                     'joyconfig': LaunchConfiguration('joyconfig')}.items()
+
+    teleop_joy_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('raspimouse_slam'),'launch/'),
+            'teleop.launch.py']),
+        launch_arguments=teleop_params
+    )
+
     ld = LaunchDescription()
     ld.add_action(declare_arg_namespace)
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
+    ld.add_action(declare_arg_joyconfig)
+    ld.add_action(declare_arg_joydev)
     ld.add_action(declare_arg_description_launch_file)
 
     ld.add_action(mouse_node)
@@ -96,5 +121,6 @@ def generate_launch_description():
     ld.add_action(urg_launch)
     ld.add_action(rplidar_launch)
     ld.add_action(display_robot_launch)
+    ld.add_action(teleop_joy_launch)
 
     return ld
