@@ -17,35 +17,37 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    map_package = LaunchConfiguration('map_package')
     map_file = LaunchConfiguration('map_file')
-    params_file = LaunchConfiguration('params_file')
+    param_package = LaunchConfiguration('param_package')
+    param_file = LaunchConfiguration('param_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
-    declare_arg_robot = DeclareLaunchArgument(
-        'robot', default_value='raspimouse',
-        description='The name of the robot.'
+    declare_arg_map_package = DeclareLaunchArgument(
+        'map_package', default_value='raspimouse_slam',
+        description='The ROS 2 package that includes the map file.'
     )
 
-    declare_arg_map_path = DeclareLaunchArgument(
-        'map_file', default_value=os.path.join(
-            get_package_share_directory('raspimouse_slam'),
-            'maps',
-            'test.yaml'),
-        description='The path to the map file.'
+    declare_arg_map_file = DeclareLaunchArgument(
+        'map_file', default_value='test.yaml',
+        description='The name of the map yaml file.'
     )
     
-    declare_arg_params_path = DeclareLaunchArgument(
-        'params_file', default_value=os.path.join(
-            get_package_share_directory('raspimouse_navigation'),
-            'params',
-            'raspimouse.yaml'),
-        description='The path to the param file.'
+    declare_arg_param_package = DeclareLaunchArgument(
+        'param_package', default_value='raspimouse_navigation',
+        description='The ROS 2 package that include the param file.'
+    )
+
+    declare_arg_param_file = DeclareLaunchArgument(
+        'param_file', default_value='raspimouse.yaml',
+        description='The name of the param file.'
     )
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
@@ -61,11 +63,15 @@ def generate_launch_description():
         'launch'
     )
 
+    map_path = [PathJoinSubstitution([FindPackageShare(map_package), 'maps', map_file])]
+
+    param_path = [PathJoinSubstitution([FindPackageShare(param_package), 'params', param_file])]
+
     nav2_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
         launch_arguments={
-            'map': map_file,
-            'params_file': params_file,
+            'map': map_path,
+            'params_file': param_path,
             'use_sim_time': use_sim_time}.items(),
     )
 
@@ -77,9 +83,10 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
-    ld.add_action(declare_arg_robot)
-    ld.add_action(declare_arg_map_path)
-    ld.add_action(declare_arg_params_path)
+    ld.add_action(declare_arg_map_package)
+    ld.add_action(declare_arg_map_file)
+    ld.add_action(declare_arg_param_package)
+    ld.add_action(declare_arg_param_file)
     ld.add_action(declare_arg_rviz2_config_path)
 
     ld.add_action(nav2_node)
