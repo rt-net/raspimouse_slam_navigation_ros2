@@ -22,7 +22,6 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node, LifecycleNode
 
 def generate_launch_description():
-    joydev = LaunchConfiguration('joydev')
     declare_arg_joydev = DeclareLaunchArgument(
         'joydev', default_value='/dev/input/js0',
         description='Device file for JoyStick Controller'
@@ -44,7 +43,7 @@ def generate_launch_description():
     joy_node = Node(
         package='joy_linux',
         executable='joy_linux_node',
-        parameters=[{'dev': joydev}]
+        parameters=[{'dev': LaunchConfiguration('joydev')}]
     )
 
     joystick_control_node = Node(
@@ -70,7 +69,6 @@ def generate_launch_description():
     ld.add_action(joystick_control_node)
     ld.add_action(mouse_node)
 
-    print(joycon_param)
     print(LaunchIntrospector().format_launch_description(ld))
 
     return ld
