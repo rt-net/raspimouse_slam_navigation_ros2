@@ -25,8 +25,14 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
+    ### Launch arguments ###
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     xacro_file = LaunchConfiguration('xacro_file')
+
+    declare_arg_description_launch_file = DeclareLaunchArgument(
+        'description_launch_file', default_value='description.launch.py',
+        description='The launch file to publish the robot description')
+    
     lidar_port = LaunchConfiguration(
         'lidar_port', default='/dev/ttyUSB0')
 
@@ -45,14 +51,7 @@ def generate_launch_description():
         default_value='',
         description='Set namespace for tf tree.')
 
-    declare_arg_xacro_path = DeclareLaunchArgument(
-        'xacro_file', default_value=os.path.join(
-            get_package_share_directory('raspimouse_description'),
-            'urdf',
-            'raspimouse.urdf.xacro'),
-        description='Path to xacro file.'
-    )
-
+    ### Launch files and Nodes ###
     configure_raspimouse_node = ExecuteProcess(
         cmd=[['sleep 5 && ros2 lifecycle set raspimouse configure']],
         shell=True,
@@ -97,23 +96,15 @@ def generate_launch_description():
         condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
-    robot_state_params = {'use_sim_time': use_sim_time,
-                'robot_description': Command(['xacro ', xacro_file,
-                                            ' lidar:=', LaunchConfiguration('lidar'),
-                                            ' lidar_frame:=', LaunchConfiguration('lidar_frame'),
-                                            ]),
-                'frame_prefix': [LaunchConfiguration('namespace'), '/']}
+    description_params = {'lidar': LaunchConfiguration('lidar'),
+                          'lidar_frame': LaunchConfiguration('lidar_frame'),
+                          'namespace': LaunchConfiguration('namespace')}.items() 
 
-    robot_state_publisher = Node(
-        name='robot_state_publisher',
-        package='robot_state_publisher', executable='robot_state_publisher', output='screen',
-        parameters=[robot_state_params],
-    )
-
-    joint_state_publisher = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        output='screen'
+    robot_description_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('raspimouse_slam'),'launch/'),
+            LaunchConfiguration('description_launch_file')]),
+        launch_arguments=description_params
     )
 
     config_mouse_node = RegisterEventHandler(
@@ -134,14 +125,13 @@ def generate_launch_description():
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_namespace)
-    ld.add_action(declare_arg_xacro_path)
+    ld.add_action(declare_arg_description_launch_file)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
     ld.add_action(urg_launch)
     ld.add_action(rplidar_launch)
-    ld.add_action(robot_state_publisher)
-    ld.add_action(joint_state_publisher)
+    ld.add_action(robot_description_launch)
     ld.add_action(config_mouse_node)
     ld.add_action(active_mouse_node)
     return ld
