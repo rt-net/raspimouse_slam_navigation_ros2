@@ -78,7 +78,7 @@ def generate_launch_description():
                           'lidar_frame': LaunchConfiguration('lidar_frame'),
                           'namespace': LaunchConfiguration('namespace')}.items() 
 
-    display_robot = IncludeLaunchDescription(
+    display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('raspimouse_slam'),'launch/'),
             LaunchConfiguration('description_launch_file')]),
@@ -95,6 +95,6 @@ def generate_launch_description():
     ld.add_action(lds_launch)
     ld.add_action(urg_launch)
     ld.add_action(rplidar_launch)
-    ld.add_action(display_robot)
+    ld.add_action(display_robot_launch)
 
     return ld
