@@ -71,6 +71,10 @@ mkdir maps && cd maps
 ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
 
 # Navigation
+## 作ったマップを登録しておく必要があります
+cd ~/ros2_ws/
+colcon build --symlink-install
+source install/setup.bash
 ## ロボット側で以下のコマンドを実行
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
