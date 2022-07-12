@@ -64,7 +64,7 @@ source ~/ros2_ws/install/setup.bash
 ## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar lidar_port:=/dev/ttyUSB0 joyconfig:=f710
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_slam raspimouse_slam.launch
+ros2 launch raspimouse_slam raspimouse_slam.launch.py
 ## 地図ができたら引き続きPC側で実行
 cd ~/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam
 mkdir maps && cd maps
