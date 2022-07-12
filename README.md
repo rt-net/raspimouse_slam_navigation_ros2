@@ -78,7 +78,7 @@ source install/setup.bash
 ## ロボット側で以下のコマンドを実行
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$HOME/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam/maps/$MAP_NAME.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$MAP_NAME.yaml
 ```
 
 <a name="SLAM"></a>
@@ -86,28 +86,33 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$HOME/ros2_w
 LiDARをつかってSLAM（自己位置推定と地図生成を行うパッケージです。  
 画像？  
 
-ここでは、レーザ測域センサとして[LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_5&products_id=3676)、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
+ここでは、レーザ測域センサとして**CHANGE TO RPLIDAR A1**、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
 
 ### Usage
 
+```sh
+some commands
+```
 
 ### Video
 
 
 <a name="Navigation"></a>
 ## raspimouse_navigation
+
 Some explanations...
 
 ### Usage
 
+```sh
+some commands...
+```
 
 ### Stopping the robot
 また、ロボットが予期しない挙動をした場合は、安全に気をつけながらRaspberry Pi Mouse V3のモータ用電源をOFFにしましょう。 モータ用電源はRaspberry Pi Mouse V3に搭載されたスイッチでON / OFFできます。 あるいは、次のコマンドを実行すると、ソフトウェアスイッチでモータ電源をOFFにできます。与えた目標位置・姿勢への移動を停止したい場合は、新しいターミナルで次のコマンドを実行しましょう。RViz上には目標位置・姿勢が残りますが、ロボットは停止します。新たに、2D Nav Goalを設置すると、そちらに目標位置・姿勢が置き換わります。  
 ```sh
 ros2 service call /motor_power std_srvs//Bool data:\ false\
 ```  
-
-
 
 ### Video
 
