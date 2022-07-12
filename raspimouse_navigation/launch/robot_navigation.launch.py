@@ -26,9 +26,6 @@ from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
     ### Launch arguments ###
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    xacro_file = LaunchConfiguration('xacro_file')
-
     declare_arg_description_launch_file = DeclareLaunchArgument(
         'description_launch_file', default_value='description.launch.py',
         description='The launch file to publish the robot description')
