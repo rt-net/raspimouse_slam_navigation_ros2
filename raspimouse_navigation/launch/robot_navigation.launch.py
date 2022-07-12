@@ -49,25 +49,6 @@ def generate_launch_description():
         description='Set namespace for tf tree.')
 
     ### Launch files and Nodes ###
-    configure_raspimouse_node = ExecuteProcess(
-        cmd=[['sleep 5 && ros2 lifecycle set raspimouse configure']],
-        shell=True,
-        output='screen',
-    )
-
-    activate_raspimouse_node = ExecuteProcess(
-        cmd=[['ros2 lifecycle set raspimouse activate']],
-        shell=True,
-        output='screen',
-    )
-
-    mouse_node = LifecycleNode(
-        name='raspimouse',
-        package='raspimouse', executable='raspimouse', output='screen',
-        parameters=[os.path.join(get_package_share_directory(
-            'raspimouse_slam'), 'config', 'mouse.yaml')]
-    )
-
     lds_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory('hls_lfcd_lds_driver'),
@@ -102,6 +83,25 @@ def generate_launch_description():
             get_package_share_directory('raspimouse_slam'),'launch/'),
             LaunchConfiguration('description_launch_file')]),
         launch_arguments=description_params
+    )
+
+    mouse_node = LifecycleNode(
+        name='raspimouse',
+        package='raspimouse', executable='raspimouse', output='screen',
+        parameters=[os.path.join(get_package_share_directory(
+            'raspimouse_slam'), 'config', 'mouse.yaml')]
+    )
+
+    configure_raspimouse_node = ExecuteProcess(
+        cmd=[['sleep 3 && ros2 lifecycle set raspimouse configure']],
+        shell=True,
+        output='screen',
+    )
+
+    activate_raspimouse_node = ExecuteProcess(
+        cmd=[['ros2 lifecycle set raspimouse activate']],
+        shell=True,
+        output='screen',
     )
 
     config_mouse_node = RegisterEventHandler(
