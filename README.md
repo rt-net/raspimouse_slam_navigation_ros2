@@ -46,7 +46,7 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
  - ゲームパッド
    - [Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)
    - [SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)
- - レーザ即域センサ
+ - レーザ測域センサ
    - [RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)
 
 <a name="Installation"></a>
