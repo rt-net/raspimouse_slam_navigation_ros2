@@ -1,4 +1,5 @@
 # Ref: https://github.com/SteveMacenski/slam_toolbox/blob/dashing-devel/config/mapper_params_online_sync.yaml
+# Descriptions of the parameters are lister here: https://github.com/SteveMacenski/slam_toolbox#solver-params
 slam_toolbox:
   ros__parameters:
 
