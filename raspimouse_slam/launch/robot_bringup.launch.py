@@ -84,15 +84,15 @@ def generate_launch_description():
             'launch'),
             '/rplidar.launch.py']),
         launch_arguments={'serial_port': lidar_port,
-                          'frame_id':
-                          LaunchConfiguration('lidar_frame')}.items(),
+                          'frame_id': LaunchConfiguration('lidar_frame')
+                          }.items(),
         condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
     description_params = {'lidar': LaunchConfiguration('lidar'),
                           'lidar_frame': LaunchConfiguration('lidar_frame'),
-                          'namespace':
-                          LaunchConfiguration('namespace')}.items()
+                          'namespace': LaunchConfiguration('namespace')
+                          }.items()
 
     display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(

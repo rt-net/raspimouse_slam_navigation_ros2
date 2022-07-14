@@ -20,16 +20,17 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import ExecuteProcess, RegisterEventHandler
 from launch.conditions import LaunchConfigurationEquals
 from launch.event_handlers import OnProcessExit, OnProcessStart
-from launch.substitutions import LaunchConfiguration, Command
+from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 
+
 def generate_launch_description():
-    ### Launch arguments ###
+    # Launch arguments #
     declare_arg_description_launch_file = DeclareLaunchArgument(
         'description_launch_file', default_value='description.launch.py',
         description='The launch file to publish the robot description')
-    
+
     lidar_port = LaunchConfiguration(
         'lidar_port', default='/dev/ttyUSB0')
 
@@ -48,7 +49,7 @@ def generate_launch_description():
         default_value='',
         description='Set namespace for tf tree.')
 
-    ### Launch files and Nodes ###
+    # Launch files and Nodes #
     lds_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory('hls_lfcd_lds_driver'),
@@ -70,17 +71,20 @@ def generate_launch_description():
             'launch'),
             '/sllidar_launch.py']),
         launch_arguments={'serial_port': lidar_port,
-                    'frame_id': LaunchConfiguration('lidar_frame')}.items(),
+                          'frame_id': LaunchConfiguration('lidar_frame')
+                          }.items(),
         condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
     description_params = {'lidar': LaunchConfiguration('lidar'),
                           'lidar_frame': LaunchConfiguration('lidar_frame'),
-                          'namespace': LaunchConfiguration('namespace')}.items() 
+                          'namespace': LaunchConfiguration('namespace')
+                          }.items()
 
+    # Launch files and Nodes #
     robot_description_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('raspimouse_slam'),'launch/'),
+            get_package_share_directory('raspimouse_slam'), 'launch/'),
             LaunchConfiguration('description_launch_file')]),
         launch_arguments=description_params
     )
