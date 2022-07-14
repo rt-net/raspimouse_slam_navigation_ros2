@@ -18,7 +18,6 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 from launch.substitutions import Command
@@ -26,6 +25,7 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
+    # Declare arguments #
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
@@ -41,28 +41,24 @@ def generate_launch_description():
         default_value='',
         description='Set namespace for tf tree.')
 
-    declare_arg_use_rviz = DeclareLaunchArgument(
-        'use_rviz',
-        default_value='true',
-        description='Set "true" to launch rviz.')
-
     xacro_file = os.path.join(
         get_package_share_directory('raspimouse_description'),
         'urdf',
         'raspimouse.urdf.xacro')
 
-    params = {'robot_description': Command(['xacro ', xacro_file,
-                                            ' lidar:=', LaunchConfiguration('lidar'),
-                                            ' lidar_frame:=', LaunchConfiguration('lidar_frame'),
-                                            ]),
+    params = {'robot_description': Command(
+                ['xacro ', xacro_file,
+                 ' lidar:=', LaunchConfiguration('lidar'),
+                 ' lidar_frame:=', LaunchConfiguration('lidar_frame')]),
               'frame_prefix': [LaunchConfiguration('namespace'), '/']}
 
     push_ns = PushRosNamespace([LaunchConfiguration('namespace')])
 
+    # Nodes #
     robot_state_pub_node = Node(package='robot_state_publisher',
-               executable='robot_state_publisher',
-               output='both',
-               parameters=[params])
+                                executable='robot_state_publisher',
+                                output='both',
+                                parameters=[params])
 
     joint_state_pub_node = Node(
         package='joint_state_publisher',

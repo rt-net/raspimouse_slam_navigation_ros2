@@ -20,21 +20,28 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+
 def generate_launch_description():
+    # Declare arguments #
     declare_arg_slam_config_file = DeclareLaunchArgument(
         'slam_config_file', default_value='mapper_params_online_sync.yaml',
         description='The file name of the config file for SLAM')
 
-    slam_config_path = [os.path.join(get_package_share_directory('raspimouse_slam'), 'config/'),
-                                    LaunchConfiguration('slam_config_file')]
+    slam_config_path = [os.path.join(
+                            get_package_share_directory('raspimouse_slam'),
+                            'config/'),
+                        LaunchConfiguration('slam_config_file')]
 
     declare_arg_rviz_file = DeclareLaunchArgument(
         'rviz_file', default_value='default.rviz',
         description='The file name of the rviz file')
-    
-    rviz_path = [os.path.join(get_package_share_directory('raspimouse_slam'), 'rviz/'),
-                            LaunchConfiguration('rviz_file')]
 
+    rviz_path = [os.path.join(
+                    get_package_share_directory('raspimouse_slam'),
+                    'rviz/'),
+                 LaunchConfiguration('rviz_file')]
+
+    # Nodes #
     slam_node = Node(
         package='slam_toolbox', executable='sync_slam_toolbox_node',
         output='screen',

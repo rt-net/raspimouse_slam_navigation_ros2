@@ -22,8 +22,9 @@ from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 
+
 def generate_launch_description():
-    ### Declare arguments ####
+    # Declare arguments #
     declare_arg_namespace = DeclareLaunchArgument(
         'namespace', default_value='',
         description='Set namespace')
@@ -34,7 +35,7 @@ def generate_launch_description():
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar', default_value='rplidar',
         description='LiDAR: RPLIDAR, LDS or URG only, for now.')
-    
+
     declare_arg_lidar_frame = DeclareLaunchArgument(
         'lidar_frame', default_value='laser',
         description='Set lidar frame name.')
@@ -50,10 +51,11 @@ def generate_launch_description():
 
     declare_arg_joyconfig = DeclareLaunchArgument(
         'joyconfig', default_value='f710',
-        description='Keyconfig of joystick controllers: supported: f710, dualshock3, dualshock4'
+        description='Keyconfig of joystick controllers: \
+                     supported: f710, dualshock3, dualshock4'
     )
 
-    ### Launch files and Nodes ###
+    # Launch files and Nodes #
     mouse_node = LifecycleNode(
         name='raspimouse',
         package='raspimouse', executable='raspimouse', output='screen',
@@ -82,17 +84,19 @@ def generate_launch_description():
             'launch'),
             '/rplidar.launch.py']),
         launch_arguments={'serial_port': lidar_port,
-                    'frame_id': LaunchConfiguration('lidar_frame')}.items(),
+                          'frame_id':
+                          LaunchConfiguration('lidar_frame')}.items(),
         condition=LaunchConfigurationEquals('lidar', 'rplidar')
     )
 
     description_params = {'lidar': LaunchConfiguration('lidar'),
                           'lidar_frame': LaunchConfiguration('lidar_frame'),
-                          'namespace': LaunchConfiguration('namespace')}.items() 
+                          'namespace':
+                          LaunchConfiguration('namespace')}.items()
 
     display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('raspimouse_slam'),'launch/'),
+            get_package_share_directory('raspimouse_slam'), 'launch/'),
             LaunchConfiguration('description_launch_file')]),
         launch_arguments=description_params
     )
@@ -102,7 +106,7 @@ def generate_launch_description():
 
     teleop_joy_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('raspimouse_slam'),'launch/'),
+            get_package_share_directory('raspimouse_slam'), 'launch/'),
             'teleop.launch.py']),
         launch_arguments=teleop_params
     )
