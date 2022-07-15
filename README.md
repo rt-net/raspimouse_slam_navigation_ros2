@@ -45,17 +45,12 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド
    - [Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)
-<<<<<<< HEAD
-   - [SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)
- - レーザ測域センサ
-=======
-   - 生産・販売終了~~[SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)~~
+   - [SONY DUALSHOCK 4](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html) → 生産・販売終了
    - [SONY DUALSHOCK 4](https://www.playstation.com/ja-jp/accessories/dualshock-4-wireless-controller/)
  - レーザ即域センサ
->>>>>>> 785ccfe98a8b3ebf7b125cb48878989240b223ac
    - [RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)
-   - 生産・販売終了~~[LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3676)~~
-   - 生産・販売終了~~[URG-04LX-UG01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_1296&products_id=2816)~~
+   - [LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3676) → 生産・販売終了
+   - [URG-04LX-UG01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_1296&products_id=2816) → 生産・販売終了
 
 <a name="Installation"></a>
 ## Installation
