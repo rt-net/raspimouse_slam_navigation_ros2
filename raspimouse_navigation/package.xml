@@ -17,6 +17,7 @@
     <depend>hls_lfcd_lds_driver</depend>
     <depend>urg_node</depend>
     <depend>rplidar_ros</depend>
+    <depend>raspimouse_description</depend>
     <exec_depend>nav2_bringup</exec_depend>
     
     <test_depend>ament_lint_auto</test_depend>
