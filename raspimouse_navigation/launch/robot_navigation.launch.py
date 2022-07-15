@@ -67,9 +67,9 @@ def generate_launch_description():
 
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('sllidar_ros2'),
+            get_package_share_directory('rplidar_ros'),
             'launch'),
-            '/sllidar_launch.py']),
+            '/rplidar.launch.py']),
         launch_arguments={'serial_port': lidar_port,
                           'frame_id': LaunchConfiguration('lidar_frame')
                           }.items(),
