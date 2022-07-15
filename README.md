@@ -17,9 +17,9 @@ Raspberry Pi MouseでSLAMやナビゲーションを行うROS 2メタパッケ�
 
 <a name="Requirements"></a>
 ## Requirements
-Raspberry Pi Mouse V3とRemote PCを用意しましょう。
-Raspberry Pi Mouse V3にはデバイスドライバをインストールしている必要があります。こちらの[RT Software Turtorials](https://rt-net.github.io/tutorials/raspimouse/driver/install.html)をご参照ください。
-また、ロボットとRemote PCは、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。
+Raspberry Pi Mouse V3とRemote PCを用意しましょう。  
+Raspberry Pi Mouse V3にはデバイスドライバをインストールしている必要があります。こちらの[RT Software Turtorials](https://rt-net.github.io/tutorials/raspimouse/driver/install.html)をご参照ください。  
+また、ロボットとRemote PCは、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。  
 以下のリストは、必要なソフトや対応しているセンサなどの一覧を示します。  
 
  - [Raspberry Pi Mouse V3]()
@@ -45,9 +45,12 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド
    - [Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)
-   - [SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)
- - レーザ測域センサ
+   - 生産・販売終了~~[SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)~~
+   - [SONY DUALSHOCK 4](https://www.playstation.com/ja-jp/accessories/dualshock-4-wireless-controller/)
+ - レーザ即域センサ
    - [RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)
+   - 生産・販売終了~~[LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3676)~~
+   - 生産・販売終了~~[URG-04LX-UG01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_1296&products_id=2816)~~
 
 <a name="Installation"></a>
 ## Installation
@@ -185,7 +188,7 @@ ros2 service call /motor_power std_srvs//Bool data:\ false\
 ### Video
 
 ## Notes
-本パッケージで使用されているRPLIDAR A1制御用のパッケージはコミュニティがメンテナンスしているパッケージになります。  
+本パッケージで使用されているRPLIDAR A1制御用のパッケージ（[allenh1/rplidar_ros](https://github.com/allenh1/rplidar_ros)）はコミュニティがメンテナンスしているパッケージになります。  
 公式のパッケージ（[Slamtec/sllidar_ros2](https://github.com/Slamtec/sllidar_ros2)）がリリースされたら置き換える予定です。  
 
 

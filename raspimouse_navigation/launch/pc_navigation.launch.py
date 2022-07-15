@@ -22,7 +22,9 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
+
 def generate_launch_description():
+    # Declare arguments #
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     map_package = LaunchConfiguration('map_package')
     map_file = LaunchConfiguration('map_file')
@@ -39,7 +41,7 @@ def generate_launch_description():
         'map_file', default_value='test.yaml',
         description='The name of the map yaml file.'
     )
-    
+
     declare_arg_param_package = DeclareLaunchArgument(
         'param_package', default_value='raspimouse_navigation',
         description='The ROS 2 package that include the param file.'
@@ -63,12 +65,16 @@ def generate_launch_description():
         'launch'
     )
 
-    map_path = [PathJoinSubstitution([FindPackageShare(map_package), 'maps', map_file])]
+    map_path = [PathJoinSubstitution([FindPackageShare(map_package),
+                                      'maps', map_file])]
 
-    param_path = [PathJoinSubstitution([FindPackageShare(param_package), 'params', param_file])]
+    param_path = [PathJoinSubstitution([FindPackageShare(param_package),
+                                        'params', param_file])]
 
+    # Launch files and Nodes #
     nav2_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
+        PythonLaunchDescriptionSource([
+            nav2_launch_file_dir, '/bringup_launch.py']),
         launch_arguments={
             'map': map_path,
             'params_file': param_path,
