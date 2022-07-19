@@ -45,12 +45,12 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド
    - [Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)
-   - 生産・販売終了~~[SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html)~~
+   - [SONY DUALSHOCK 3](https://www.jp.playstation.com/ps3/peripheral/cechzc2j.html) → 生産・販売終了
    - [SONY DUALSHOCK 4](https://www.playstation.com/ja-jp/accessories/dualshock-4-wireless-controller/)
  - レーザ即域センサ
    - [RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)
-   - 生産・販売終了~~[LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3676)~~
-   - 生産・販売終了~~[URG-04LX-UG01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_1296&products_id=2816)~~
+   - [LDS-01](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3676) → 生産・販売終了
+   - [URG-04LX-UG01](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1348_1296&products_id=2816) → 生産・販売終了
 
 <a name="Installation"></a>
 ## Installation
@@ -119,6 +119,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$MAP_NAME.ya
 <a name="SLAM"></a>
 ## raspimouse_slam
 LiDARをつかってSLAM（自己位置推定と地図生成）を行うパッケージです。  
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2_with_raspimouse_model.png width=500 />
 
 ここでは、レーザ測域センサとして[RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
 
@@ -149,12 +150,10 @@ ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
 $MAP_NAME.pgm $MAP_NAME.yaml
 ```
 
-### Video
-
-
 <a name="Navigation"></a>
 ## raspimouse_navigation
 SLAMで地図を生成した後、その地図を使って自己位置推定を行い、地図上の任意の座標まで自律移動を行います。  
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
 ここでは、レーザ測域センサとして[RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)を使用しています。  
 また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
@@ -171,11 +170,11 @@ Remote PC上で、次のコマンドを実行します。自己位置推定と�
 ros2 launch raspimouse_navigation map_file:=$MAP_FILE.yaml
 ```
 
-無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の緑色の矢印2D Pose Estimateをクリックしましょう。地図上で、ロボット実機が最もらしい位置までマウスを持ってきてクリックしそのままホールドします。大きな矢印が出ている状態で、マウスを動かすと向きを指示することが可能なので、最もらしい向きに合わせてから、ボタンを離しましょう。  
-picture...  
+無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の緑色の矢印*2D Pose Estimate*をクリックしましょう。地図上で、ロボット実機が最もらしい位置までマウスを持ってきてクリックし**そのままホールド**します。大きな矢印が出ている状態で、マウスを動かすと向きを指示することが可能なので、最もらしい向きに合わせてから、ボタンを離しましょう。  
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_setting_initialpose.gif width=500 />
 
-初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の紫色の矢印2D Nav Goalをクリックしましょう。地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままマウスを動かして目標姿勢を指示しましょう。すると、ロボットが自律移動を開始します。  
-picture...  
+初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の紫色の矢印*2D Nav Goal*をクリックしましょう。地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままマウスを動かして目標姿勢を指示しましょう。すると、ロボットが自律移動を開始します。    
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_setting_goalpose.gif width=500 />
 
 ### Stopping the robot
 TODO トピックでゴールのキャンセルをする方法を書く
@@ -184,8 +183,6 @@ TODO トピックでゴールのキャンセルをする方法を書く
 ```sh
 ros2 service call /motor_power std_srvs//Bool data:\ false\
 ```  
-
-### Video
 
 ## Notes
 本パッケージで使用されているRPLIDAR A1制御用のパッケージ（[allenh1/rplidar_ros](https://github.com/allenh1/rplidar_ros)）はコミュニティがメンテナンスしているパッケージになります。  
