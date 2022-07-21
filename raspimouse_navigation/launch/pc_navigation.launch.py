@@ -54,9 +54,9 @@ def generate_launch_description():
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file', default_value=os.path.join(
-            get_package_share_directory('nav2_bringup'),
+            get_package_share_directory('raspimouse_navigation'),
             'rviz',
-            'nav2_default_view.rviz'),
+            'nav2_view.rviz'),
         description='Path to rviz file'
     )
 
