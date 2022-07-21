@@ -123,6 +123,9 @@ LiDARをつかってSLAM（自己位置推定と地図生成）を行うパッ�
 
 ここでは、レーザ測域センサとして[RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
 
+実際にSLAMを行っている様子は以下のGIF画像にて確認できます。
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2.gif width=500 />
+
 ### Usage
 Raspberry Pi Mouse上で、次のコマンドを実行します。LiDARを起動し、ゲームパッドでRaspberry Pi Mouseを制御することができます。  
 ゲームパッドの操作方法については、[raspimouse_ros2_examplesの"joystick_control"](https://github.com/rt-net/raspimouse_ros2_examples#joystick_control)を参照してください。  
@@ -171,10 +174,10 @@ ros2 launch raspimouse_navigation map_file:=$MAP_FILE.yaml
 ```
 
 無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の緑色の矢印*2D Pose Estimate*をクリックしましょう。地図上で、ロボット実機が最もらしい位置までマウスを持ってきてクリックし**そのままホールド**します。大きな矢印が出ている状態で、マウスを動かすと向きを指示することが可能なので、最もらしい向きに合わせてから、ボタンを離しましょう。  
-<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_setting_initialpose.gif width=500 />
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_initialpose.gif width=500 />
 
 初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の紫色の矢印*2D Nav Goal*をクリックしましょう。地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままマウスを動かして目標姿勢を指示しましょう。すると、ロボットが自律移動を開始します。    
-<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_setting_goalpose.gif width=500 />
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
 ### Stopping the robot
 TODO トピックでゴールのキャンセルをする方法を書く
