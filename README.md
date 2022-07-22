@@ -100,20 +100,14 @@ ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar lidar_port:=/
 ros2 launch raspimouse_slam raspimouse_slam.launch.py
 ## 地図ができたら引き続きPC側で実行
 ## 新しい端末を開いて次のコマンドを実行しましょう 
-cd ~/ros2_ws/src/raspimouse_slam_navigation_ros2/raspimouse_slam
-mkdir maps && cd maps
-## $MAP_NAMEを地図ファイルの名前に置き換えましょう
-ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
+## MAP_NAMEを地図ファイルの名前に置き換えましょう
+ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 # Navigation
-## 作ったマップを登録するため、もう一度ビルドします
-cd ~/ros2_ws/
-colcon build --symlink-install
-source install/setup.bash
 ## ロボット側で以下のコマンドを実行
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_navigation pc_navigation.launch.py map_file:=$MAP_NAME.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_NAME.yaml
 ```
 
 <a name="SLAM"></a>
@@ -144,13 +138,13 @@ ros2 launch raspimouse_slam raspimouse_slam.launch.py lidar:=rplidar
 ```sh
 cd ~/ros2_ws/src/raspimouse_slam_navigation2/raspimouse_slam
 mkdir maps && cd maps 
-ros2 run nav2_map_server map_saver_cli -f $MAP_NAME
+ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
 
 `.pgm`と`.yaml`の2つのファイルが生成されます。  
 ```sh
-~/ros2_ws/raspimouse_slam_navigation_ros2/raspimouse_slam/maps$ ls
-$MAP_NAME.pgm $MAP_NAME.yaml
+~$ ls | grep MAP_NAME
+MAP_NAME.pgm MAP_NAME.yaml
 ```
 
 <a name="Navigation"></a>
@@ -168,9 +162,9 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ```
 
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。  
-引数のmap_fileパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。  
+引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。  
 ```sh
-ros2 launch raspimouse_navigation map_file:=$MAP_FILE.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE.yaml
 ```
 
 無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の緑色の矢印*2D Pose Estimate*をクリックしましょう。地図上で、ロボット実機が最もらしい位置までマウスを持ってきてクリックし**そのままホールド**します。大きな矢印が出ている状態で、マウスを動かすと向きを指示することが可能なので、最もらしい向きに合わせてから、ボタンを離しましょう。  
