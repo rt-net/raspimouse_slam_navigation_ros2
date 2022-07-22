@@ -60,7 +60,7 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 cd ~/ros2_ws/src
 # Clone the ROS packages
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_ros2_examples
-git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_descriptions
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_description
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
 # Install dependencies
 rosdep install -r -y -i --from-paths . --ignore-src
@@ -76,7 +76,7 @@ source ~/ros2_ws/install/setup.bash
 ```sh
 cd ~/ros2_ws/src
 # Clone the ROS packages
-git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_descriptions
+git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_description
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
 # Install dependencies
 rosdep install -r -y -i --from-paths . --ignore-src
@@ -184,7 +184,7 @@ TODO トピックでゴールのキャンセルをする方法を書く
 
 ロボットが予期しない挙動をした場合は、安全に気をつけながらRaspberry Pi Mouse V3のモータ用電源をOFFにしましょう。 モータ用電源はRaspberry Pi Mouse V3に搭載されたスイッチでON / OFFできます。 あるいは、次のコマンドを実行すると、ソフトウェアスイッチでモータ電源をOFFにできます。与えた目標位置・姿勢への移動を停止したい場合は、新しいターミナルで次のコマンドを実行しましょう。RViz上には目標位置・姿勢が残りますが、ロボットは停止します。新たに、2D Nav Goalを設置すると、そちらに目標位置・姿勢が置き換わります。  
 ```sh
-ros2 service call /motor_power std_srvs//Bool data:\ false\
+ros2 service call /motor_power std_srvs/srv/Bool data:\ false\
 ```  
 
 ## Notes
