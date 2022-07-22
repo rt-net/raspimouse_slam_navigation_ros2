@@ -1,5 +1,5 @@
 # raspimouse_slam_navigation
-Raspberry Pi MouseでSLAMやナビゲーションを行うROS 2メタパッケージです。  
+Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビゲーションが行える`raspimouse_navigation`パッケージです。  
 その他のRaspberry Pi MouseのROS 2サンプル集は[rt-net/raspimouse_ros2_examples](https://github.com/rt-net/raspimouse_ros2_examples)で紹介しています。  
 
 現在、以下のROS 2のディストリビューションに対応しております。  
