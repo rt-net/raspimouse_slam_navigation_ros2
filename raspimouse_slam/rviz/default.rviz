@@ -139,32 +139,10 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        base_footprint:
-          Value: false
-        base_link:
-          Value: true
-        laser:
-          Value: false
-        left_wheel:
-          Value: false
-        lf_lightsensor_link:
-          Value: false
-        lightsensors:
-          Value: false
-        ls_lightsensor_link:
-          Value: false
         map:
           Value: true
         odom:
           Value: true
-        rf_lightsensor_link:
-          Value: false
-        right_wheel:
-          Value: false
-        rplidar_multi_mount_link:
-          Value: false
-        rs_lightsensor_link:
-          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -173,24 +151,7 @@ Visualization Manager:
       Tree:
         map:
           odom:
-            base_footprint:
-              base_link:
-                left_wheel:
-                  {}
-                lightsensors:
-                  lf_lightsensor_link:
-                    {}
-                  ls_lightsensor_link:
-                    {}
-                  rf_lightsensor_link:
-                    {}
-                  rs_lightsensor_link:
-                    {}
-                right_wheel:
-                  {}
-                rplidar_multi_mount_link:
-                  laser:
-                    {}
+            {}
       Update Interval: 0
       Value: true
     - Class: rviz_default_plugins/MarkerArray
@@ -223,59 +184,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        laser:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lf_lightsensor_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lightsensors:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        ls_lightsensor_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rf_lightsensor_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rplidar_multi_mount_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rs_lightsensor_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RaspberryPiMouse
       TF Prefix: ""
       Update Interval: 0
@@ -322,25 +230,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 5.859609603881836
+      Distance: 7.0373125076293945
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.602579116821289
-        Y: -0.8641224503517151
-        Z: -0.5565218329429626
+        X: 0.1891627460718155
+        Y: 0.11641521006822586
+        Z: -0.5572327971458435
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6797971725463867
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.3803974390029907
+      Yaw: 3.1253974437713623
     Saved: ~
 Window Geometry:
   Displays:
