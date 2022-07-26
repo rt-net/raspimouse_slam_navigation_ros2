@@ -14,15 +14,20 @@
 
 import os
 
+from yaml import emit
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.actions import ExecuteProcess, RegisterEventHandler
+from launch.actions import RegisterEventHandler, EmitEvent
 from launch.conditions import LaunchConfigurationEquals
-from launch.event_handlers import OnProcessExit, OnProcessStart
+from launch.events import matches_action, Shutdown
+from launch.event_handlers import OnStateTransition
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
+from launch_ros.events import lifecycle
+from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
@@ -96,29 +101,41 @@ def generate_launch_description():
             'raspimouse_slam'), 'config', 'mouse.yaml')]
     )
 
-    configure_raspimouse_node = ExecuteProcess(
-        cmd=[['sleep 3 && ros2 lifecycle set raspimouse configure']],
-        shell=True,
-        output='screen',
-    )
-
-    activate_raspimouse_node = ExecuteProcess(
-        cmd=[['ros2 lifecycle set raspimouse activate']],
-        shell=True,
-        output='screen',
-    )
-
-    config_mouse_node = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=mouse_node,
-            on_start=[configure_raspimouse_node],
+    emit_configuring_event = EmitEvent(
+        event=lifecycle.ChangeState(
+            lifecycle_node_matcher=matches_action(mouse_node),
+            transition_id=Transition.TRANSITION_CONFIGURE,
         )
     )
 
-    active_mouse_node = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=configure_raspimouse_node,
-            on_exit=[activate_raspimouse_node],
+    emit_activating_event = EmitEvent(
+        event=lifecycle.ChangeState(
+            lifecycle_node_matcher=matches_action(mouse_node),
+            transition_id=Transition.TRANSITION_ACTIVATE,
+        )
+    )
+
+    emit_shutdown_event = EmitEvent(
+        event=Shutdown()
+    )
+
+    register_activating_transition = RegisterEventHandler(
+        OnStateTransition(
+            target_lifecycle_node=mouse_node,
+            goal_state='inactive',
+            entities=[
+                emit_activating_event
+            ],
+        )
+    )
+
+    register_shutting_down_transition = RegisterEventHandler(
+        OnStateTransition(
+            target_lifecycle_node=mouse_node,
+            goal_state='finalized',
+            entities=[
+                emit_shutdown_event
+            ],
         )
     )
 
@@ -133,6 +150,7 @@ def generate_launch_description():
     ld.add_action(urg_launch)
     ld.add_action(rplidar_launch)
     ld.add_action(robot_description_launch)
-    ld.add_action(config_mouse_node)
-    ld.add_action(active_mouse_node)
+    ld.add_action(register_activating_transition)
+    ld.add_action(register_shutting_down_transition)
+    ld.add_action(emit_configuring_event)
     return ld
