@@ -97,8 +97,16 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
-    controller_plugins: ["FollowPath"]
 
+    # ゴール判定のプラグインを追加
+    goal_checker_plugins: "goal_checker"
+    goal_checker:
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.05
+      yaw_goal_tolerance: 0.5
+      stateful: True
+
+    controller_plugins: ["FollowPath"]
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
