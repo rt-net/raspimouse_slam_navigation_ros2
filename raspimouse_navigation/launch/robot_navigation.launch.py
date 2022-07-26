@@ -22,11 +22,11 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import RegisterEventHandler, EmitEvent
 from launch.conditions import LaunchConfigurationEquals
 from launch.events import matches_action, Shutdown
-from launch.event_handlers import OnStateTransition
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import LifecycleNode, Node
 from launch_ros.events import lifecycle
+from launch_ros.event_handlers import OnStateTransition
 from lifecycle_msgs.msg import Transition
 
 
