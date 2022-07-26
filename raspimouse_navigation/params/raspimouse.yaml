@@ -40,6 +40,14 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
+    # 仮の初期位置・姿勢を設定
+    set_initial_pose: True
+    initial_pose:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 0.0
+
 
 amcl_map_client:
   ros__parameters:
