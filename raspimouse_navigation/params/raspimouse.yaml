@@ -1,10 +1,12 @@
 amcl:
   ros__parameters:
     use_sim_time: False
-    alpha1: 0.2
-    alpha2: 0.2
-    alpha3: 0.2
-    alpha4: 0.2
+    # ノイズの大きさをデフォルト値から小さくした
+    # 回転によりodomがずれやすいため、回転成分のノイズを大きくした
+    alpha1: 0.3
+    alpha2: 0.05
+    alpha3: 0.01
+    alpha4: 0.01
     alpha5: 0.2
     base_frame_id: "base_footprint"
     beam_skip_distance: 0.5
@@ -31,8 +33,9 @@ amcl:
     sigma_hit: 0.2
     tf_broadcast: true
     transform_tolerance: 1.0
-    update_min_a: 0.2
-    update_min_d: 0.25
+    # ラズパイマウスに合わせて、updateに必要な最小距離と角度を小さくした
+    update_min_a: 0.02
+    update_min_d: 0.05
     z_hit: 0.5
     z_max: 0.05
     z_rand: 0.5
