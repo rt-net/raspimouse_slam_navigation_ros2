@@ -3,7 +3,7 @@ amcl:
     use_sim_time: False
     # ノイズの大きさをデフォルト値から小さくした
     # 回転によりodomがずれやすいため、回転成分のノイズを大きくした
-    alpha1: 0.3
+    alpha1: 0.03
     alpha2: 0.05
     alpha3: 0.01
     alpha4: 0.01
