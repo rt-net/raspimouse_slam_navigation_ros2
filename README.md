@@ -120,7 +120,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_NAME
 LiDARをつかってSLAM（自己位置推定と地図生成）を行うパッケージです。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2_with_raspimouse_model.png width=500 />
 
-ここでは、レーザ測域センサとして[RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
+ここでは、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
 
 実際にSLAMを行っている様子は以下のGIF画像にて確認できます。
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2.gif width=500 />
@@ -129,14 +129,19 @@ LiDARをつかってSLAM（自己位置推定と地図生成）を行うパッ�
 Raspberry Pi Mouse上で、次のコマンドを実行します。LiDARを起動し、ゲームパッドでRaspberry Pi Mouseを制御することができます。  
 ゲームパッドの操作方法については、[raspimouse_ros2_examplesの"joystick_control"](https://github.com/rt-net/raspimouse_ros2_examples#joystick_control)を参照してください。  
 ```sh
+# RPLIDAR A1の場合
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar lidar_port:=/dev/ttyUSB0 joyconfig:=f710
+# LDS-01の場合
+ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=lds lidar_port:=/dev/ttyUSB0 joyconfig:=f710
+# URG-04LX-UG01の場合
+ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=urg lidar_port:=/dev/ttyACM0 joyconfig:=f710
 ```
 
 次のコマンドを実行して、SLAMを開始します。 RVizが立ち上がり、Raspberry Pi Mouseを動かすと地図が構築されていく様子が見られます。  
 
 Remote PC上で起動することを推奨します。この時、Remote PCとRaspberry Pi Mouseが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
 ```sh
-ros2 launch raspimouse_slam raspimouse_slam.launch.py lidar:=rplidar
+ros2 launch raspimouse_slam raspimouse_slam.launch.py
 ```
 
 構築した地図を保存するために、次のROSノードを起動します。Remote PC上で起動することを推奨します。  
@@ -157,13 +162,17 @@ MAP_NAME.pgm MAP_NAME.yaml
 SLAMで地図を生成した後、その地図を使って自己位置推定を行い、地図上の任意の座標まで自律移動を行います。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
-ここでは、レーザ測域センサとして[RPLIDAR A1](https://www.slamtec.com/en/Lidar/A1)を使用しています。  
 また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
 
 ### Usage
 まずはRaspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを起動するためのノードを起動しています。  
 ```sh
+# RPLIDAR A1の場合
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
+# LDS-01の場合
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds
+# URG-04LX-UG01の場合
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_port:=/dev/ttyACM0
 ```
 
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。  
