@@ -15,10 +15,12 @@
     <buildtool_depend>ament_cmake</buildtool_depend>
 
     <depend>hls_lfcd_lds_driver</depend>
-    <depend>urg_node</depend>
+    <depend>nav2_bringup</depend>
+    <depend>raspimouse</depend>
+    <depend>raspimouse_slam</depend>
     <depend>rplidar_ros</depend>
-    <depend>raspimouse_description</depend>
-    <exec_depend>nav2_bringup</exec_depend>
+    <depend>rviz2</depend>
+    <depend>urg_node</depend>
     
     <test_depend>ament_lint_auto</test_depend>
     <test_depend>ament_lint_common</test_depend>
