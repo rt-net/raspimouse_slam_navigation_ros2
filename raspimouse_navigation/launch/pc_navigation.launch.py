@@ -17,33 +17,30 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
     # Declare arguments #
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     map_yaml_file = LaunchConfiguration('map')
-    param_package = LaunchConfiguration('param_package')
-    param_file = LaunchConfiguration('param_file')
+    params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
     declare_arg_map = DeclareLaunchArgument(
         'map',
-        description='The name of the map yaml file.'
+        description='The full path to the map yaml file.'
     )
 
-    declare_arg_param_package = DeclareLaunchArgument(
-        'param_package', default_value='raspimouse_navigation',
-        description='The ROS 2 package that include the param file.'
-    )
-
-    declare_arg_param_file = DeclareLaunchArgument(
-        'param_file', default_value='raspimouse.yaml',
-        description='The name of the param file.'
+    declare_arg_params_file = DeclareLaunchArgument(
+        'params_file',
+        default_value=os.path.join(
+            get_package_share_directory('raspimouse_navigation'),
+            'params',
+            'raspimouse.yaml'),
+        description='The full path to the param file.'
     )
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
@@ -51,7 +48,7 @@ def generate_launch_description():
             get_package_share_directory('raspimouse_navigation'),
             'rviz',
             'nav2_view.rviz'),
-        description='Path to rviz file'
+        description='The full path to the rviz file'
     )
 
     nav2_launch_file_dir = os.path.join(
@@ -59,16 +56,13 @@ def generate_launch_description():
         'launch'
     )
 
-    param_path = [PathJoinSubstitution([FindPackageShare(param_package),
-                                        'params', param_file])]
-
     # Launch files and Nodes #
     nav2_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             nav2_launch_file_dir, '/bringup_launch.py']),
         launch_arguments={
             'map': map_yaml_file,
-            'params_file': param_path,
+            'params_file': params_file,
             'use_sim_time': use_sim_time}.items(),
     )
 
@@ -81,8 +75,7 @@ def generate_launch_description():
 
     ld = LaunchDescription()
     ld.add_action(declare_arg_map)
-    ld.add_action(declare_arg_param_package)
-    ld.add_action(declare_arg_param_file)
+    ld.add_action(declare_arg_params_file)
     ld.add_action(declare_arg_rviz2_config_path)
 
     ld.add_action(nav2_node)
