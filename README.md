@@ -107,7 +107,7 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_NAME.yaml
 ```
-起動できたら、RVizが起動するので、初期位置や目標位置・姿勢を与えるとろぼっとが動きます。
+コマンド実行後にRVizが起動します。RViz上で初期位置や目標位置・姿勢を与えるとRaspberry Pi Mouseが動きます。
 
 <a name="SLAM"></a>
 ## raspimouse_slam
