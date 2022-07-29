@@ -146,11 +146,7 @@ mkdir maps && cd maps
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
 
-`.pgm`と`.yaml`の2つのファイルが生成されます。  
-```sh
-~$ ls | grep MAP_NAME
-MAP_NAME.pgm MAP_NAME.yaml
-```
+コマンドを実行すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。  
 
 <a name="Navigation"></a>
 ## raspimouse_navigation
