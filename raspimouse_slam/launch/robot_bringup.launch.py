@@ -40,10 +40,6 @@ def generate_launch_description():
         'lidar_frame', default_value='laser',
         description='Set lidar frame name.')
 
-    declare_arg_description_launch_file = DeclareLaunchArgument(
-        'description_launch_file', default_value='description.launch.py',
-        description='The launch file to publish the robot description')
-
     declare_arg_joydev = DeclareLaunchArgument(
         'joydev', default_value='/dev/input/js0',
         description='Device file for JoyStick Controller'
@@ -97,7 +93,7 @@ def generate_launch_description():
     display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('raspimouse_slam'), 'launch/'),
-            LaunchConfiguration('description_launch_file')]),
+            'description.launch.py']),
         launch_arguments=description_params
     )
 
@@ -117,7 +113,6 @@ def generate_launch_description():
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_joyconfig)
     ld.add_action(declare_arg_joydev)
-    ld.add_action(declare_arg_description_launch_file)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)

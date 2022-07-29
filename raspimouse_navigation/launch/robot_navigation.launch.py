@@ -30,10 +30,6 @@ from lifecycle_msgs.msg import Transition
 
 def generate_launch_description():
     # Launch arguments #
-    declare_arg_description_launch_file = DeclareLaunchArgument(
-        'description_launch_file', default_value='description.launch.py',
-        description='The launch file to publish the robot description')
-
     lidar_port = LaunchConfiguration(
         'lidar_port', default='/dev/ttyUSB0')
 
@@ -88,7 +84,7 @@ def generate_launch_description():
     robot_description_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('raspimouse_slam'), 'launch/'),
-            LaunchConfiguration('description_launch_file')]),
+            'description.launch.py']),
         launch_arguments=description_params
     )
 
