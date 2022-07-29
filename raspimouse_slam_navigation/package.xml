@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
     <name>raspimouse_slam_navigation</name>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <description>SLAM and navigation packages for Raspberry Pi Mouse V3</description>
     <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
     
@@ -11,6 +11,7 @@
     <url type="repository">https://github.com/rt-net/raspimouse_slam_navigation_ros2</url>
     <url type="bugtracker">https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues</url>
     <author email="kozasa@rt-net.jp">Shuhei Kozasa</author>
+    <author email="s.aoki@rt-net.jp">Shota Aoki</author>
 
     <buildtool_depend>ament_cmake</buildtool_depend>
     <exec_depend>raspimouse_slam</exec_depend>
