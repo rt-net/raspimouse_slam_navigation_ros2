@@ -25,25 +25,19 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 
 以下のリストは、必要なソフトや対応しているセンサなどの一覧を示します。  
 
- - [Raspberry Pi Mouse V3]()
+ - [Raspberry Pi Mouse V3](https://rt-net.jp/products/raspberrypimousev3/)
    - Raspberry Pi - Raspberry Pi 4 Model B
+     - Raspberry Pi 3 では動作確認していません
    - Linux OS - Ubuntu 20.04
    - Device Driver - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
    - ROS - [Foxy Fiztroy](https://docs.ros.org/en/foxy/Installation.html)
-   - Raspberry Pi Mouse ROS Pakcages
-     - [rt-net/raspimouse_slam_navigation_ros2](https://github.com/rt-net/raspimouse_slam_navigation_ros2) (本パッケージ)
-     - [rt-net/raspimouse_ros2_examples](https://github.com/rt-net/raspimouse_ros2_examples)
-     - [rt-net/raspimouse_description](https://github.com/rt-net/raspimouse_description/tree/foxy-devel)
    - オプションパーツ
      - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
      - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
 
  - Remote PC
    - Linux OS - Ubuntu 20.04
-   - ROS - [Foxy Fiztroy](https://docs.ros.org/en/foxy/Installation.html)
-   - Raspberry Pi Mouse ROS Packages
-     - [rt-net/raspimouse_slam_navigation_ros2](https://github.com/rt-net/raspimouse_slam_navigation_ros2) (本パッケージ)
-     - [rt-net/raspimouse_ros2_examples](https://github.com/rt-net/raspimouse_ros2_examples)
+   - ROS - Foxy Fiztroy
 
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド
