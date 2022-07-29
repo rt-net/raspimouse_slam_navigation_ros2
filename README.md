@@ -179,7 +179,8 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
 ### Stopping the robot
-下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。ここで、与えた目標位置・姿勢を取り消す場合やロボットが予期しない挙動をした時に、Cancelボタンを押すと、ロボットが停止します。  
+下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。
+Cancelボタンを押すと自律移動が中断されます。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_rviz_panel.png width=300 />
 
 Raspberry Pi Mouseを停止させる別の方法として、モータへの電源供給を止める方法もあります。  
