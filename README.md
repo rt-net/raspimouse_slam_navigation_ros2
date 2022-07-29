@@ -30,7 +30,7 @@ Raspberry Pi Mouseにはデバイスドライバをインストールしてい�
      - Raspberry Pi 3 では動作確認していません
    - Linux OS - Ubuntu 20.04
    - Device Driver - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
-   - ROS - [Foxy Fiztroy](https://docs.ros.org/en/foxy/Installation.html)
+   - ROS - [Foxy Fitzroy](https://docs.ros.org/en/foxy/Installation.html)
    - オプションパーツ
      - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
      - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
