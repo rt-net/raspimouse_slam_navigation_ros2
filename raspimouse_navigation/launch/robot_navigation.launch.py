@@ -137,7 +137,6 @@ def generate_launch_description():
     ld.add_action(declare_arg_lidar)
     ld.add_action(declare_arg_lidar_frame)
     ld.add_action(declare_arg_namespace)
-    ld.add_action(declare_arg_description_launch_file)
 
     ld.add_action(mouse_node)
     ld.add_action(lds_launch)
