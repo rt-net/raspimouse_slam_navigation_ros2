@@ -32,7 +32,7 @@ def generate_launch_description():
             get_package_share_directory('raspimouse_slam'),
             'config',
             'mapper_params_online_sync.yaml'),
-        description='The file name of the config file for SLAM')
+        description='The full path to the config file for SLAM')
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file', default_value=os.path.join(
