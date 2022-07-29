@@ -20,8 +20,8 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 
 <a name="Requirements"></a>
 ## Requirements
-Raspberry Pi Mouse V3とRemote PCを用意しましょう。  
-Raspberry Pi Mouse V3にはデバイスドライバをインストールしている必要があります。こちらの[RT Software Turtorials](https://rt-net.github.io/tutorials/raspimouse/driver/install.html)をご参照ください。  
+Raspberry Pi MouseとRemote PCを用意しましょう。  
+Raspberry Pi Mouseにはデバイスドライバをインストールしている必要があります。こちらの[RT Software Turtorials](https://rt-net.github.io/tutorials/raspimouse/driver/install.html)をご参照ください。  
 
 以下のリストは、必要なソフトや対応しているセンサなどの一覧を示します。  
 
@@ -48,7 +48,7 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 
 <a name="Installation"></a>
 ## Installation
-### Raspberry Pi Mouse V3
+### Raspberry Pi Mouse
 以下のコマンドをRaspberry Pi Mouse側で実行してインストールを行います。
 ```sh
 cd ~/ros2_ws/src
@@ -154,7 +154,7 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 を使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
-また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
+また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。  
 
 ### Usage
 まずはRaspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを起動するためのノードを起動しています。  
@@ -191,17 +191,15 @@ Raspberry Pi Mouseを停止させる別の方法として、モータへの電�
 
 また、次のコマンドを実行すると、ソフトウェア側からモータ電源をON / OFFできます。  
 ```sh
+# モータ電源をOFFにする
 ros2 service call /motor_power std_srvs/srv/SetBool data:\ false
-```  
-
-新しい目標位置・姿勢を与えたら、次のコマンドでロボットのモータ電源をONにしましょう。  
-```sh
+# モータ電源をONにする
 ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 ```  
 
 ## Notes
-本パッケージで使用されているRPLIDAR A1制御用のパッケージ（[allenh1/rplidar_ros](https://github.com/allenh1/rplidar_ros)）はコミュニティがメンテナンスしているパッケージになります。  
-公式のパッケージ（[Slamtec/sllidar_ros2](https://github.com/Slamtec/sllidar_ros2)）がリリースされたら置き換える予定です。  
+本パッケージで使用されているRPLIDAR A1制御用のパッケージ（[allenh1/rplidar_ros](https://github.com/allenh1/rplidar_ros)）はコミュニティがメンテナンスしているパッケージです。  
+メーカ公式のパッケージ（[Slamtec/sllidar_ros2](https://github.com/Slamtec/sllidar_ros2)）がリリースされたら置き換える予定です。  
 
 
 <a name="License"></a>
