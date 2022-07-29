@@ -1,0 +1,10 @@
+raspimouse:
+  ros__parameters:
+    odometry_scale_left_wheel : 1.0
+    odometry_scale_right_wheel: 1.0
+    use_light_sensors         : true
+    use_pulse_counters        : true
+    pulses_per_revolution     : 400.0
+    light_sensors_hz          : 10.0
+    initial_motor_power       : true
+    

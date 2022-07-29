@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+    <name>raspimouse_slam</name>
+    <version>0.1.0</version>
+    <description>SLAM package for Raspberry Pi Mouse</description>
+    <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
+
+    <license>Apache License 2.0</license>
+
+    <url type="repository">https://github.com/rt-net/raspimouse_slam_navigation_ros2</url>
+    <url type="bugtracker">https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues</url>
+    <author email="kozasa@rt-net.jp">Shuhei Kozasa</author>
+
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    
+    <depend>hls_lfcd_lds_driver</depend>
+    <depend>joint_state_publisher</depend>
+    <depend>joy_linux</depend>
+    <depend>nav2_map_server</depend>
+    <depend>raspimouse</depend>
+    <depend>raspimouse_description</depend>
+    <depend>raspimouse_ros2_examples</depend>
+    <depend>robot_state_publisher</depend>
+    <depend>rplidar_ros</depend>    
+    <depend>rviz2</depend>
+    <depend>slam_toolbox</depend>
+    <depend>urg_node</depend>
+    <depend>xacro</depend>
+
+    <test_depend>ament_lint_auto</test_depend>
+    <test_depend>ament_lint_common</test_depend>
+
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+</package>
