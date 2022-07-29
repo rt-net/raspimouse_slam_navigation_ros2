@@ -139,7 +139,7 @@ Raspberry Pi MouseとRemote PCが通信するため、同じネットワーク�
 ros2 launch raspimouse_slam pc_slam.launch.py
 ```
 
-構築した地図を保存するために、次のROSノードを起動します。Remote PC上で起動することを推奨します。  
+構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。 
 ```sh
 cd ~/ros2_ws/src/raspimouse_slam_navigation2/raspimouse_slam
 mkdir maps && cd maps 
