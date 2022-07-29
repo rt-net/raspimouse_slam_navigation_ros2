@@ -22,7 +22,7 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 ## Requirements
 Raspberry Pi Mouse V3とRemote PCを用意しましょう。  
 Raspberry Pi Mouse V3にはデバイスドライバをインストールしている必要があります。こちらの[RT Software Turtorials](https://rt-net.github.io/tutorials/raspimouse/driver/install.html)をご参照ください。  
-また、ロボットとRemote PCは、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。  
+
 以下のリストは、必要なソフトや対応しているセンサなどの一覧を示します。  
 
  - [Raspberry Pi Mouse V3]()
