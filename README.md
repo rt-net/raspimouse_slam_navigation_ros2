@@ -37,7 +37,7 @@ Raspberry Pi Mouseにはデバイスドライバをインストールしてい�
 
  - Remote PC
    - Linux OS - Ubuntu 20.04
-   - ROS - Foxy Fiztroy
+   - ROS - Foxy Fitzroy
 
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド: [raspimouse_ros2_examplesのREADME参照](https://github.com/rt-net/raspimouse_ros2_examples#requirements-1)
