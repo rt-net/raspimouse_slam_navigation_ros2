@@ -111,7 +111,8 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_NAME
 
 <a name="SLAM"></a>
 ## raspimouse_slam
-LiDARをつかってSLAM（自己位置推定と地図生成）を行うパッケージです。  
+[slam_toolboxパッケージ](https://github.com/SteveMacenski/slam_toolbox)
+を使用してSLAM（自己位置推定と地図生成）を行うパッケージです。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2_with_raspimouse_model.png width=500 />
 
 ここでは、ゲームパッドとして[Logicool Wireless Gamepad F710](https://gaming.logicool.co.jp/ja-jp/products/gamepads/f710-wireless-gamepad.html#940-0001440)を使用しています。
