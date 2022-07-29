@@ -178,7 +178,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE
 ホールドしながらカーソルを動かし、表示されている矢印の向きをRaspberry Pi Mouseの尤もらしい向きに合わせてからボタンを離します。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_initialpose.gif width=500 />
 
-初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の紫色の矢印*2D Nav Goal*をクリックしましょう。地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままマウスを動かして目標姿勢を指示しましょう。すると、ロボットが自律移動を開始します。    
+初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の*Navigation2 Goal*をクリックしましょう。地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままカーソルを動かして目標姿勢を指示しましょう。すると、Raspberry Pi Mouseが自律移動を開始します。    
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
 ### Stopping the robot
