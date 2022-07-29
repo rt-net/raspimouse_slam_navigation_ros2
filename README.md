@@ -150,7 +150,8 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 <a name="Navigation"></a>
 ## raspimouse_navigation
-SLAMで地図を生成した後、その地図を使って自己位置推定を行い、地図上の任意の座標まで自律移動を行います。  
+[Navigation2パッケージ](https://github.com/ros-planning/navigation2)
+を使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
 また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
