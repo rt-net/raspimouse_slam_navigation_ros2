@@ -182,9 +182,10 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE
 下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。ここで、与えた目標位置・姿勢を取り消す場合やロボットが予期しない挙動をした時に、Cancelボタンを押すと、ロボットが停止します。  
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_rviz_panel.png width=300 />
 
-また、ロボットを停止させる別の方法として、モータへの電源供給を止める方法もあります。  
-安全に気をつけながらRaspberry Pi Mouse V3のモータ用電源をOFFにしましょう。モータ用電源はRaspberry Pi Mouse V3に搭載されたスイッチでON / OFFできます。  
-あるいは、次のコマンドを実行すると、ソフトウェア側からモータ電源をOFFにできます。与えた目標位置・姿勢への移動を停止したい場合は、新しいターミナルで次のコマンドを実行しましょう。RViz上には目標位置・姿勢が残りますが、ロボットは停止します。新たに、2D Nav Goalを設置すると、そちらに目標位置・姿勢が置き換わります。  
+Raspberry Pi Mouseを停止させる別の方法として、モータへの電源供給を止める方法もあります。  
+安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにしましょう。 
+
+また、次のコマンドを実行すると、ソフトウェア側からモータ電源をON / OFFできます。  
 ```sh
 ros2 service call /motor_power std_srvs/srv/SetBool data:\ false
 ```  
