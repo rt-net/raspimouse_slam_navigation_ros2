@@ -83,7 +83,7 @@ source ~/ros2_ws/install/setup.bash
 
 <a name="QuickStart"></a>
 ## QuickStart
-無事インストールが完了したら、以下の一連のコマンドを実行しましょう。SLAMで地図生成を行い、作った地図を利用してナビゲーションを行うことができます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。  
+無事インストールが完了したら、以下の一連のコマンドを実行しましょう。SLAMで地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。  
 ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
 
 ### SLAM
