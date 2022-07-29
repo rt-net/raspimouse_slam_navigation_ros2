@@ -27,7 +27,7 @@ def generate_launch_description():
     # Declare arguments #
     declare_arg_namespace = DeclareLaunchArgument(
         'namespace', default_value='',
-        description='Set namespace')
+        description='Set namespace for tf tree.')
 
     lidar_port = LaunchConfiguration(
         'lidar_port', default='/dev/ttyUSB0')
