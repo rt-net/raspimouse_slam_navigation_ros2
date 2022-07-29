@@ -98,7 +98,7 @@ source ~/ros2_ws/install/setup.bash
 ## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar lidar_port:=/dev/ttyUSB0 joyconfig:=f710
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_slam raspimouse_slam.launch.py
+ros2 launch raspimouse_slam pc_slam.launch.py
 ## 地図ができたら引き続きPC側で実行
 ## 新しい端末を開いて次のコマンドを実行しましょう 
 ## MAP_NAMEを地図ファイルの名前に置き換えましょう
@@ -141,7 +141,7 @@ ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=urg lidar_port:=/dev/
 
 Remote PC上で起動することを推奨します。この時、Remote PCとRaspberry Pi Mouseが同じネットワーク上で同じROS_DOMAIN_IDを指定している必要があります。  
 ```sh
-ros2 launch raspimouse_slam raspimouse_slam.launch.py
+ros2 launch raspimouse_slam pc_slam.launch.py
 ```
 
 構築した地図を保存するために、次のROSノードを起動します。Remote PC上で起動することを推奨します。  
