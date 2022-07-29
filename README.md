@@ -49,7 +49,7 @@ Raspberry Pi Mouse V3にはデバイスドライバをインストールして�
 <a name="Installation"></a>
 ## Installation
 ### Raspberry Pi Mouse V3
-以下のコマンドをロボット側で実行してインストールを行います。
+以下のコマンドをRaspberry Pi Mouse側で実行してインストールを行います。
 ```sh
 cd ~/ros2_ws/src
 # Clone the ROS packages
