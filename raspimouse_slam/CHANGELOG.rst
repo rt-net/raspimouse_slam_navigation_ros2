@@ -2,8 +2,8 @@
 Changelog for package raspimouse_slam
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2022-08-17)
+------------------
 * 1m四方のフィールドでSLAMが実施できるようにパラメータ調整
 * 使用していないパラメータファイルを削除
 * Save the map file to the home directory and use the absolute path to the map file

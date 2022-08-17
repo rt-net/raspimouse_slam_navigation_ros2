@@ -2,8 +2,8 @@
 Changelog for package raspimouse_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2022-08-17)
+------------------
 * DWB:Criticsのパラメータを調整
 * AMCL:回転のノイズを調整
 * DWB: 走行速度を小さくした
