@@ -7,7 +7,7 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 
 現在、以下のROS 2のディストリビューションに対応しております。  
  - Foxy ([foxy-devel](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/foxy-devel))
- - Humble ([TBD]())
+ - Humble ([humble-devel](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble-devel))
 
 ---
 # Table of Contents
