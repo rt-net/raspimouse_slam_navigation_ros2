@@ -28,7 +28,7 @@ amcl:
     recovery_alpha_fast: 0.0
     recovery_alpha_slow: 0.0
     resample_interval: 1
-    robot_model_type: "differential"
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
     save_pose_rate: 0.5
     sigma_hit: 0.2
     tf_broadcast: true
@@ -85,6 +85,8 @@ bt_navigator:
     - nav2_transform_available_condition_bt_node
     - nav2_time_expired_condition_bt_node
     - nav2_distance_traveled_condition_bt_node
+    - nav2_compute_path_through_poses_action_bt_node
+    - nav2_remove_passed_goals_action_bt_node
 
 bt_navigator_rclcpp_node:
   ros__parameters:
@@ -99,7 +101,7 @@ controller_server:
     min_theta_velocity_threshold: 0.001
 
     # ゴール判定のプラグインを追加
-    goal_checker_plugins: "goal_checker"
+    goal_checker_plugins: ["goal_checker"]
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.05

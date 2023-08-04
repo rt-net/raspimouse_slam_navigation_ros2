@@ -7,6 +7,7 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 
 現在、以下のROS 2のディストリビューションに対応しております。  
  - Foxy ([foxy-devel](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/foxy-devel))
+ - Humble ([humble-devel](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble-devel))
 
 ---
 # Table of Contents
@@ -28,16 +29,16 @@ Raspberry Pi Mouseにはデバイスドライバをインストールしてい�
  - [Raspberry Pi Mouse V3](https://rt-net.jp/products/raspberrypimousev3/)
    - Raspberry Pi - Raspberry Pi 4 Model B
      - Raspberry Pi 3 では動作確認していません
-   - Linux OS - Ubuntu 20.04
+   - Linux OS - Ubuntu 22.04
    - Device Driver - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
-   - ROS - [Foxy Fitzroy](https://docs.ros.org/en/foxy/Installation.html)
+   - ROS - [Humble Hawksbill](https://docs.ros.org/en/humble/Installation.html)
    - オプションパーツ
      - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
      - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
 
  - Remote PC
-   - Linux OS - Ubuntu 20.04
-   - ROS - Foxy Fitzroy
+   - Linux OS - Ubuntu 22.04
+   - ROS - Humble Hawksbill
 
 また、本パッケージは以下の機材に対応しています。  
  - ゲームパッド: [raspimouse_ros2_examplesのREADME参照](https://github.com/rt-net/raspimouse_ros2_examples#requirements-1)
@@ -57,7 +58,7 @@ git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_ros2_example
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_description
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
 # Install dependencies
-rosdep install -r -y -i --from-paths . --ignore-src
+rosdep install -y -i --from-paths . --ignore-src
 
 # make and install
 cd ~/ros2_ws
@@ -73,7 +74,7 @@ cd ~/ros2_ws/src
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_description
 git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
 # Install dependencies
-rosdep install -r -y -i --from-paths . --ignore-src
+rosdep install -y -i --from-paths . --ignore-src
 
 # make and install
 cd ~/ros2_ws
