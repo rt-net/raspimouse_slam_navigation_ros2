@@ -2,6 +2,11 @@
 Changelog for package raspimouse_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+2.0.0 (2023-08-04)
+------------------
+* Humble対応 (`#6 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/6>`_)
+* Contributors: Shuhei Kozasa
+
 1.0.0 (2022-07-29)
 ------------------
 * DWB:Criticsのパラメータを調整
