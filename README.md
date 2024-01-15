@@ -196,10 +196,6 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ false
 ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 ```  
 
-## Notes
-本パッケージで使用されているRPLIDAR A1制御用のパッケージ（[allenh1/rplidar_ros](https://github.com/allenh1/rplidar_ros)）はコミュニティがメンテナンスしているパッケージです。  
-メーカ公式のパッケージ（[Slamtec/sllidar_ros2](https://github.com/Slamtec/sllidar_ros2)）がリリースされたら置き換える予定です。  
-
 
 <a name="License"></a>
 # License
