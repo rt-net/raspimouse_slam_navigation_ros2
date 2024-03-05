@@ -2,6 +2,9 @@
 Changelog for package raspimouse_slam_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 2.0.0 (2023-08-04)
 ------------------
 
