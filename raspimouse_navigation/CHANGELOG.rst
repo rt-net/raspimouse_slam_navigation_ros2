@@ -2,8 +2,8 @@
 Changelog for package raspimouse_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+2.1.0 (2024-03-05)
+------------------
 * Use rplidar_a1_launch.py because rplidar.launch.py does not exist. (`#8 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/8>`_)
 * Contributors: Shota Aoki
 
