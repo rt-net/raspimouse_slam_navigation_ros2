@@ -243,10 +243,10 @@ collision_monitor:
     polygons: ["PolygonSlow"]
     PolygonSlow:
       type: "polygon"
-      points: "[[0.6, 0.4], [0.6, -0.4], [0.0, -0.4], [0.0, 0.4]]"
+      points: "[[0.06, 0.04], [0.06, -0.04], [0.00, -0.04], [0.00, 0.04]]"
       action_type: "slowdown"
       min_points: 4  # max_points: 3 for Humble
-      slowdown_ratio: 0.3
+      slowdown_ratio: 0.5
       visualize: True
       polygon_pub_topic: "polygon_slowdown"
     observation_sources: ["scan"]
@@ -256,18 +256,10 @@ collision_monitor:
 
 docking_server:
   ros__parameters:
-    # Types of docks
+    use_sim_time: False
     dock_plugins: ['nova_carter_dock']
     nova_carter_dock:
       plugin: 'opennav_docking::SimpleChargingDock'
-      # More parameters exist here that we will discuss later in the tutorial
-
-    # Dock instances
-    docks: ['dummy_dock',]
-    dummy_dock:
-      type: 'nova_carter_dock'
-      frame: map
-      pose: [0.0, 0.0, 0.0]
 
 map_server:
   ros__parameters:
