@@ -48,7 +48,6 @@ amcl:
       z: 0.0
       yaw: 0.0
 
-
 amcl_map_client:
   ros__parameters:
     use_sim_time: False
@@ -72,6 +71,7 @@ bt_navigator_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: False
+    enable_stamped_cmd_vel: True
     controller_frequency: 10.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
@@ -229,34 +229,41 @@ global_costmap:
     ros__parameters:
       use_sim_time: False
 
+velocity_smoother:
+  ros__parameters:
+    enable_stamped_cmd_vel: True
+
+behavior_server:
+  ros__parameters:
+    enable_stamped_cmd_vel: True
+
 collision_monitor:
   ros__parameters:
     use_sim_time: False
+    enable_stamped_cmd_vel: True
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
     cmd_vel_in_topic: "cmd_vel_smoothed"
     cmd_vel_out_topic: "cmd_vel"
-    transform_tolerance: 0.5
+    transform_tolerance: 0.1
     source_timeout: 5.0
     stop_pub_timeout: 2.0
-    enable_stamped_cmd_vel: False
-    polygons: ["PolygonSlow"]
-    PolygonSlow:
+    polygons: ["DummyPolygon"]
+    DummyPolygon:
       type: "polygon"
       points: "[[0.06, 0.04], [0.06, -0.04], [0.00, -0.04], [0.00, 0.04]]"
-      action_type: "slowdown"
+      action_type: "none"
       min_points: 4  # max_points: 3 for Humble
       slowdown_ratio: 0.5
-      visualize: True
-      polygon_pub_topic: "polygon_slowdown"
     observation_sources: ["scan"]
     scan:
       type: "scan"
-      topic: "scan"
+      topic: "/scan"
 
 docking_server:
   ros__parameters:
     use_sim_time: False
+    enable_stamped_cmd_vel: True
     dock_plugins: ['nova_carter_dock']
     nova_carter_dock:
       plugin: 'opennav_docking::SimpleChargingDock'
