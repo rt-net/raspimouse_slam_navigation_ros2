@@ -24,10 +24,16 @@ from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
     # Declare arguments #
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     map_yaml_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
+
+    declare_arg_use_sim_time = DeclareLaunchArgument(
+        'use_sim_tim',
+        default_value='True',
+        description='True: Simulate, False: Machine'
+    )
 
     declare_arg_map = DeclareLaunchArgument(
         'map',
@@ -74,6 +80,7 @@ def generate_launch_description():
     )
 
     ld = LaunchDescription()
+    ld.add_action(declare_arg_use_sim_time)
     ld.add_action(declare_arg_map)
     ld.add_action(declare_arg_params_file)
     ld.add_action(declare_arg_rviz2_config_path)

@@ -1,6 +1,5 @@
 amcl:
   ros__parameters:
-    use_sim_time: True
     # ノイズの大きさをデフォルト値から小さくした
     # 回転によりodomがずれやすいため、回転成分のノイズを大きくした
     alpha1: 0.1
@@ -48,30 +47,16 @@ amcl:
       z: 0.0
       yaw: 0.0
 
-amcl_map_client:
-  ros__parameters:
-    use_sim_time: True
-
-amcl_rclcpp_node:
-  ros__parameters:
-    use_sim_time: True
-
 bt_navigator:
   ros__parameters:
-    use_sim_time: True
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
     #default_nav_to_pose_bt_xml: "$(find-pkg-share nav2_bt_navigator)/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml"
     #default_nav_through_poses_bt_xml: "$(find-pkg-share nav2_bt_navigator)/behavior_trees/navigate_through_poses_w_replanning_and_recovery.xml"
 
-bt_navigator_rclcpp_node:
-  ros__parameters:
-    use_sim_time: True
-
 controller_server:
   ros__parameters:
-    use_sim_time: False  # If set to 'True', navigation fails in the simulation
     enable_stamped_cmd_vel: True
     controller_frequency: 10.0
     min_x_velocity_threshold: 0.001
@@ -147,10 +132,6 @@ controller_server:
         lookahead_time: -1.0
         scale: 32.0 # criticの重み
 
-controller_server_rclcpp_node:
-  ros__parameters:
-    use_sim_time: True
-
 local_costmap:
   local_costmap:
     ros__parameters:
@@ -158,7 +139,6 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
-      use_sim_time: True
       rolling_window: true
       # ラズパイマウスの形状が小さいので、コストマップのサイズも小さくする
       width: 1 # meters
@@ -187,12 +167,6 @@ local_costmap:
         cost_scaling_factor: 8.0
         inflation_radius: 0.5
       always_send_full_costmap: True
-  local_costmap_client:
-    ros__parameters:
-      use_sim_time: True
-  local_costmap_rclcpp_node:
-    ros__parameters:
-      use_sim_time: True
 
 global_costmap:
   global_costmap:
@@ -201,7 +175,6 @@ global_costmap:
       publish_frequency: 1.0
       global_frame: map
       robot_base_frame: base_link
-      use_sim_time: True
       footprint: "[ [0.06, 0.05], [0.06, -0.05], [-0.15, -0.05], [-0.15, 0.05] ]"
       # SLAMのパラメータと同じresolutionを設定
       resolution: 0.01
@@ -232,12 +205,6 @@ global_costmap:
         cost_scaling_factor: 8.0
         inflation_radius: 0.5
       always_send_full_costmap: True
-  global_costmap_client:
-    ros__parameters:
-      use_sim_time: True
-  global_costmap_rclcpp_node:
-    ros__parameters:
-      use_sim_time: True
 
 velocity_smoother:
   ros__parameters:
@@ -249,7 +216,6 @@ behavior_server:
 
 collision_monitor:
   ros__parameters:
-    use_sim_time: True
     enable_stamped_cmd_vel: True
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
@@ -272,7 +238,6 @@ collision_monitor:
 
 docking_server:
   ros__parameters:
-    use_sim_time: True
     enable_stamped_cmd_vel: True
     dock_plugins: ["nova_carter_dock"]
     nova_carter_dock:
@@ -280,12 +245,10 @@ docking_server:
 
 map_server:
   ros__parameters:
-    use_sim_time: True
     yaml_filename: "test.yaml"
 
 map_saver:
   ros__parameters:
-    use_sim_time: True
     save_map_timeout: 5000
     free_thresh_default: 0.25
     occupied_thresh_default: 0.65
@@ -293,17 +256,12 @@ map_saver:
 planner_server:
   ros__parameters:
     expected_planner_frequency: 20.0
-    use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner::NavfnPlanner"
       tolerance: 0.5
       use_astar: false
       allow_unknown: true
-
-planner_server_rclcpp_node:
-  ros__parameters:
-    use_sim_time: True
 
 recoveries_server:
   ros__parameters:
@@ -320,12 +278,7 @@ recoveries_server:
     global_frame: odom
     robot_base_frame: base_footprint
     transform_timeout: 0.1
-    use_sim_time: True
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
     min_rotational_vel: 0.4
     rotational_acc_lim: 3.2
-
-robot_state_publisher:
-  ros__parameters:
-    use_sim_time: True
