@@ -62,7 +62,8 @@ bt_navigator:
     global_frame: map
     robot_base_frame: base_link
     odom_topic: /odom
-    default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
+    #default_nav_to_pose_bt_xml: "$(find-pkg-share nav2_bt_navigator)/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml"
+    #default_nav_through_poses_bt_xml: "$(find-pkg-share nav2_bt_navigator)/behavior_trees/navigate_through_poses_w_replanning_and_recovery.xml"
 
 bt_navigator_rclcpp_node:
   ros__parameters:
@@ -117,25 +118,34 @@ controller_server:
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      critics:
+        [
+          "RotateToGoal",
+          "Oscillation",
+          "BaseObstacle",
+          "GoalAlign",
+          "PathAlign",
+          "PathDist",
+          "GoalDist",
+        ]
       BaseObstacle:
-        scale: 0.02  # criticの重み
+        scale: 0.02 # criticの重み
       PathAlign:
         forward_point_distance: 0.1
-        scale: 10.0  # criticの重み
+        scale: 10.0 # criticの重み
       GoalAlign:
         forward_point_distance: 0.1
-        scale: 10.0  # criticの重み
+        scale: 10.0 # criticの重み
       PathDist:
-        scale: 32.0  # criticの重み
+        scale: 32.0 # criticの重み
       GoalDist:
-        scale: 24.0  # criticの重み
+        scale: 24.0 # criticの重み
       RotateToGoal:
-        xy_goal_tolerance: 0.01  # meters
-        trans_stopped_velocity: 0.25  # rad/sec
+        xy_goal_tolerance: 0.01 # meters
+        trans_stopped_velocity: 0.25 # rad/sec
         slowing_factor: 20.0
         lookahead_time: -1.0
-        scale: 32.0  # criticの重み
+        scale: 32.0 # criticの重み
 
 controller_server_rclcpp_node:
   ros__parameters:
@@ -151,8 +161,8 @@ local_costmap:
       use_sim_time: False
       rolling_window: true
       # ラズパイマウスの形状が小さいので、コストマップのサイズも小さくする
-      width: 1  # meters
-      height: 1  # meters
+      width: 1 # meters
+      height: 1 # meters
       # SLAMのパラメータと同じresolutionを設定
       resolution: 0.01
       footprint: "[ [0.06, 0.05], [0.06, -0.05], [-0.15, -0.05], [-0.15, 0.05] ]"
@@ -253,7 +263,7 @@ collision_monitor:
       type: "polygon"
       points: "[[0.06, 0.04], [0.06, -0.04], [0.00, -0.04], [0.00, 0.04]]"
       action_type: "none"
-      min_points: 4  # max_points: 3 for Humble
+      min_points: 4 # max_points: 3 for Humble
       slowdown_ratio: 0.5
     observation_sources: ["scan"]
     scan:
@@ -264,9 +274,9 @@ docking_server:
   ros__parameters:
     use_sim_time: False
     enable_stamped_cmd_vel: True
-    dock_plugins: ['nova_carter_dock']
+    dock_plugins: ["nova_carter_dock"]
     nova_carter_dock:
-      plugin: 'opennav_docking::SimpleChargingDock'
+      plugin: "opennav_docking::SimpleChargingDock"
 
 map_server:
   ros__parameters:
