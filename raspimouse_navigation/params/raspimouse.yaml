@@ -1,7 +1,7 @@
 amcl:
   ros__parameters:
-    # ノイズの大きさをデフォルト値から小さくした
-    # 回転によりodomがずれやすいため、回転成分のノイズを大きくした
+    # Reduced the noise level from the default value
+    # Increased rotational noise to compensate for odometry drift
     alpha1: 0.1
     alpha2: 0.1
     alpha3: 0.01
@@ -32,14 +32,14 @@ amcl:
     sigma_hit: 0.2
     tf_broadcast: true
     transform_tolerance: 1.0
-    # ラズパイマウスに合わせて、updateに必要な最小距離と角度を小さくした
+    # Reduced update distance and angle to match Raspberry Pi Mouse
     update_min_a: 0.02
     update_min_d: 0.05
     z_hit: 0.5
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    # 仮の初期位置・姿勢を設定
+    # Set a tentative initial position and orientation
     set_initial_pose: True
     initial_pose:
       x: 0.0
@@ -63,7 +63,7 @@ controller_server:
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
 
-    # ゴール判定のプラグインを追加
+    # Added plugin for goal checking
     goal_checker_plugins: ["goal_checker"]
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
@@ -76,7 +76,7 @@ controller_server:
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: True
-      # 走行速度をラズパイマウスのスペックに合わせて調整
+      # Adjusted driving speed to match the Raspberry Pi Mouse's specifications
       min_vel_x: -0.1
       min_vel_y: 0.0
       max_vel_x: 0.1
@@ -114,23 +114,23 @@ controller_server:
           "GoalDist",
         ]
       BaseObstacle:
-        scale: 0.02 # criticの重み
+        scale: 0.02 # critic weight
       PathAlign:
         forward_point_distance: 0.1
-        scale: 10.0 # criticの重み
+        scale: 10.0 # critic weight
       GoalAlign:
         forward_point_distance: 0.1
-        scale: 10.0 # criticの重み
+        scale: 10.0 # critic weight
       PathDist:
-        scale: 32.0 # criticの重み
+        scale: 32.0 # critic weight
       GoalDist:
-        scale: 24.0 # criticの重み
+        scale: 24.0 # ccritic weight
       RotateToGoal:
         xy_goal_tolerance: 0.01 # meters
         trans_stopped_velocity: 0.25 # rad/sec
         slowing_factor: 20.0
         lookahead_time: -1.0
-        scale: 32.0 # criticの重み
+        scale: 32.0 # critic weight
 
 local_costmap:
   local_costmap:
@@ -140,10 +140,10 @@ local_costmap:
       global_frame: odom
       robot_base_frame: base_link
       rolling_window: true
-      # ラズパイマウスの形状が小さいので、コストマップのサイズも小さくする
+      # Reduced costmap size to fit the Raspberry Pi Mouse
       width: 1 # meters
       height: 1 # meters
-      # SLAMのパラメータと同じresolutionを設定
+      # Set resolution to the same as SLAM parameters
       resolution: 0.01
       footprint: "[ [0.06, 0.05], [0.06, -0.05], [-0.15, -0.05], [-0.15, 0.05] ]"
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -176,7 +176,7 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_link
       footprint: "[ [0.06, 0.05], [0.06, -0.05], [-0.15, -0.05], [-0.15, 0.05] ]"
-      # SLAMのパラメータと同じresolutionを設定
+      # Set resolution to the same as SLAM parameters
       resolution: 0.01
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       static_layer:
@@ -186,7 +186,7 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        # フットプリントに重なった障害物を除去する
+        # Remove obstacles overlapping the footprint
         footprint_clearing_enabled: True
         observation_sources: scan
         scan:
@@ -217,20 +217,15 @@ behavior_server:
 collision_monitor:
   ros__parameters:
     enable_stamped_cmd_vel: True
-    base_frame_id: "base_footprint"
-    odom_frame_id: "odom"
-    cmd_vel_in_topic: "cmd_vel_smoothed"
-    cmd_vel_out_topic: "cmd_vel"
     transform_tolerance: 0.1
     source_timeout: 5.0
     stop_pub_timeout: 2.0
+    base_shift_correction: False
     polygons: ["DummyPolygon"]
     DummyPolygon:
-      type: "polygon"
-      points: "[[0.06, 0.04], [0.06, -0.04], [0.00, -0.04], [0.00, 0.04]]"
-      action_type: "none"
-      min_points: 4 # max_points: 3 for Humble
-      slowdown_ratio: 0.5
+      type: "circle"
+      radius: 0.0  # valid range of dummy
+      action_type: "none"  # No action taken.
     observation_sources: ["scan"]
     scan:
       type: "scan"
