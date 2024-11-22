@@ -6,13 +6,13 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 その他のRaspberry Pi MouseのROS 2サンプル集は[rt-net/raspimouse_ros2_examples](https://github.com/rt-net/raspimouse_ros2_examples)で紹介しています。
 
 現在、以下のROS 2のディストリビューションに対応しております。
- - Humble ([humble-devel](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble-))
- - Jazzy (Jazzy)
+ - Humble ([humble](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble))
+ - Jazzy ([jazzy](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/jazzy)) (This branch)
 
 ---
 # Table of Contents
  - [Requirements](#Requirements)
- - [Installation](#Installation)
+ - [Installation](#Installati)on)
  - [QuickStart](#QuickStart)
  - [raspimouse_slam](#SLAM)
  - [raspimouse_navigation](#Navigation)
