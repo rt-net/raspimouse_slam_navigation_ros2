@@ -1,9 +1,9 @@
 - git:
-    uri: https://github.com/rt-net/raspimouse_description.git
-    local-name: raspimouse_description
-    version: humble-devel
+    uri: https://github.com/rt-net/raspimouse_sim.git
+    local-name: raspimouse_sim
+    version: jazzy
 
 - git:
     uri: https://github.com/rt-net/raspimouse_ros2_examples.git
     local-name: raspimouse_ros2_examples
-    version: humble-devel
+    version: jazzy
