@@ -12,7 +12,7 @@ Raspberry Pi MouseでSLAMが行える`raspimouse_slam`パッケージとナビ�
 ---
 # Table of Contents
  - [Requirements](#Requirements)
- - [Installation](#Installati)on)
+ - [Installation](#Installation)
  - [QuickStart](#QuickStart)
  - [raspimouse_slam](#SLAM)
  - [raspimouse_navigation](#Navigation)
