@@ -5,18 +5,20 @@
     <version>2.1.0</version>
     <description>SLAM and navigation packages for Raspberry Pi Mouse V3</description>
     <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
-    
+
     <license>Apache-2.0</license>
-    
+
     <url type="repository">https://github.com/rt-net/raspimouse_slam_navigation_ros2</url>
     <url type="bugtracker">https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues</url>
     <author email="kozasa@rt-net.jp">Shuhei Kozasa</author>
     <author email="s.aoki@rt-net.jp">Shota Aoki</author>
+    <author email="yusuke.kato@rt-net.jp">Yusuke Kato</author>
+    <author email="kurasawa@rt-net.jp">Kazushi Kurasawa</author>
 
     <buildtool_depend>ament_cmake</buildtool_depend>
     <exec_depend>raspimouse_slam</exec_depend>
     <exec_depend>raspimouse_navigation</exec_depend>
-    
+
     <export>
         <build_type>ament_cmake</build_type>
     </export>
