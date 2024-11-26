@@ -17,82 +17,99 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.actions import RegisterEventHandler, EmitEvent
+from launch.actions import EmitEvent, RegisterEventHandler
 from launch.conditions import LaunchConfigurationEquals
 from launch.events import matches_action, Shutdown
-from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import LifecycleNode, Node
-from launch_ros.events import lifecycle
 from launch_ros.event_handlers import OnStateTransition
+from launch_ros.events import lifecycle
 from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
     # Launch arguments #
-    lidar_port = LaunchConfiguration(
-        'lidar_port', default='/dev/ttyUSB0')
+    lidar_port = LaunchConfiguration('lidar_port', default='/dev/ttyUSB0')
 
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
-        description='Set "none", "urg", "lds", or "rplidar".')
+        description='Set "none", "urg", "lds", or "rplidar".',
+    )
 
     declare_arg_lidar_frame = DeclareLaunchArgument(
-        'lidar_frame',
-        default_value='laser',
-        description='Set lidar frame name.')
+        'lidar_frame', default_value='laser', description='Set lidar frame name.'
+    )
 
     declare_arg_namespace = DeclareLaunchArgument(
-        'namespace',
-        default_value='',
-        description='Set namespace for tf tree.')
+        'namespace', default_value='', description='Set namespace for tf tree.'
+    )
 
     # Launch files and Nodes #
     lds_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory('hls_lfcd_lds_driver'),
-                'launch'),
-                '/hlds_laser.launch.py']),
-        condition=LaunchConfigurationEquals('lidar', 'lds')
+        PythonLaunchDescriptionSource(
+            [
+                os.path.join(
+                    get_package_share_directory('hls_lfcd_lds_driver'), 'launch'
+                ),
+                '/hlds_laser.launch.py',
+            ]
+        ),
+        condition=LaunchConfigurationEquals('lidar', 'lds'),
     )
 
     urg_launch = Node(
         name='urg_node_driver',
-        package='urg_node', executable='urg_node_driver', output='screen',
+        package='urg_node',
+        executable='urg_node_driver',
+        output='screen',
         parameters=[{'serial_port': lidar_port}],
-        condition=LaunchConfigurationEquals('lidar', 'urg')
+        condition=LaunchConfigurationEquals('lidar', 'urg'),
     )
 
     rplidar_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('rplidar_ros'),
-            'launch'),
-            '/rplidar_a1_launch.py']),
-        launch_arguments={'serial_port': lidar_port,
-                          'frame_id': LaunchConfiguration('lidar_frame')
-                          }.items(),
-        condition=LaunchConfigurationEquals('lidar', 'rplidar')
+        PythonLaunchDescriptionSource(
+            [
+                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
+                '/rplidar_a1_launch.py',
+            ]
+        ),
+        launch_arguments={
+            'serial_port': lidar_port,
+            'frame_id': LaunchConfiguration('lidar_frame'),
+        }.items(),
+        condition=LaunchConfigurationEquals('lidar', 'rplidar'),
     )
 
-    description_params = {'lidar': LaunchConfiguration('lidar'),
-                          'lidar_frame': LaunchConfiguration('lidar_frame'),
-                          'namespace': LaunchConfiguration('namespace')
-                          }.items()
+    description_params = {
+        'lidar': LaunchConfiguration('lidar'),
+        'lidar_frame': LaunchConfiguration('lidar_frame'),
+        'namespace': LaunchConfiguration('namespace'),
+    }.items()
 
     # Launch files and Nodes #
     robot_description_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('raspimouse_slam'), 'launch/'),
-            'description.launch.py']),
-        launch_arguments=description_params
+        PythonLaunchDescriptionSource(
+            [
+                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
+                'description.launch.py',
+            ]
+        ),
+        launch_arguments=description_params,
     )
 
     mouse_node = LifecycleNode(
-        name='raspimouse', namespace='',
-        package='raspimouse', executable='raspimouse', output='screen',
-        parameters=[os.path.join(get_package_share_directory(
-            'raspimouse_slam'), 'config', 'mouse.yaml')]
+        name='raspimouse',
+        namespace='',
+        package='raspimouse',
+        executable='raspimouse',
+        output='screen',
+        parameters=[
+            os.path.join(
+                get_package_share_directory('raspimouse_slam'), 'config', 'mouse.yaml'
+            )
+        ],
     )
 
     emit_configuring_event = EmitEvent(
@@ -109,17 +126,13 @@ def generate_launch_description():
         )
     )
 
-    emit_shutdown_event = EmitEvent(
-        event=Shutdown()
-    )
+    emit_shutdown_event = EmitEvent(event=Shutdown())
 
     register_activating_transition = RegisterEventHandler(
         OnStateTransition(
             target_lifecycle_node=mouse_node,
             goal_state='inactive',
-            entities=[
-                emit_activating_event
-            ],
+            entities=[emit_activating_event],
         )
     )
 
@@ -127,9 +140,7 @@ def generate_launch_description():
         OnStateTransition(
             target_lifecycle_node=mouse_node,
             goal_state='finalized',
-            entities=[
-                emit_shutdown_event
-            ],
+            entities=[emit_shutdown_event],
         )
     )
 
