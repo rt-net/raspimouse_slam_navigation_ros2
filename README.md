@@ -71,8 +71,8 @@ source ~/ros2_ws/install/setup.bash
 ```sh
 cd ~/ros2_ws/src
 # Clone the ROS packages
-git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_description
-git clone -b $ROS_DISTRO-devel https://github.com/rt-net/raspimouse_slam_navigation_ros2
+git clone -b $ROS_DISTRO https://github.com/rt-net/raspimouse_description
+git clone -b $ROS_DISTRO https://github.com/rt-net/raspimouse_slam_navigation_ros2
 # Install dependencies
 rosdep install -y -i --from-paths . --ignore-src
 
