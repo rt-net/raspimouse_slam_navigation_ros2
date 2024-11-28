@@ -106,7 +106,7 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ## ロボット側で以下のコマンドを実行
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_NAME.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
 ```
 コマンド実行後にRVizが起動します。RViz上で初期位置や目標位置・姿勢を与えるとRaspberry Pi Mouseが動きます。
 
@@ -169,7 +169,7 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_po
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
 ```sh
-ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
 ```
 
 無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックしましょう。
