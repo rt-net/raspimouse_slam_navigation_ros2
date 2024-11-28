@@ -2,6 +2,15 @@
 Changelog for package raspimouse_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.0.0 (2024-11-28)
+------------------
+* Support ROS 2 Jazzy (`#13 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/13>`_)
+* Added the setting `enable_stamped_cmd_vel: True` to standardize the velocity to `TwistStamped` from `Twist`
+* Modified the `use_sim_time` setting in `collision_monitor` to be `True` during simulations and `False` during real-world operations
+* Changed to provide `use_sim_time` from the launch command
+* Removed the descriptions for `default_nav_to_pose_bt_xml` and `default_nav_through_poses_bt_xml`, changing to automatically load the default settings
+* Contributors: Kazushi Kurasawa, YusukeKato
+
 2.1.0 (2024-03-05)
 ------------------
 * Use rplidar_a1_launch.py because rplidar.launch.py does not exist. (`#8 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/8>`_)
