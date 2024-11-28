@@ -12,9 +12,11 @@
     <url type="bugtracker">https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues</url>
     <author email="kozasa@rt-net.jp">Shuhei Kozasa</author>
     <author email="s.aoki@rt-net.jp">Shota Aoki</author>
+    <author email="yusuke.kato@rt-net.jp">Yusuke Kato</author>
+    <author email="kurasawa@rt-net.jp">Kazushi Kurasawa</author>
 
     <buildtool_depend>ament_cmake</buildtool_depend>
-    
+
     <depend>hls_lfcd_lds_driver</depend>
     <depend>joint_state_publisher</depend>
     <depend>joy_linux</depend>
@@ -23,7 +25,7 @@
     <depend>raspimouse_description</depend>
     <depend>raspimouse_ros2_examples</depend>
     <depend>robot_state_publisher</depend>
-    <depend>rplidar_ros</depend>    
+    <depend>rplidar_ros</depend>
     <depend>rviz2</depend>
     <depend>slam_toolbox</depend>
     <depend>urg_node</depend>

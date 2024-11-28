@@ -19,53 +19,64 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node, LifecycleNode
+from launch_ros.actions import LifecycleNode, Node
 
 
 def generate_launch_description():
     # Declare arguments #
     declare_arg_joydev = DeclareLaunchArgument(
-        'joydev', default_value='/dev/input/js0',
-        description='Device file for JoyStick Controller'
+        'joydev',
+        default_value='/dev/input/js0',
+        description='Device file for JoyStick Controller',
     )
 
     declare_arg_joyconfig = DeclareLaunchArgument(
-        'joyconfig', default_value='f710',
+        'joyconfig',
+        default_value='f710',
         description='Keyconfig of joystick controllers. \
                      These are the supported controllers and value names: \
                      F710 -> f710 \
                      DUALSHOCK3 -> dualshock3 \
-                     DUALSHOCK4 -> dualshock4'
+                     DUALSHOCK4 -> dualshock4',
     )
 
     declare_arg_mouse = DeclareLaunchArgument(
-        'mouse', default_value="false",
-        description='Launch raspimouse node')
+        'mouse', default_value='false', description='Launch raspimouse node'
+    )
 
-    joycon_param = [os.path.join(
-                    get_package_share_directory('raspimouse_ros2_examples')),
-                    '/config',
-                    '/joy_', LaunchConfiguration('joyconfig'), '.yml']
+    joycon_param = [
+        os.path.join(get_package_share_directory('raspimouse_ros2_examples')),
+        '/config',
+        '/joy_',
+        LaunchConfiguration('joyconfig'),
+        '.yml',
+    ]
 
     # Nodes #
     joy_node = Node(
         package='joy_linux',
         executable='joy_linux_node',
-        parameters=[{'dev': LaunchConfiguration('joydev')}]
+        parameters=[{'dev': LaunchConfiguration('joydev')}],
     )
 
     joystick_control_node = Node(
         package='raspimouse_ros2_examples',
         executable='joystick_control.py',
-        parameters=[joycon_param]
+        parameters=[joycon_param],
     )
 
     mouse_node = LifecycleNode(
-        name='raspimouse', namespace='',
-        package='raspimouse', executable='raspimouse', output='screen',
-        parameters=[os.path.join(get_package_share_directory(
-            'raspimouse_slam'), 'config', 'mouse.yaml')],
-        condition=IfCondition(LaunchConfiguration('mouse'))
+        name='raspimouse',
+        namespace='',
+        package='raspimouse',
+        executable='raspimouse',
+        output='screen',
+        parameters=[
+            os.path.join(
+                get_package_share_directory('raspimouse_slam'), 'config', 'mouse.yaml'
+            )
+        ],
+        condition=IfCondition(LaunchConfiguration('mouse')),
     )
 
     ld = LaunchDescription()
