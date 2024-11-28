@@ -24,7 +24,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Declare arguments #
-    use_sim_time = LaunchConfiguration('use_sim_time', default='True')
+    use_sim_time = LaunchConfiguration('use_sim_time', default='False')
     map_yaml_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')

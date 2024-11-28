@@ -93,7 +93,7 @@ source ~/ros2_ws/install/setup.bash
 ## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar joyconfig:=f710
 ## PC側で以下のコマンドを実行
-ros2 launch raspimouse_slam pc_slam.launch.py use_sim_time:=False
+ros2 launch raspimouse_slam pc_slam.launch.py
 ## 地図ができたら引き続きPC側で実行
 ## 新しい端末を開いて次のコマンドを実行しましょう
 ## MAP_NAMEを地図ファイルの名前に置き換えましょう
@@ -137,7 +137,7 @@ Remote PC上で次のコマンドを実行して、SLAMを開始します。 RVi
 
 Raspberry Pi MouseとRemote PCが通信するため、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。
 ```sh
-ros2 launch raspimouse_slam pc_slam.launch.py use_sim_time:=False
+ros2 launch raspimouse_slam pc_slam.launch.py
 ```
 
 構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。
@@ -169,7 +169,7 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_po
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
 ```sh
-ros2 launch raspimouse_navigation pc_navigation.launch.py use_sim_time:=False map:=/path/to/MAP_FILE.yaml
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=/path/to/MAP_FILE.yaml
 ```
 
 無事RVizが起動したら、まずは初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックしましょう。
