@@ -213,17 +213,26 @@ velocity_smoother:
 behavior_server:
   ros__parameters:
     enable_stamped_cmd_vel: True
-
 collision_monitor:
   ros__parameters:
     enable_stamped_cmd_vel: True
-    stop_pub_timeout: 1.0
-    polygons: ["SlowdownPolygon"]
-    SlowdownPolygon:
+    transform_tolerance: 0.1
+    source_timeout: 5.0
+    stop_pub_timeout: 2.0
+    base_shift_correction: False
+    polygons: ["StopPolygon", "SlowPolygon"]
+    StopPolygon:
+      type: "circle"
+      radius: 0.1
+      action_type: "stop"
+      min_points: 10
+      visualize: True
+      polygon_pub_topic: "stop_polygon"
+    SlowPolygon:
       type: "polygon"
-      points: "[[0.1, 0.09], [0.1, -0.09], [-0.1, -0.09], [-0.1, 0.09]]"
+      points: "[[0.45, 0.26], [0.45, -0.26], [-0.45, -0.26], [-0.45, 0.26]]"
       action_type: "slowdown"
-      slowdown_ratio: 0.5  # 本来の速度の半分に制限
+      slowdown_ratio: 0.25
       min_points: 10
       visualize: True
       polygon_pub_topic: "slowdown_polygon"
