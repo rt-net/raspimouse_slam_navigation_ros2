@@ -213,7 +213,7 @@ velocity_smoother:
 behavior_server:
   ros__parameters:
     enable_stamped_cmd_vel: True
-
+    
 collision_monitor:
   ros__parameters:
     enable_stamped_cmd_vel: True
@@ -221,11 +221,22 @@ collision_monitor:
     source_timeout: 5.0
     stop_pub_timeout: 2.0
     base_shift_correction: False
-    polygons: ["DummyPolygon"]
-    DummyPolygon:
+    polygons: ["StopPolygon", "SlowPolygon"]
+    StopPolygon:
       type: "circle"
-      radius: 0.0  # valid range of dummy
-      action_type: "none"  # No action taken.
+      radius: 0.15
+      action_type: "stop"
+      min_points: 10
+      visualize: True
+      polygon_pub_topic: "stop_polygon"
+    SlowPolygon:
+      type: "polygon"
+      points: "[[0.4, 0.25], [0.4, -0.25], [-0.3, -0.25], [-0.3, 0.25]]"
+      action_type: "slowdown"
+      slowdown_ratio: 0.25
+      min_points: 10
+      visualize: True
+      polygon_pub_topic: "slowdown_polygon"
     observation_sources: ["scan"]
     scan:
       type: "scan"
