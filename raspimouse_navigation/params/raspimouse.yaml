@@ -231,7 +231,7 @@ collision_monitor:
       polygon_pub_topic: "stop_polygon"
     SlowPolygon:
       type: "polygon"
-      points: "[[0.3, 0.25], [0.3, -0.25], [-0.3, -0.25], [-0.3, 0.25]]"
+      points: "[[0.4, 0.25], [0.4, -0.25], [-0.3, -0.25], [-0.3, 0.25]]"
       action_type: "slowdown"
       slowdown_ratio: 0.25
       min_points: 10
