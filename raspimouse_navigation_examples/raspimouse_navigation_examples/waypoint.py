@@ -19,7 +19,7 @@ from geometry_msgs.msg import PoseStamped
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
 import rclpy
 from rclpy.duration import Duration
-from copy import deepcopy
+
 
 def main():
     rclpy.init()
@@ -59,7 +59,7 @@ def main():
     goal_pose2.pose.orientation.w = 0.707
     goal_pose2.pose.orientation.z = -0.707
     goal_poses.append(goal_pose2)
-    
+
     # Set goal_3
     goal_pose3 = PoseStamped()
     goal_pose3.header.frame_id = 'map'
@@ -84,7 +84,6 @@ def main():
 
     i = 0
     while not navigator.isTaskComplete():
-
         # Update timestampe
         initial_pose.header.stamp = navigator.get_clock().now().to_msg()
 
@@ -92,9 +91,14 @@ def main():
         i = i + 1
         feedback = navigator.getFeedback()
         if feedback and i % 5 == 0:
-            print('Estimated time of arrival: ' + '{0:.0f}'.format(
-                  Duration.from_msg(feedback.estimated_time_remaining).nanoseconds / 1e9)
-                  + ' seconds.')
+            print(
+                'Estimated time of arrival: '
+                + '{0:.0f}'.format(
+                    Duration.from_msg(feedback.estimated_time_remaining).nanoseconds
+                    / 1e9
+                )
+                + ' seconds.'
+            )
 
             # Cancel navigation if it does not complete within 120 seconds
             if Duration.from_msg(feedback.navigation_time) > Duration(seconds=120.0):
@@ -110,7 +114,7 @@ def main():
         print('Goal failed!')
     else:
         print('Goal has an invalid return status!')
-    
+
     navigator.lifecycleShutdown()
     exit(0)
 

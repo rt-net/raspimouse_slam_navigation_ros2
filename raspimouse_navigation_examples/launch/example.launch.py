@@ -13,29 +13,21 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
-def generate_launch_description():
 
+def generate_launch_description():
     declare_example_name = DeclareLaunchArgument(
-        'example',
-        description=('Set an example executable name: '
-                     '[waypoint, ...]')
+        'example', description=('Set an example executable name: [waypoint, ...]')
     )
-    
-    
+
     example_node = Node(
         name=[LaunchConfiguration('example'), '_node'],
         package='raspimouse_navigation_examples',
         executable=LaunchConfiguration('example'),
-        output='screen'
+        output='screen',
     )
 
-    return LaunchDescription([
-        declare_example_name,
-        example_node
-    ])
-
-    
+    return LaunchDescription([declare_example_name, example_node])
