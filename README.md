@@ -152,6 +152,8 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 コマンドを実行すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。
 
+<br>
+
 ### raspimouse_navigation
 
 [Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
@@ -216,6 +218,8 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 
 安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにします
 
+<br>
+
 ### raspimouse_navigation_examples
 
 #### waypoint
@@ -257,12 +261,14 @@ goal_pose1.pose.orientation.z = 1.0
 goal_poses.append(goal_pose1)
 ```
 
-[ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。コードを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
-
+[ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
 
 ```bash
 ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
 ```
+
+コマンドを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
+
 
 ## Packages
 
