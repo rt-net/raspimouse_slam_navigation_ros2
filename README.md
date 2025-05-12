@@ -136,15 +136,16 @@ ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=lds lidar_port:=/dev/
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=urg lidar_port:=/dev/ttyACM0 joyconfig:=f710
 ```
 
-Remote PC上で次のコマンドを実行して、SLAMを開始します。 RVizが立ち上がり、Raspberry Pi Mouseを動かすと地図が構築されていく様子が見られます。　
+Remote PC上で次のコマンドを実行して、SLAMを開始します。 RVizが立ち上がり、Raspberry Pi Mouseを動かすと地図が構築されていく様子が確認できます。
 
-Raspberry Pi MouseとRemote PCが通信するため、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。
+**Raspberry Pi MouseとRemote PCが通信するため、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。**（詳しい設定方法についてはこちらの[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いてご参照ください。）
 
 ```sh
 ros2 launch raspimouse_slam pc_slam.launch.py
 ```
 
 構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。
+
 ```sh
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
@@ -192,12 +193,13 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の*Navigation2 Goal*をクリックします。
 
 地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままカーソルを動かして目標姿勢を指示します。目標姿勢の指示が完了すると、Raspberry Pi Mouseが自律移動を開始します。
+
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
 ### Stopping the robot
 
 下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。
-Cancelボタンを押すと自律移動が中断されます。
+*Cancel*ボタンを押すと自律移動が中断されます。
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_rviz_panel.png width=300 />
 
@@ -218,18 +220,45 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 
 #### waypoint
 
-Raspberry Pi Mouseが、指定した4点のwaypointをもとにナビゲーションします。
+Raspberry Pi Mouseが、指定したwaypoint（デフォルトでは4点）をもとにナビゲーションします。
 
 **本サンプルのデフォルトのwaypointoは、シミュレーション上のサンプル地図を想定した４点を指定しています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
 
-<!-- 可能な限り画像や動画を用いて説明します -->
-![画像](画像ファイルパス)
-[![動画名](表示画像パス)](Youtubeのリンクパス)
-
-
 #### Usage
 
-[ナビゲーション](#navigation)を実行した状態で、R新規ターミナル上で以下のコマンドを実行します。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内の初期値や各種waypointに任意の座標・姿勢を設定してください。
+
+##### 初期位置
+
+```python
+# Initial pose
+initial_pose = PoseStamped()
+initial_pose.header.frame_id = 'map'
+initial_pose.header.stamp = navigator.get_clock().now().to_msg()
+initial_pose.pose.position.x = 0.0
+initial_pose.pose.position.y = 0.0
+initial_pose.pose.orientation.w = 1.0
+initial_pose.pose.orientation.z = 0.0
+navigator.setInitialPose(initial_pose)
+```
+
+##### 各waypoint
+
+```python
+# Set goal_1
+goal_poses = []
+goal_pose1 = PoseStamped()
+goal_pose1.header.frame_id = 'map'
+goal_pose1.header.stamp = navigator.get_clock().now().to_msg()
+goal_pose1.pose.position.x = 2.2
+goal_pose1.pose.position.y = 1.8
+goal_pose1.pose.orientation.w = 0.0
+goal_pose1.pose.orientation.z = 1.0
+goal_poses.append(goal_pose1)
+```
+
+[ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。コードを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
+
 
 ```bash
 ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
