@@ -19,20 +19,22 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [Binary Installation](#binary-installation)
     - [Source Build](#source-build)
   - [QuickStart](#quickstart)
-  - [How To Use Examples](#how-to-use-examples)
-    - [<Sample名>](#sample名)
-      - [Usage](#usage)
+    - [SLAM](#slam)
+    - [Navigation](#navigation)
   - [Packages](#packages)
-  - [Topics](#topics)
-    - [Subscribed](#subscribed)
-    - [Published](#published)
-  - [Services](#services)
-  - [Actions](#actions)
+    - raspimouse_slam_navigation
+    - raspimouse_slam
+    - raspimouse_navigation
+    - raspimouse_navigation_examples
+  - [How To Use Examples](#how-to-use-examples)
+    - [SLAM](#slam-1)
+      - [Usage](#usage)
+    - [Navigation](#navigation-1)
+      - [Usage](#usage-1)
+    - [Waypoint Navigation](#waypoint-navigation)
+      - [Usage](#usage-2)
   - [Parameters](#parameters)
-  - [<etc...Lifecycle,Description)>](#etc-lifecycle-description等)
   - [License](#license)
-  - [Contributing](#contributing)
-  - [Contributors](#contributors)
 
 ## Supported ROS distributions
 
@@ -111,11 +113,25 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 ```
 コマンド実行後にRVizが起動します。RViz上で初期位置や目標位置・姿勢を与えるとRaspberry Pi Mouseが動きます。
 
+## Packages
+
+- [raspimouse_slam_navigation](./raspimouse_slam_navigation)
+  - 本リポジトリ内の各種パッケージのメタ情報を管理します。
+
+- [raspimouse_slam](./raspimouse_slam)
+  - [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
+
+- [raspimouse_navigations](./raspimouse_navigation)
+  - [Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
+
+- [raspimouse_navigation_examples](./raspimouse_navigation_examples)
+  - ナビゲーションのサンプルプログラムパッケージです。
+
 ## How To Use Examples
 
-### raspimouse_slam
+### SLAM
 
-[slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
+[raspimouse_slam_navigation](./raspimouse_slam_navigation)パッケージを使用してSLAM（自己位置推定と地図生成）を行います。
 
 **ここでは、ゲームパッドとしてLogicool Wireless Gamepad F710を使用しています。**
 
@@ -154,9 +170,10 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 <br>
 
-### raspimouse_navigation
+### Navigation
+[raspimouse_navigations](./raspimouse_navigation)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 
-[Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
+
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
 また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
@@ -198,7 +215,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
-### Stopping the robot
+#### Stopping the robot
 
 下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。
 *Cancel*ボタンを押すと自律移動が中断されます。
@@ -216,50 +233,66 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ false
 ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 ```
 
-安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにします
+安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにします。
 
 <br>
 
-### raspimouse_navigation_examples
+### Waypoint Navigation
 
-#### waypoint
+[raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用してWaypointによるナビゲーションをします。
 
-Raspberry Pi Mouseが、指定したwaypoint（デフォルトでは4点）をもとにナビゲーションします。
-
-**本サンプルのデフォルトのwaypointoは、シミュレーション上のサンプル地図を想定した４点を指定しています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
+**本サンプルのWaypointは、シミュレーション上のサンプル地図を想定した４点が設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
 
 #### Usage
 
-[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内の初期値や各種waypointに任意の座標・姿勢を設定してください。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内の初期値や各種waypointに任意の座標・姿勢を
+クォータニオンの形式で設定します。
 
-##### 初期位置
+- 初期位置
 
-```python
-# Initial pose
-initial_pose = PoseStamped()
-initial_pose.header.frame_id = 'map'
-initial_pose.header.stamp = navigator.get_clock().now().to_msg()
-initial_pose.pose.position.x = 0.0
-initial_pose.pose.position.y = 0.0
-initial_pose.pose.orientation.w = 1.0
-initial_pose.pose.orientation.z = 0.0
-navigator.setInitialPose(initial_pose)
-```
+  ```python
+  # Initial pose
+  initial_pose = PoseStamped()
+  initial_pose.header.frame_id = 'map'
+  initial_pose.header.stamp = navigator.get_clock().now().to_msg()
+  initial_pose.pose.position.x = 0.0
+  initial_pose.pose.position.y = 0.0
+  initial_pose.pose.orientation.w = 1.0
+  initial_pose.pose.orientation.z = 0.0
+  navigator.setInitialPose(initial_pose)
+  ```
 
-##### 各waypoint
+- Waypoint
 
-```python
-# Set goal_1
-goal_poses = []
-goal_pose1 = PoseStamped()
-goal_pose1.header.frame_id = 'map'
-goal_pose1.header.stamp = navigator.get_clock().now().to_msg()
-goal_pose1.pose.position.x = 2.2
-goal_pose1.pose.position.y = 1.8
-goal_pose1.pose.orientation.w = 0.0
-goal_pose1.pose.orientation.z = 1.0
-goal_poses.append(goal_pose1)
-```
+  ```python
+  # Set goal_1
+  goal_poses = []
+  goal_pose1 = PoseStamped()
+  goal_pose1.header.frame_id = 'map'
+  goal_pose1.header.stamp = navigator.get_clock().now().to_msg()
+  goal_pose1.pose.position.x = 2.2
+  goal_pose1.pose.position.y = 1.8
+  goal_pose1.pose.orientation.w = 0.0
+  goal_pose1.pose.orientation.z = 1.0
+  goal_poses.append(goal_pose1)
+
+  //...
+
+  # Set goal_2
+  goal_pose2 = PoseStamped()
+  goal_pose2.header.frame_id = 'map'
+  goal_pose2.header.stamp = navigator.get_clock().now().to_msg()
+  goal_pose2.pose.position.x = 2.8
+  goal_pose2.pose.position.y = 1.0
+  goal_pose2.pose.orientation.w = 0.707
+  goal_pose2.pose.orientation.z = -0.707
+  goal_poses.append(goal_pose2)
+
+  //...
+  .
+  .
+  .
+  ```
 
 [ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
 
@@ -268,21 +301,6 @@ ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
 ```
 
 コマンドを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
-
-
-## Packages
-
-- [raspimouse_slam_navigation](./raspimouse_slam_navigation)
-  - 本リポジトリ内の各種パッケージのメタ情報を管理します。
-
-- [raspimouse_slam](./raspimouse_slam)
-  - SLAMを実行するパッケージです。
-
-- [raspimouse_navigations](./raspimouse_navigation)
-  - ナビゲーション用のパッケージです。
-
-- [raspimouse_navigation_examples](./raspimouse_navigation_examples)
-  - ナビゲーションのサンプルプログラムパッケージです。
 
 ## Parameters
 
