@@ -23,6 +23,7 @@ from rclpy.duration import Duration
 import math
 from geometry_msgs.msg import PoseStamped
 
+
 def generate_pose(navigator, x: float, y: float, deg: float) -> PoseStamped:
     wp = PoseStamped()
     wp.header.frame_id = 'map'
@@ -32,9 +33,10 @@ def generate_pose(navigator, x: float, y: float, deg: float) -> PoseStamped:
     rad = math.radians(deg)
     wp.pose.orientation.x = 0.0
     wp.pose.orientation.y = 0.0
-    wp.pose.orientation.z = math.sin(rad/2.0)
-    wp.pose.orientation.w = math.cos(rad/2.0)
+    wp.pose.orientation.z = math.sin(rad / 2.0)
+    wp.pose.orientation.w = math.cos(rad / 2.0)
     return wp
+
 
 def main():
     rclpy.init()
@@ -76,14 +78,18 @@ def main():
             print(
                 'Estimated time of arrival: '
                 + '{0:.0f}'.format(
-                    Duration.from_msg(feedback.estimated_time_remaining).nanoseconds
+                    Duration.from_msg(
+                        feedback.estimated_time_remaining
+                    ).nanoseconds
                     / 1e9
                 )
                 + ' seconds.'
             )
 
             # Cancel navigation if it does not complete within 120 seconds
-            if Duration.from_msg(feedback.navigation_time) > Duration(seconds=120.0):
+            if Duration.from_msg(feedback.navigation_time) > Duration(
+                seconds=120.0
+            ):
                 nav.cancelTask()
 
     # Do something depending on the return code

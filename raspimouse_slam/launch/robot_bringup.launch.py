@@ -38,7 +38,9 @@ def generate_launch_description():
     )
 
     declare_arg_lidar_frame = DeclareLaunchArgument(
-        'lidar_frame', default_value='laser', description='Set lidar frame name.'
+        'lidar_frame',
+        default_value='laser',
+        description='Set lidar frame name.',
     )
 
     declare_arg_joydev = DeclareLaunchArgument(
@@ -63,7 +65,9 @@ def generate_launch_description():
         output='screen',
         parameters=[
             os.path.join(
-                get_package_share_directory('raspimouse_slam'), 'config', 'mouse.yaml'
+                get_package_share_directory('raspimouse_slam'),
+                'config',
+                'mouse.yaml',
             )
         ],
     )
@@ -72,7 +76,8 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             [
                 os.path.join(
-                    get_package_share_directory('hls_lfcd_lds_driver'), 'launch'
+                    get_package_share_directory('hls_lfcd_lds_driver'),
+                    'launch',
                 ),
                 '/hlds_laser.launch.py',
             ]
@@ -92,8 +97,15 @@ def generate_launch_description():
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
+<<<<<<< HEAD
                 os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
                 '/rplidar.launch.py',
+=======
+                os.path.join(
+                    get_package_share_directory('rplidar_ros'), 'launch'
+                ),
+                '/rplidar_a1_launch.py',
+>>>>>>> 51afa4b (新規のルールにしたがってフォーマット)
             ]
         ),
         launch_arguments={
@@ -112,7 +124,9 @@ def generate_launch_description():
     display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
+                os.path.join(
+                    get_package_share_directory('raspimouse_slam'), 'launch/'
+                ),
                 'description.launch.py',
             ]
         ),
@@ -127,7 +141,9 @@ def generate_launch_description():
     teleop_joy_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
+                os.path.join(
+                    get_package_share_directory('raspimouse_slam'), 'launch/'
+                ),
                 'teleop.launch.py',
             ]
         ),

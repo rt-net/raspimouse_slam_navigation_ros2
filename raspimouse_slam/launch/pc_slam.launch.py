@@ -24,7 +24,11 @@ from launch.actions import (
 )
 from launch.conditions import IfCondition
 from launch.events import matches_action
-from launch.substitutions import AndSubstitution, LaunchConfiguration, NotSubstitution
+from launch.substitutions import (
+    AndSubstitution,
+    LaunchConfiguration,
+    NotSubstitution,
+)
 from launch_ros.actions import LifecycleNode
 from launch_ros.actions import Node
 from launch_ros.event_handlers import OnStateTransition
@@ -64,7 +68,9 @@ def generate_launch_description():
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file',
         default_value=os.path.join(
-            get_package_share_directory('raspimouse_slam'), 'rviz', 'default.rviz'
+            get_package_share_directory('raspimouse_slam'),
+            'rviz',
+            'default.rviz',
         ),
         description='The full path to the rviz file',
     )
@@ -75,7 +81,10 @@ def generate_launch_description():
         executable='sync_slam_toolbox_node',
         name='slam_toolbox',
         output='screen',
-        parameters=[slam_config_file, {'use_lifecycle_manager': use_lifecycle_manager}],
+        parameters=[
+            slam_config_file,
+            {'use_lifecycle_manager': use_lifecycle_manager},
+        ],
         namespace='',
     )
 
@@ -95,7 +104,9 @@ def generate_launch_description():
             start_state='configuring',
             goal_state='inactive',
             entities=[
-                LogInfo(msg='[LifecycleLaunch] Slamtoolbox node is activating.'),
+                LogInfo(
+                    msg='[LifecycleLaunch] Slamtoolbox node is activating.'
+                ),
                 EmitEvent(
                     event=ChangeState(
                         lifecycle_node_matcher=matches_action(slam_node),

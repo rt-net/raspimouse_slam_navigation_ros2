@@ -20,7 +20,8 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     declare_example_name = DeclareLaunchArgument(
-        'example', description=('Set an example executable name: [waypoint, ...]')
+        'example',
+        description=('Set an example executable name: [waypoint, ...]'),
     )
 
     example_node = Node(

@@ -73,7 +73,9 @@ def generate_launch_description():
         output='screen',
         parameters=[
             os.path.join(
-                get_package_share_directory('raspimouse_slam'), 'config', 'mouse.yaml'
+                get_package_share_directory('raspimouse_slam'),
+                'config',
+                'mouse.yaml',
             )
         ],
         condition=IfCondition(LaunchConfiguration('mouse')),
