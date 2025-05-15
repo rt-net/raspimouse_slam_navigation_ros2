@@ -11,7 +11,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 
 ## Table of Contents
 
-- [raspimouse_slam_navigation](#raspimouse_slam_navigation)
+- [raspimouse\_slam\_navigation](#raspimouse_slam_navigation)
   - [Table of Contents](#table-of-contents)
   - [Supported ROS distributions](#supported-ros-distributions)
   - [Requirements](#requirements)
@@ -22,10 +22,6 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [SLAM](#slam)
     - [Navigation](#navigation)
   - [Packages](#packages)
-    - raspimouse_slam_navigation
-    - raspimouse_slam
-    - raspimouse_navigation
-    - raspimouse_navigation_examples
   - [How To Use Examples](#how-to-use-examples)
     - [SLAM](#slam-1)
       - [Usage](#usage)
@@ -34,6 +30,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [Waypoint Navigation](#waypoint-navigation)
       - [Usage](#usage-2)
   - [Parameters](#parameters)
+    - [raspimouse\_navigation](#raspimouse_navigation)
   - [License](#license)
   - [Contributing](#contributing)
 
@@ -246,53 +243,32 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 
 #### Usage
 
-[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内の初期値や各種waypointに任意の座標・姿勢を
-クォータニオンの形式で設定します。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内のや各Waypointに任意の座標と車体角度を指定します。
 
 - 初期位置
 
   ```python
-  # Initial pose
-  initial_pose = PoseStamped()
-  initial_pose.header.frame_id = 'map'
-  initial_pose.header.stamp = navigator.get_clock().now().to_msg()
-  initial_pose.pose.position.x = 0.0
-  initial_pose.pose.position.y = 0.0
-  initial_pose.pose.orientation.w = 1.0
-  initial_pose.pose.orientation.z = 0.0
-  navigator.setInitialPose(initial_pose)
-  ```
+    # Initial pose
+    initial_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
+    nav.setInitialPose(initial_pose)
+```
 
-- Waypoint
+- Waypoints
 
   ```python
-  # Set goal_1
-  goal_poses = []
-  goal_pose1 = PoseStamped()
-  goal_pose1.header.frame_id = 'map'
-  goal_pose1.header.stamp = navigator.get_clock().now().to_msg()
-  goal_pose1.pose.position.x = 2.2
-  goal_pose1.pose.position.y = 1.8
-  goal_pose1.pose.orientation.w = 0.0
-  goal_pose1.pose.orientation.z = 1.0
-  goal_poses.append(goal_pose1)
-
-  //...
-
-  # Set goal_2
-  goal_pose2 = PoseStamped()
-  goal_pose2.header.frame_id = 'map'
-  goal_pose2.header.stamp = navigator.get_clock().now().to_msg()
-  goal_pose2.pose.position.x = 2.8
-  goal_pose2.pose.position.y = 1.0
-  goal_pose2.pose.orientation.w = 0.707
-  goal_pose2.pose.orientation.z = -0.707
-  goal_poses.append(goal_pose2)
-
-  //...
-  .
-  .
-  .
+    # Set goal_1
+    goal_poses = []
+    goal_pose1 = generate_pose(navigator=nav, x=2.2, y=1.8, deg=0.0)
+    goal_poses.append(goal_pose1)
+    # Set goal_2
+    goal_pose2 = generate_pose(navigator=nav, x=2.8, y=1.0, deg=45.0)
+    goal_poses.append(goal_pose2)
+    # Set goal_3
+    goal_pose3 = generate_pose(navigator=nav, x=2.0, y=0.5, deg=180.0)
+    goal_poses.append(goal_pose3)
+    # Set goal_4
+    goal_pose4 = generate_pose(navigator=nav, x=1.0, y=0.6, deg=180.0)
+    goal_poses.append(goal_pose4)
   ```
 
 [ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
