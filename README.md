@@ -116,7 +116,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 - [raspimouse_navigations](./raspimouse_navigation)
   - [Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 - [raspimouse_navigation_examples](./raspimouse_navigation_examples)
-  - [raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
+  - [raspimouse_navigation](./raspimouse_navigation)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
 
 ## How To Use Examples
 
