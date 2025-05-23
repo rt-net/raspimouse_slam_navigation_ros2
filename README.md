@@ -115,15 +115,12 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 
 - [raspimouse_slam_navigation](./raspimouse_slam_navigation)
   - 本リポジトリ内の各種パッケージのメタ情報を管理します。
-
 - [raspimouse_slam](./raspimouse_slam)
   - [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
-
 - [raspimouse_navigations](./raspimouse_navigation)
   - [Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
-
 - [raspimouse_navigation_examples](./raspimouse_navigation_examples)
-  - ナビゲーションのサンプルプログラムパッケージです。
+  - [raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
 
 ## How To Use Examples
 
@@ -134,54 +131,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 - [raspimouse_navigation](./raspimouse_navigation/README.md)
   - [Navigation](./raspimouse_navigation/README.md#navigation)
 - [raspimouse_navigation_examples](./raspimouse_navigation_examples/README.md)
-  - Waypoint Navigation
-
-<br>
-
-### Waypoint Navigation
-
-[raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用してWaypointによるナビゲーションをします。
-
-**本サンプルのWaypointは、シミュレーション上のサンプル地図を想定した４点が設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
-
-#### Usage
-
-[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)コード内のや各Waypointに任意の座標と車体角度を指定します。
-
-- 初期位置
-
-  ```python
-    # Initial pose
-    initial_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
-    nav.setInitialPose(initial_pose)
-```
-
-- Waypoints
-
-  ```python
-    # Set goal_1
-    goal_poses = []
-    goal_pose1 = generate_pose(navigator=nav, x=2.2, y=1.8, deg=0.0)
-    goal_poses.append(goal_pose1)
-    # Set goal_2
-    goal_pose2 = generate_pose(navigator=nav, x=2.8, y=1.0, deg=45.0)
-    goal_poses.append(goal_pose2)
-    # Set goal_3
-    goal_pose3 = generate_pose(navigator=nav, x=2.0, y=0.5, deg=180.0)
-    goal_poses.append(goal_pose3)
-    # Set goal_4
-    goal_pose4 = generate_pose(navigator=nav, x=1.0, y=0.6, deg=180.0)
-    goal_poses.append(goal_pose4)
-  ```
-
-[ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
-
-```bash
-ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
-```
-
-コマンドを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
-
+  - [Waypoint Navigation](./raspimouse_navigation_examples/README.md#waypoint-navigation)
   
 ## License
 
