@@ -1,6 +1,97 @@
 # raspimouse_navigation
 
-パラメータについては以下を参照すること。
+[slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
+
+## Table of Contents
+
+- [raspimouse\_navigation](#raspimouse_slam)
+  - [Table of Contents](#table-of-contents)
+  - [How To Use Examples](#how-to-use-examples)
+    - [Navigation](#slam)
+      - [Usage](#usage)
+  - [Parameters](#parameters)
+
+## How To Use Examples
+
+### Navigation
+
+[Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
+
+
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
+
+また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
+
+### Usage
+
+Raspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを制御するためのノードを起動しています。
+
+```sh
+# RPLIDAR A1の場合
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
+# LDS-01の場合
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds
+# URG-04LX-UG01の場合
+ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_port:=/dev/ttyACM0
+```
+
+<br>
+
+Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
+引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
+
+```sh
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
+```
+
+<br>
+
+無事RVizが起動したら、初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックします。
+
+地図上でRaspberry Pi Mouseが存在すべき尤もらしい位置をクリックし、**そのままホールド**します。
+
+ホールドしながらカーソルを動かし、表示されている矢印の向きをRaspberry Pi Mouseの尤もらしい向きに合わせてからボタンを離します。
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_initialpose.gif width=500 />
+
+初期位置・姿勢の指示が完了したら、次は目標位置・姿勢を指示します。RVizの画面上部の*Navigation2 Goal*をクリックします。
+
+地図上で、初期位置・姿勢を合わせた時と同様に、地図上をクリックして目標位置を、ホールドしたままカーソルを動かして目標姿勢を指示します。目標姿勢の指示が完了すると、Raspberry Pi Mouseが自律移動を開始します。
+
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
+
+#### Stopping the robot
+
+下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。
+*Cancel*ボタンを押すと自律移動が中断されます。
+
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_rviz_panel.png width=300 />
+
+Raspberry Pi Mouseを停止させる別の方法として、モータへの電源供給を止める方法もあります。
+
+次のコマンドを実行すると、ソフトウェア側からモータ電源をON / OFFできます。
+
+```sh
+# モータ電源をOFFにする
+ros2 service call /motor_power std_srvs/srv/SetBool data:\ false
+# モータ電源をONにする
+ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
+```
+
+安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにします。
+
+
+
+## Parameters
+
+- `use_sim_time`
+  - Type: `bool`
+  - Default: `false`
+  - シミュレーション動作時は`true`、実機動作時は`false`を指定します。このパラメータは内部で起動される`Nav2`関連ノードで使用されます。
+
+<br>
+
+**[Nav2]のパラメータについては、以下をご参照ください。**
+
 - [Navigation2：初めてのロボットセットアップガイド](https://docs.nav2.org/setup_guides/index.html)
 - [Navigation2：パラメータチューニング方法](https://docs.nav2.org/tuning/index.html)
 - [Navigation2：パラメータ一覧](https://docs.nav2.org/configuration/index.html)
