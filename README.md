@@ -26,8 +26,6 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - raspimouse_navigation
     - raspimouse_navigation_examples
   - [How To Use Examples](#how-to-use-examples)
-  - [Parameters](#parameters)
-    - [raspimouse\_navigation](#raspimouse_navigation)
   - [License](#license)
   - [Contributing](#contributing)
 
