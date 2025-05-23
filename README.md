@@ -22,17 +22,10 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [SLAM](#slam)
     - [Navigation](#navigation)
   - [Packages](#packages)
-    - [raspimouse\_slam](./raspimouse_slam)
-    - [raspimouse\_navigation](./raspimouse_navigation)
-    - [raspimouse\_navigation_examples](./raspimouse_navigation_examples)
+    - raspimouse_slam
+    - raspimouse_navigation
+    - raspimouse_navigation_examples
   - [How To Use Examples](#how-to-use-examples)
-    - [raspimouse\_slam](./raspimouse_slam/README.md)
-      - [SLAM](./raspimouse_slam/README.md#slam)
-    - [raspimouse\_navigation](./raspimouse_navigation/README.md#how-to-use-examples)
-      - [Navigation](./raspimouse_navigation/README.md#navigation)
-    - [raspimouse/_navigation\_examples](./raspimouse_navigation_examples/README.md#how-to-use-examples)
-      - [Waypoint Navigation](./raspimouse_navigation_examples/README.md#waypoint-navigation)
-
   - [Parameters](#parameters)
     - [raspimouse\_navigation](#raspimouse_navigation)
   - [License](#license)
@@ -131,11 +124,11 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 
 サンプルプログラムの収載な動作方法は、各パッケージのREADMEで説明しています。
 
-- [raspimouse_slam](./raspimouse_slam/README.md)
+- raspimouse_slam
   - [SLAM](./raspimouse_slam/README.md#slam)
-- [raspimouse_navigation](./raspimouse_navigation/README.md)
+- raspimouse_navigation
   - [Navigation](./raspimouse_navigation/README.md#navigation)
-- [raspimouse_navigation_examples](./raspimouse_navigation_examples/README.md)
+- raspimouse_navigation_examples
   - [Waypoint Navigation](./raspimouse_navigation_examples/README.md#waypoint-navigation)
   
 ## License
