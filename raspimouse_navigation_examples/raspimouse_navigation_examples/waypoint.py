@@ -52,19 +52,19 @@ def main():
 
     # Set goal_1
     goal_poses = []
-    goal_pose1 = generate_pose(navigator=nav, x=2.2, y=1.8, deg=0.0)
+    goal_pose1 = generate_pose(navigator=nav, x=0.25, y=-0.3, deg=-40.0)
     goal_poses.append(goal_pose1)
     # Set goal_2
-    goal_pose2 = generate_pose(navigator=nav, x=2.8, y=1.0, deg=45.0)
+    goal_pose2 = generate_pose(navigator=nav, x=0.8, y=-0.36, deg=75.0)
     goal_poses.append(goal_pose2)
     # Set goal_3
-    goal_pose3 = generate_pose(navigator=nav, x=2.0, y=0.5, deg=180.0)
+    goal_pose3 = generate_pose(navigator=nav, x=1.2, y=-0.3, deg=-80.0)
     goal_poses.append(goal_pose3)
     # Set goal_4
-    goal_pose4 = generate_pose(navigator=nav, x=1.0, y=0.6, deg=180.0)
+    goal_pose4 = generate_pose(navigator=nav, x=1.25, y=-1.0, deg=-90.0)
     goal_poses.append(goal_pose4)
 
-    nav.goThroughPoses(goal_poses)
+    nav.followWaypoints(goal_poses)
 
     i = 0
     while not nav.isTaskComplete():
@@ -75,22 +75,23 @@ def main():
         i = i + 1
         feedback = nav.getFeedback()
         if feedback and i % 5 == 0:
-            print(
-                'Estimated time of arrival: '
-                + '{0:.0f}'.format(
-                    Duration.from_msg(
-                        feedback.estimated_time_remaining
-                    ).nanoseconds
-                    / 1e9
-                )
-                + ' seconds.'
-            )
+            print(f"step: {i}")
+            # print(
+            #     'Estimated time of arrival: '
+            #     + '{0:.0f}'.format(
+            #         Duration.from_msg(
+            #             # feedback.estimated_time_remaining
+            #         ).nanoseconds
+            #         / 1e9
+            #     )
+            #     + ' seconds.'
+            # )
 
-            # Cancel navigation if it does not complete within 120 seconds
-            if Duration.from_msg(feedback.navigation_time) > Duration(
-                seconds=120.0
-            ):
-                nav.cancelTask()
+            # # Cancel navigation if it does not complete within 120 seconds
+            # if Duration.from_msg(feedback.navigation_time) > Duration(
+            #     seconds=120.0
+            # ):
+            #     nav.cancelTask()
 
     # Do something depending on the return code
     result = nav.getResult()
