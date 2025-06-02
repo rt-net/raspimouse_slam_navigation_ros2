@@ -30,7 +30,7 @@ def generate_launch_description():
     rviz2_file = LaunchConfiguration('rviz2_file')
 
     declare_arg_use_sim_time = DeclareLaunchArgument(
-        'use_sim_tim',
+        'use_sim_time',
         default_value='True',
         description='True: Simulate, False: Machine',
     )
