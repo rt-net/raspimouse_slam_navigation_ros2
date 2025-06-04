@@ -18,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='RT Corporation',
     maintainer_email='shop@rt-net.jp',
-    description='python examples of Raspberry Pi Mouse ROS 2 Package',
+    description='Navigation sample package for Raspberry Pi Mouse V3',
     license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
