@@ -69,7 +69,6 @@ def main():
 
     i = 0
     while not nav.isTaskComplete():
-        
         # Display feedback every 5 cycles
         i = i + 1
         feedback = nav.getFeedback()
@@ -79,16 +78,16 @@ def main():
                 + str(feedback.current_waypoint + 1)
                 + '/'
                 + str(len(goal_poses)),
-                flush=True
+                flush=True,
             )
 
             # Update timestamp
             now = nav.get_clock().now()
-            
+
             # Some navigation timeout to demo cancellation
             if now - nav_start > Duration(seconds=600.0):
                 nav.cancelTask()
-                
+
             # Some follow waypoints request change to demo preemption
             if now - nav_start > Duration(seconds=120.0):
                 goal_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)

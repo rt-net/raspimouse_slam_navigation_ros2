@@ -16,19 +16,15 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import (
-    DeclareLaunchArgument,
-    EmitEvent,
-    LogInfo,
-    RegisterEventHandler,
-)
+from launch.actions import DeclareLaunchArgument
+from launch.actions import EmitEvent
+from launch.actions import LogInfo
+from launch.actions import RegisterEventHandler
 from launch.conditions import IfCondition
 from launch.events import matches_action
-from launch.substitutions import (
-    AndSubstitution,
-    LaunchConfiguration,
-    NotSubstitution,
-)
+from launch.substitutions import AndSubstitution
+from launch.substitutions import LaunchConfiguration
+from launch.substitutions import NotSubstitution
 from launch_ros.actions import LifecycleNode
 from launch_ros.actions import Node
 from launch_ros.event_handlers import OnStateTransition
