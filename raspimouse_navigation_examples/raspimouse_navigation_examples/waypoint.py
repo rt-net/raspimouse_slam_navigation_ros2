@@ -64,34 +64,36 @@ def main():
     goal_pose4 = generate_pose(navigator=nav, x=1.25, y=-1.0, deg=-90.0)
     goal_poses.append(goal_pose4)
 
+    nav_start = nav.get_clock().now()
     nav.followWaypoints(goal_poses)
 
     i = 0
     while not nav.isTaskComplete():
-        # Update timestampe
-        initial_pose.header.stamp = nav.get_clock().now().to_msg()
-
+        
         # Display feedback every 5 cycles
         i = i + 1
         feedback = nav.getFeedback()
         if feedback and i % 5 == 0:
-            print(f"step: {i}")
-            # print(
-            #     'Estimated time of arrival: '
-            #     + '{0:.0f}'.format(
-            #         Duration.from_msg(
-            #             # feedback.estimated_time_remaining
-            #         ).nanoseconds
-            #         / 1e9
-            #     )
-            #     + ' seconds.'
-            # )
+            print(
+                'Executing current waypoint: '
+                + str(feedback.current_waypoint + 1)
+                + '/'
+                + str(len(goal_poses)),
+                flush=True
+            )
 
-            # # Cancel navigation if it does not complete within 120 seconds
-            # if Duration.from_msg(feedback.navigation_time) > Duration(
-            #     seconds=120.0
-            # ):
-            #     nav.cancelTask()
+            now = nav.get_clock().now()
+            
+            # Some navigation timeout to demo cancellation
+            if now - nav_start > Duration(seconds=600.0):
+                nav.cancelTask()
+                
+            # Some follow waypoints request change to demo preemption
+            if now - nav_start > Duration(seconds=120.0):
+                goal_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
+                goal_pose.append(goal_pose)
+                nav_start = nav.get_clock().now()
+                navigator.followWaypoints(goal_pose)
 
     # Do something depending on the return code
     result = nav.getResult()
