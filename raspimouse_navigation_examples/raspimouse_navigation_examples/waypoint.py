@@ -82,6 +82,7 @@ def main():
                 flush=True
             )
 
+            # Update timestamp
             now = nav.get_clock().now()
             
             # Some navigation timeout to demo cancellation
