@@ -61,7 +61,7 @@ def main():
     goal_pose3 = generate_pose(navigator=nav, x=-0.5, y=-0.5, deg=0.0)
     goal_poses.append(goal_pose3)
     # Set goal_4
-    goal_pose4 = generate_pose(navigator=nav, x=0.5,y=-0.5, deg=90.0)
+    goal_pose4 = generate_pose(navigator=nav, x=0.5, y=-0.5, deg=90.0)
     goal_poses.append(goal_pose4)
 
     nav_start = nav.get_clock().now()
@@ -86,18 +86,20 @@ def main():
             now = nav.get_clock().now()
 
             # Some navigation timeout to demo cancellation
-            if now - nav_start > Duration(seconds=120.0):
+            if now - nav_start > Duration(seconds=100.0):
                 nav.cancelTask()
 
             # Some follow waypoints request change to demo preemption
             if now - nav_start > Duration(seconds=60.0):
                 if not root_changed:
-                    goal_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
+                    goal_pose = generate_pose(
+                        navigator=nav, x=0.0, y=0.0, deg=0.0
+                    )
                     goal_poses = [goal_pose]
                     nav_start = now
                     nav.followWaypoints(goal_poses)
+                    print('Changed goal!!')
                     root_changed = True
-
 
     # Do something depending on the return code
     result = nav.getResult()

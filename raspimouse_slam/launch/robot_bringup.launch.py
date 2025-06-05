@@ -97,15 +97,10 @@ def generate_launch_description():
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-<<<<<<< HEAD
-                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
-                '/rplidar.launch.py',
-=======
                 os.path.join(
                     get_package_share_directory('rplidar_ros'), 'launch'
                 ),
-                '/rplidar_a1_launch.py',
->>>>>>> 51afa4b (新規のルールにしたがってフォーマット)
+                '/rplidar.launch.py',
             ]
         ),
         launch_arguments={
