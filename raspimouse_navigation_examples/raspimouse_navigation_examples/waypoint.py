@@ -52,22 +52,23 @@ def main():
 
     # Set goal_1
     goal_poses = []
-    goal_pose1 = generate_pose(navigator=nav, x=0.25, y=-0.3, deg=-40.0)
+    goal_pose1 = generate_pose(navigator=nav, x=0.5, y=0.5, deg=180.0)
     goal_poses.append(goal_pose1)
     # Set goal_2
-    goal_pose2 = generate_pose(navigator=nav, x=0.8, y=-0.36, deg=75.0)
+    goal_pose2 = generate_pose(navigator=nav, x=-0.5, y=0.5, deg=-90.0)
     goal_poses.append(goal_pose2)
     # Set goal_3
-    goal_pose3 = generate_pose(navigator=nav, x=1.2, y=-0.3, deg=-80.0)
+    goal_pose3 = generate_pose(navigator=nav, x=-0.5, y=-0.5, deg=0.0)
     goal_poses.append(goal_pose3)
     # Set goal_4
-    goal_pose4 = generate_pose(navigator=nav, x=1.25, y=-1.0, deg=-90.0)
+    goal_pose4 = generate_pose(navigator=nav, x=0.5,y=-0.5, deg=90.0)
     goal_poses.append(goal_pose4)
 
     nav_start = nav.get_clock().now()
     nav.followWaypoints(goal_poses)
 
     i = 0
+    root_changed = False
     while not nav.isTaskComplete():
         # Display feedback every 5 cycles
         i = i + 1
@@ -85,15 +86,18 @@ def main():
             now = nav.get_clock().now()
 
             # Some navigation timeout to demo cancellation
-            if now - nav_start > Duration(seconds=600.0):
+            if now - nav_start > Duration(seconds=120.0):
                 nav.cancelTask()
 
             # Some follow waypoints request change to demo preemption
-            if now - nav_start > Duration(seconds=120.0):
-                goal_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
-                goal_pose.append(goal_pose)
-                nav_start = nav.get_clock().now()
-                navigator.followWaypoints(goal_pose)
+            if now - nav_start > Duration(seconds=60.0):
+                if not root_changed:
+                    goal_pose = generate_pose(navigator=nav, x=0.0, y=0.0, deg=0.0)
+                    goal_poses = [goal_pose]
+                    nav_start = now
+                    nav.followWaypoints(goal_poses)
+                    root_changed = True
+
 
     # Do something depending on the return code
     result = nav.getResult()
