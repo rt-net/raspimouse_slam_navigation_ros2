@@ -1,6 +1,5 @@
 # raspimouse_slam_navigation
 
-<!-- 本リポジトリのワークフローステータスバッジを添付します（詳細：https://wiki.moon-rabbit.rt-net.jp/670f811056b3aca9041b9aa3）-->
 [![industrial_ci](https://github.com/rt-net/raspimouse_slam_navigation_ros2/actions/workflows/industrial_ci.yaml/badge.svg?branch=main)](https://github.com/rt-net/raspimouse_slam_navigation_ros2/actions/workflows/industrial_ci.yaml)
 
 Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ郡です。
@@ -14,6 +13,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 - [raspimouse\_slam\_navigation](#raspimouse_slam_navigation)
   - [Table of Contents](#table-of-contents)
   - [Supported ROS distributions](#supported-ros-distributions)
+    - [ROS 2](#ros-2)
   - [Requirements](#requirements)
   - [Installation](#installation)
     - [Binary Installation](#binary-installation)
@@ -22,9 +22,6 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [SLAM](#slam)
     - [Navigation](#navigation)
   - [Packages](#packages)
-    - raspimouse_slam
-    - raspimouse_navigation
-    - raspimouse_navigation_examples
   - [How To Use Examples](#how-to-use-examples)
   - [License](#license)
   - [Contributing](#contributing)
@@ -42,7 +39,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 - Raspberry Pi Mouse
   - [Summary](https://rt-net.jp/products/raspberrypimousev3/)
   - [RT Robot Shop](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=4141)
-  - Option Parts
+  - Optional Parts
     - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
     - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
 - Linux OS
@@ -57,14 +54,14 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 ### Binary Installation
 
 ```sh
-sudo apt install ros-$ROS_DISTRO-raspimouse
+sudo apt install ros-$ROS_DISTRO-raspimouse-slam-navigation
 ```
 
 ### Source Build
 
 ```bash
 # Create workspace directory
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/
+mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
 
 # Clone package
 git clone -b $ROS_DISTRO https://github.com/rt-net/raspimouse_slam_navigation_ros2.git
@@ -113,14 +110,14 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
   - 本リポジトリ内の各種パッケージのメタ情報を管理します。
 - [raspimouse_slam](./raspimouse_slam)
   - [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
-- [raspimouse_navigations](./raspimouse_navigation)
+- [raspimouse_navigation](./raspimouse_navigation)
   - [Nav2](https://github.com/ros-planning/navigation2)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 - [raspimouse_navigation_examples](./raspimouse_navigation_examples)
   - [raspimouse_navigation](./raspimouse_navigation)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
 
 ## How To Use Examples
 
-サンプルプログラムの収載な動作方法は、各パッケージのREADMEで説明しています。
+サンプルプログラムの詳細な動作方法は、各パッケージのREADMEで説明しています。
 
 - raspimouse_slam
   - [SLAM](./raspimouse_slam/README.md#slam)
