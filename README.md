@@ -2,7 +2,7 @@
 
 [![industrial_ci](https://github.com/rt-net/raspimouse_slam_navigation_ros2/actions/workflows/industrial_ci.yaml/badge.svg?branch=main)](https://github.com/rt-net/raspimouse_slam_navigation_ros2/actions/workflows/industrial_ci.yaml)
 
-Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ郡です。
+Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ群です。
 
 その他のRaspberry Pi MouseのROS 2サンプル集は[rt-net/raspimouse_ros2_examples](https://github.com/rt-net/raspimouse_ros2_examples)で紹介しています。
 
@@ -22,7 +22,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [SLAM](#slam)
     - [Navigation](#navigation)
   - [Packages](#packages)
-  - [How To Use Examples](#how-to-use-examples)
+  - [How to Use Examples](#how-to-use-examples)
   - [License](#license)
   - [Contributing](#contributing)
 
@@ -31,8 +31,8 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 
 ### ROS 2
 
-- [Humble Hawksbill](https://github.com/rt-net/raspimouse2/tree/humble)
-- [Jazzy Jalisco](https://github.com/rt-net/raspimouse2/tree/jazzy)
+- [Humble Hawksbill](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble)
+- [Jazzy Jalisco](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/jazzy)
 
 ## Requirements
 
@@ -77,31 +77,40 @@ source ~/ros2_ws/install/setup.bash
 
 ## QuickStart
 
-SLAMで地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)をご参照ください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
+SLAMで地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
 
 ### SLAM
 
+ロボット側で以下のコマンドを実行してください。
+ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
+
 ```sh
-## ロボット側で以下のコマンドを実行
-## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control をご参照ください
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar joyconfig:=f710
-## PC側で以下のコマンドを実行
+```
+
+PC側で以下のコマンドを実行してください。
+
+```sh
 ros2 launch raspimouse_slam pc_slam.launch.py
-## 地図ができたら引き続きPC側で実行
-## 新しい端末を開いて次のコマンドを実行しましょう
-## MAP_NAMEを地図ファイルの名前に置き換えましょう
+## 地図ができたら、新しい端末を開いて次のコマンドを実行してください
+## MAP_NAMEを地図ファイルの名前に置き換えてください
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
 地図の保存が行えたら、各種ノードを終了して次に進んでください。
 
 ### Navigation
 
-```sh
 ## ロボット側で以下のコマンドを実行
+
+```sh
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
-## PC側で以下のコマンドを実行
+```
+
+PC側で以下のコマンドを実行してください。
+```sh
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
 ```
+
 コマンド実行後にRVizが起動します。RViz上で初期位置や目標位置・姿勢を与えるとRaspberry Pi Mouseが動きます。
 
 ## Packages
@@ -115,7 +124,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 - [raspimouse_navigation_examples](./raspimouse_navigation_examples)
   - [raspimouse_navigation](./raspimouse_navigation)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
 
-## How To Use Examples
+## How to Use Examples
 
 サンプルプログラムの詳細な動作方法は、各パッケージのREADMEで説明しています。
 
