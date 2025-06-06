@@ -1,17 +1,17 @@
 # raspimouse_navigation
 
-[slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
+[Nav2](https://docs.nav2.org/)パッケージを使用してRaspberry Pi Mouseを自律移動させるパッケージです。
 
 ## Table of Contents
 
-- [raspimouse\_navigation](#raspimouse_slam)
+- [raspimouse\_navigation](#raspimouse_navigation)
   - [Table of Contents](#table-of-contents)
-  - [How To Use Examples](#how-to-use-examples)
-    - [Navigation](#slam)
+  - [How to Use Examples](#how-to-use-examples)
+    - [Navigation](#navigation)
       - [Usage](#usage)
   - [Parameters](#parameters)
 
-## How To Use Examples
+## How to Use Examples
 
 ### Navigation
 
@@ -91,7 +91,7 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 
 <br>
 
-**[Nav2]のパラメータについては、以下をご参照ください。**
+**[Nav2]のパラメータについては、以下を参照してください。**
 
 - [Navigation2：初めてのロボットセットアップガイド](https://docs.nav2.org/setup_guides/index.html)
 - [Navigation2：パラメータチューニング方法](https://docs.nav2.org/tuning/index.html)
