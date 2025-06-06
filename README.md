@@ -81,18 +81,14 @@ SLAMで地図生成を行い、その地図を利用してRaspberry Pi Mouseを�
 
 ### SLAM
 
-ロボット側で以下のコマンドを実行してください。
-ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
-
 ```sh
+## ロボット側で以下のコマンドを実行
+## ゲームパッドの操作方法については、 https://github.com/rt-net/raspimouse_ros2_examples#joystick_control を参照してください
 ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=rplidar joyconfig:=f710
-```
-
-PC側で以下のコマンドを実行してください。
-
-```sh
+## PC側で以下のコマンドを実行
 ros2 launch raspimouse_slam pc_slam.launch.py
-## 地図ができたら、新しい端末を開いて次のコマンドを実行してください
+## 地図ができたら引き続きPC側で実行
+## 新しい端末を開いて次のコマンドを実行してください
 ## MAP_NAMEを地図ファイルの名前に置き換えてください
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
@@ -100,17 +96,12 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 ### Navigation
 
+```sh
 ## ロボット側で以下のコマンドを実行
-
-```sh
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=rplidar
-```
-
-PC側で以下のコマンドを実行してください。
-```sh
+## PC側で以下のコマンドを実行
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
 ```
-
 コマンド実行後にRVizが起動します。RViz上で初期位置や目標位置・姿勢を与えるとRaspberry Pi Mouseが動きます。
 
 ## Packages
