@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>raspimouse_navigation_examples</name>
+  <version>0.1.0</version>
+  <description>Navigation sample package for Raspberry Pi Mouse V3</description>
+  <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
+  <license>Apache License 2.0</license>
+
+  <url type="repository">https://github.com/rt-net/raspimouse_slam_navigation_ros2</url>
+  <url type="bugtracker">https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues</url>
+
+  <author email="kurasawa@rt-net.jp">Kazushi Kurasawa</author>
+  <author email="yusuke.kato@rt-net.jp">Yusuke Kato</author>
+  <author email="kuwagata@rt-net.jp">Atsushi Kuwagata</author>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>nav2_simple_commander</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

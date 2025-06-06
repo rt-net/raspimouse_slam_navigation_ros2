@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/kuradesk/ros2_ws/build/raspimouse_navigation_examples",
+        "/home/kuradesk/ros2_ws/install/raspimouse_navigation_examples/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/kuradesk/ros2_ws/build/raspimouse_navigation_examples",
+        "/home/kuradesk/ros2_ws/install/raspimouse_navigation_examples/lib/python3.12/site-packages",
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ]
+}
