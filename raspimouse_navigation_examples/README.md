@@ -13,16 +13,17 @@
 
 ## How To Use Examples
 
-
 ### Waypoint Navigation
 
-[raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用してWaypointによるナビゲーションをします。
+[raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用したWaypointによるナビゲーションを行います。
 
-**Waypoint Navigationサンプルで設定している4つのWaypointは、シミュレーション上のサンプル地図を想定したものです。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
+[<img src=https://rt-net.github.io/images/raspberry-pi-mouse/raspimouse_waypoint_navigation_short.gif width=500 />](https://www.youtube.com/watch?v=k2rlcGPZG1M)
+
+**Waypoint Navigationサンプルで設定している4つのWaypointは、サンプルとして[Lake House](https://app.gazebosim.org/OpenRobotics/fuel/models/Lake%20House)を想定して設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
 
 #### Usage
 
-[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)の以下の箇所で、各Waypointに任意の座標と車体角度を設定しています。`generate_pose()`に与える引数を変更し、動作環境に合わせた任意の座標を設定してください。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/raspimouse_navigation_examples/waypoint.py)内で、各Waypointに任意の座標と車体角度を設定しています。`generate_pose()`に与える引数を変更し、動作環境に合わせた任意の座標を設定してください。
 
 - 初期位置
 
@@ -57,3 +58,5 @@ ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
 ```
 
 コマンドを実行すると、指定したwaypointを通る経路でナビゲーションが開始されます。
+
+<img src=https://rt-net.github.io/images/raspberry-pi-mouse/raspimouse_waypoint_navigation_rviz.png width=500 />
