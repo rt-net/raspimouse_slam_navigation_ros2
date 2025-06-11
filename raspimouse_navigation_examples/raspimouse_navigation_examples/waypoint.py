@@ -30,6 +30,7 @@ def generate_pose(navigator, x: float, y: float, deg: float) -> PoseStamped:
     wp.header.stamp = navigator.get_clock().now().to_msg()
     wp.pose.position.x = x
     wp.pose.position.y = y
+    wp.pose.position.z = 0.0
     rad = math.radians(deg)
     wp.pose.orientation.x = 0.0
     wp.pose.orientation.y = 0.0
