@@ -15,7 +15,7 @@
 
 ### Waypoint Navigation
 
-[raspimouse_navigation_examples](./raspimouse_navigation_examples)パッケージを使用したWaypointによるナビゲーションを行います。
+Waypointによるナビゲーションを行います。
 
 [<img src=https://rt-net.github.io/images/raspberry-pi-mouse/raspimouse_waypoint_navigation_short.gif width=500 />](https://www.youtube.com/watch?v=k2rlcGPZG1M)
 

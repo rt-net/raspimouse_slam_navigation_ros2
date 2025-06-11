@@ -15,8 +15,6 @@
 
 ### SLAM
 
-[raspimouse_slam_navigation](./raspimouse_slam_navigation)パッケージを使用してSLAM（自己位置推定と地図生成）を行います。
-
 **ここでは、ゲームパッドとしてLogicool Wireless Gamepad F710を使用しています。**
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2_with_raspimouse_model.png width=500 />
