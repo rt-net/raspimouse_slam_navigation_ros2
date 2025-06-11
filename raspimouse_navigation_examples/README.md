@@ -51,7 +51,7 @@ Waypointによるナビゲーションを行います。
     goal_poses.append(goal_pose4)
   ```
 
-[ナビゲーション](#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
+[ナビゲーション](../raspimouse_navigation/README.md#navigation)を実行した状態で、Remote PC上の新規ターミナルで以下のコマンドを実行します。
 
 ```bash
 ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
