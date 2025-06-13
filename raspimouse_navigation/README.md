@@ -90,6 +90,6 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 
 **[Nav2]のパラメータについては、以下を参照してください。**
 
-- [Navigation2：初めてのロボットセットアップガイド](https://docs.nav2.org/setup_guides/index.html)
-- [Navigation2：パラメータチューニング方法](https://docs.nav2.org/tuning/index.html)
-- [Navigation2：パラメータ一覧](https://docs.nav2.org/configuration/index.html)
+- [Nav2：初めてのロボットセットアップガイド](https://docs.nav2.org/setup_guides/index.html)
+- [Nav2：パラメータチューニング方法](https://docs.nav2.org/tuning/index.html)
+- [Nav2：パラメータ一覧](https://docs.nav2.org/configuration/index.html)
