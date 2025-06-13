@@ -65,7 +65,9 @@ def generate_launch_description():
 
     # Launch files and Nodes #
     nav2_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
+        PythonLaunchDescriptionSource(
+            [nav2_launch_file_dir, '/bringup_launch.py']
+        ),
         launch_arguments={
             'map': map_yaml_file,
             'params_file': params_file,
