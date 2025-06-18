@@ -24,7 +24,11 @@
 #### Usage
 
 Raspberry Pi Mouse上で、次のコマンドを実行します。LiDARを起動し、ゲームパッドでRaspberry Pi Mouseを制御することができます。
-ゲームパッドの操作方法については、[raspimouse_ros2_examplesの"joystick_control"](https://github.com/rt-net/raspimouse_ros2_examples#joystick_control)を参照してください。
+
+下記のコマンドではゲームパッドとしてLogicool Wireless Gamepad F710を使用しています。
+
+> [!NOTE]
+> ゲームパッドの操作方法については、[raspimouse_ros2_examples"joystick_control"](https://github.com/rt-net/raspimouse_ros2_examples#joystick_control)を参照してください。
 
 ```sh
 # RPLIDAR A1の場合
