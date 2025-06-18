@@ -57,7 +57,7 @@ Waypointによるナビゲーションを行います。
 ros2 launch raspimouse_navigation_examples example.launch.py example:=waypoint
 ```
 
-コマンドを実行すると、指定したWaypointを順にナビゲーションが開始されます。
+コマンドを実行すると、指定したWaypointを順に走行します。
 
 90秒以内に最後のWaypointに到達できない場合は初期位置に戻り、180秒経過しても完了しない場合はその場でナビゲーションタスクを終了します。
 
