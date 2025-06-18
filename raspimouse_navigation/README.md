@@ -17,7 +17,7 @@
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
-また、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
+サンプルの実行には、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
 
 #### Usage
 
