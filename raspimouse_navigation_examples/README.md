@@ -21,14 +21,12 @@ Nav2の[Simple Commander API](https://docs.nav2.org/commander_api/index.html)を
 
 [<img src=https://rt-net.github.io/images/raspberry-pi-mouse/raspimouse_waypoint_navigation_short.gif width=500 />](https://www.youtube.com/watch?v=k2rlcGPZG1M)
 
-**Waypoint Navigationサンプルで設定している4つのWaypointは、サンプルとして[Lake House](https://app.gazebosim.org/OpenRobotics/fuel/models/Lake%20House)を想定して設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。**
+> [!NOTE]
+> Waypoint Navigationサンプルで設定している4つのWaypointは、サンプルとして[Lake House](https://app.gazebosim.org/OpenRobotics/fuel/models/Lake%20House)を想定して設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。
 
 #### Usage
 
-Waypointのリストを指定し、
-
-> [!NOTE]
-> [raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/waypoint.py)内で、各Waypointの位置姿勢を設定しています。`generate_pose()`の引数を変更し、動作環境に合わせた位置姿勢を設定してください。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/waypoint.py)内で、各Waypointの位置姿勢が設定されています。`generate_pose()`の引数を変更し、動作環境に合わせた位置姿勢を設定してください。
 
 - 初期位置
 
