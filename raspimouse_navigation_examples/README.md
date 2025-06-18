@@ -1,6 +1,6 @@
 # raspimouse_navigation_examples
 
-[raspimouse_navigation_examples](./../raspimouse_navigation_examples)パッケージを使用したナビゲーションのサンプルプログラムパッケージです。
+Nav2の[Simple Commander API](https://docs.nav2.org/commander_api/index.html)を使用したサンプルパッケージです。
 
 ## Table of Contents
 
