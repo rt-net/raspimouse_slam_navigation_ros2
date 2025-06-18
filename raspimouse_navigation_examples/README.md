@@ -9,7 +9,6 @@ Nav2の[Simple Commander API](https://docs.nav2.org/commander_api/index.html)を
   - [How To Use Examples](#how-to-use-examples)
     - [Waypoint Navigation](#waypoint-navigation)
       - [Usage](#usage)
-  - [Parameters](#parameters)
 
 ## How To Use Examples
 
