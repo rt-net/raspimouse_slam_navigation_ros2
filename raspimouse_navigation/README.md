@@ -21,7 +21,7 @@
 
 #### Usage
 
-Raspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを制御するためのノードを起動しています。
+Raspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを制御するためのノードを起動します。
 
 ```sh
 # RPLIDAR A1の場合
