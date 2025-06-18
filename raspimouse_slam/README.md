@@ -15,8 +15,6 @@
 
 ### SLAM
 
-**ここでは、ゲームパッドとしてLogicool Wireless Gamepad F710を使用しています。**
-
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2_with_raspimouse_model.png width=500 />
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2.gif width=500 />
