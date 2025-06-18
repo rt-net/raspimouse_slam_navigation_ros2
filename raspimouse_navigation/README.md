@@ -32,16 +32,12 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_port:=/dev/ttyACM0
 ```
 
-<br>
-
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
 
 ```sh
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
 ```
-
-<br>
 
 無事RVizが起動したら、初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックします。
 
@@ -85,8 +81,6 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
   - Type: `bool`
   - Default: `false`
   - シミュレーション動作時は`true`、実機動作時は`false`を指定します。このパラメータは内部で起動される`Nav2`関連ノードで使用されます。
-
-<br>
 
 **[Nav2]のパラメータについては、以下を参照してください。**
 
