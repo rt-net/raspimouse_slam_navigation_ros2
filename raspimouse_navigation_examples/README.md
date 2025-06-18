@@ -23,7 +23,7 @@ Waypointによるナビゲーションを行います。
 
 #### Usage
 
-[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/waypoint.py)内で、各Waypointに任意の座標と車体角度を設定しています。`generate_pose()`に与える引数を変更し、動作環境に合わせた任意の座標を設定してください。
+[raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/waypoint.py)内で、各Waypointの位置姿勢を設定しています。`generate_pose()`の引数を変更し、動作環境に合わせた位置姿勢を設定してください。
 
 - 初期位置
 
