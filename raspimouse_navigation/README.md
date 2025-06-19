@@ -7,6 +7,13 @@
 - [raspimouse\_navigation](#raspimouse_navigation)
   - [Table of Contents](#table-of-contents)
   - [Navigation](#navigation)
+      - [Setup](#setup)
+        - [Using Raspberry Pi Mouse](#using-raspberry-pi-mouse)
+        - [Using Gazebo](#using-gazebo)
+      - [Launching Navigation](#launching-navigation)
+        - [Using Raspberry Pi Mouse](#using-raspberry-pi-mouse-1)
+        - [Using Gazebo](#using-gazebo-1)
+      - [Running Navigation](#running-slam)
   - [Parameters](#parameters)
 
 ## Navigation

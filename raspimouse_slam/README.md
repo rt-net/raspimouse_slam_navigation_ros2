@@ -7,6 +7,10 @@
 - [raspimouse\_slam](#raspimouse_slam)
   - [Table of Contents](#table-of-contents)
   - [SLAM](#slam)
+    - [Setup](#setup)
+      - [Using Raspberry Pi Mouse](#using-raspberry-pi-mouse)
+      - [Using Gazebo](#using-gazebo)
+    - [Running SLAM](#running-slam)
 
 ## SLAM
 
