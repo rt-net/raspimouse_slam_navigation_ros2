@@ -13,7 +13,7 @@
       - [Launching Navigation](#launching-navigation)
         - [Using Raspberry Pi Mouse](#using-raspberry-pi-mouse-1)
         - [Using Gazebo](#using-gazebo-1)
-      - [Running Navigation](#running-slam)
+      - [Running Navigation](#running-navigation)
   - [Parameters](#parameters)
 
 ## Navigation
