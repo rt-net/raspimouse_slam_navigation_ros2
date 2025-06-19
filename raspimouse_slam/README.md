@@ -37,7 +37,7 @@ ros2 launch raspimouse_slam robot_bringup.launch.py lidar:=urg lidar_port:=/dev/
 Remote PC上で次のコマンドを実行するとSLAMが開始されます。 RVizが立ち上がり、Raspberry Pi Mouseを動かすと地図が構築されていく様子が確認できます。
 
 > [!NOTE]
-> Raspberry Pi MouseとRemote PCが通信するため、同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法については[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いて参照してください。
+> Raspberry Pi MouseとRemote PCが通信するため、同一ネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法は、[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いて参照してください。
 
 ```sh
 ros2 launch raspimouse_slam pc_slam.launch.py
