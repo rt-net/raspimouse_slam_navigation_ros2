@@ -8,7 +8,6 @@
   - [Table of Contents](#table-of-contents)
   - [How to Use Examples](#how-to-use-examples)
     - [Navigation](#navigation)
-      - [Usage](#usage)
   - [Parameters](#parameters)
 
 ## How to Use Examples
@@ -17,9 +16,10 @@
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
-サンプルの実行には、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
+> [!NOTE]
+>　サンプルの実行には、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
 
-#### Usage
+#### Raspberry Pi Mouseノードの起動
 
 Raspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを制御するためのノードを起動します。
 
@@ -31,6 +31,18 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds
 # URG-04LX-UG01の場合
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_port:=/dev/ttyACM0
 ```
+
+Gazebo上でRaspberry Pi Mouseノードを立ち上げるには、以下のコマンドを実行してください。
+
+```sh
+ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
+```
+
+> [!NOTE]
+> Gazebo上のRaspberry Pi Mouseを使用する場合は、
+
+
+#### ナビゲーションノードの起動
 
 Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
@@ -72,8 +84,6 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
 ```
 
 安全に気をつけながらRaspberry Pi Mouseに搭載されたスイッチを操作してモータ用電源をOFFにします。
-
-
 
 ## Parameters
 

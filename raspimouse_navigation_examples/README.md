@@ -8,7 +8,6 @@ Nav2の[Simple Commander API](https://docs.nav2.org/commander_api/index.html)を
   - [Table of Contents](#table-of-contents)
   - [How To Use Examples](#how-to-use-examples)
     - [Waypoint Navigation](#waypoint-navigation)
-      - [Usage](#usage)
 
 ## How To Use Examples
 
@@ -23,8 +22,6 @@ Nav2の[Simple Commander API](https://docs.nav2.org/commander_api/index.html)を
 
 > [!NOTE]
 > Waypoint Navigationサンプルで設定している4つのWaypointは、サンプルとして[Lake House](https://app.gazebosim.org/OpenRobotics/fuel/models/Lake%20House)を想定して設定されています。実機動作時は、ナビゲーション対象の環境に合わせたwaypointを指定してください。
-
-#### Usage
 
 [raspimouse_navigation_examples/waypoint.py](./raspimouse_navigation_examples/waypoint.py)内で、各Waypointの位置姿勢が設定されています。`generate_pose()`の引数を変更し、動作環境に合わせた位置姿勢を設定してください。
 

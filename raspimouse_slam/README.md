@@ -9,7 +9,6 @@
   - [Table of Contents](#table-of-contents)
   - [How to Use Examples](#how-to-use-examples)
     - [SLAM](#slam)
-        - [Usage](#usage)
 
 ## How to Use Examples
 
@@ -19,9 +18,7 @@
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/slam_toolbox_ros2.gif width=500 />
 
-#### Usage
-
-Raspberry Pi Mouse上で、次のコマンドを実行します。LiDARを起動し、ゲームパッドでRaspberry Pi Mouseを制御することができます。
+Raspberry Pi Mouse上で、次のコマンドを実行します。LiDARを起動し、ゲームパッドでRaspberry Pi Mouseを制御できるようにします。
 
 下記のコマンドではゲームパッドとしてLogicool Wireless Gamepad F710を使用しています。
 
