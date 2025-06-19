@@ -1,6 +1,5 @@
 # raspimouse_slam
 
-
 [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)パッケージを使用してSLAM（自己位置推定と地図生成）を行うパッケージです。
 
 ## Table of Contents

@@ -26,7 +26,6 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
   - [License](#license)
   - [Contributing](#contributing)
 
-
 ## Supported ROS distributions
 
 ### ROS 2

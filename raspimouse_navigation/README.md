@@ -9,7 +9,6 @@
   - [Navigation](#navigation)
   - [Parameters](#parameters)
 
-
 ## Navigation
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
@@ -49,7 +48,6 @@ ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
 
 自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
-
 
 #### Using Raspberry Pi Mouse
 
