@@ -44,7 +44,7 @@ ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=lds
 ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
 ``` 
 
-### Running Navigation
+### Launching Navigation
 
 自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
@@ -65,7 +65,9 @@ Gazebo上のRaspberry Pi Mouseに対して実行する場合は`use_sim_time:=tr
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml use_sim_time:=true 
 ```
 
-無事RVizが起動したら、初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックします。
+### Running Navigation
+
+RVizが起動したら、初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックします。
 
 地図上でRaspberry Pi Mouseが存在すべき尤もらしい位置をクリックし、**そのままホールド**します。
 
