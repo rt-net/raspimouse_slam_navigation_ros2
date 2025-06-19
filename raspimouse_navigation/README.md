@@ -92,7 +92,7 @@ ros2 service call /motor_power std_srvs/srv/SetBool data:\ true
   - Default: `false`
   - シミュレーション動作時は`true`、実機動作時は`false`を指定します。このパラメータは内部で起動される`Nav2`関連ノードで使用されます。
 
-**[Nav2]のパラメータについては、以下を参照してください。**
+**[Nav2](https://docs.nav2.org/)のパラメータについては、以下を参照してください。**
 
 - [Nav2：初めてのロボットセットアップガイド](https://docs.nav2.org/setup_guides/index.html)
 - [Nav2：パラメータチューニング方法](https://docs.nav2.org/tuning/index.html)
