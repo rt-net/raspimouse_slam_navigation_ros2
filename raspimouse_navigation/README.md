@@ -6,20 +6,20 @@
 
 - [raspimouse\_navigation](#raspimouse_navigation)
   - [Table of Contents](#table-of-contents)
-  - [How to Use Examples](#how-to-use-examples)
-    - [Navigation](#navigation)
+  - [Navigation](#navigation)
   - [Parameters](#parameters)
 
-## How to Use Examples
 
-### Navigation
+## Navigation
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_with_raspimouse_model.png width=500 />
 
 > [!NOTE]
 >　サンプルの実行には、Raspberry Pi MouseとRemote PCが同じネットワーク上で同じ`ROS_DOMAIN_ID`を指定している必要があります。
 
-#### Raspberry Pi Mouseノードの起動
+### Setup
+
+#### Using Raspberry Pi Mouse
 
 Raspberry Pi Mouse上で、次のコマンドを実行します。Raspberry Pi MouseのモータとLiDARを制御するためのノードを起動します。
 
@@ -32,23 +32,39 @@ ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=lds
 ros2 launch raspimouse_navigation robot_navigation.launch.py lidar:=urg lidar_port:=/dev/ttyACM0
 ```
 
-Gazebo上でRaspberry Pi Mouseノードを立ち上げるには、以下のコマンドを実行してください。
+#### Using Gazebo
+
+以下のコマンドを実行し、Gazebo上でRaspberry Pi Mouseを起動します。Gazebo上での実行には、[raspimouse_sim](https://github.com/rt-net/raspimouse_sim/tree/jazzy)パッケージのインストールが必要です。
 
 ```sh
+# RPLIDAR A1の場合
+ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=rplidar
+# LDS-01の場合
+ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=lds
+# URG-04LX-UG01の場合
 ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
-```
+``` 
 
-> [!NOTE]
-> Gazebo上のRaspberry Pi Mouseを使用する場合は、
+### Running Navigation
 
-
-#### ナビゲーションノードの起動
-
-Remote PC上で、次のコマンドを実行します。自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
+自己位置推定と経路生成用のノードを起動し、RVizを立ち上げます。
 引数のmapパラメータには、SLAMで生成した地図（.yamlファイル）を指定してください。
+
+
+#### Using Raspberry Pi Mouse
+
+Remote PC上で、次のコマンドを実行します。
 
 ```sh
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml
+```
+
+#### Using Gazebo
+
+Gazebo上のRaspberry Pi Mouseに対して実行する場合は`use_sim_time:=true`オプションを指定します。
+
+```sh
+ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml use_sim_time:=true 
 ```
 
 無事RVizが起動したら、初期位置・姿勢を合わせます。RVizの画面上部の*2D Pose Estimate*をクリックします。
@@ -65,7 +81,7 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 
 <img src=https://rt-net.github.io/images/raspberry-pi-mouse/navigation_ros2_setting_goalpose.gif width=500 />
 
-#### Stopping the robot
+### Stopping the robot
 
 下記画像のようなナビゲーション用のパネルがRViz左下に表示されます。
 *Cancel*ボタンを押すと自律移動が中断されます。
