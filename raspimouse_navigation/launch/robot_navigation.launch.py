@@ -29,9 +29,6 @@ from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
-    # Launch arguments #
-    lidar_port = LaunchConfiguration('lidar_port', default='/dev/ttyUSB0')
-
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
@@ -48,7 +45,8 @@ def generate_launch_description():
         'namespace', default_value='', description='Set namespace for tf tree.'
     )
 
-    # Launch files and Nodes #
+    lidar_port = LaunchConfiguration('lidar_port', default='/dev/ttyUSB0')
+
     lds_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
@@ -74,9 +72,7 @@ def generate_launch_description():
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory('rplidar_ros'), 'launch'
-                ),
+                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
                 '/rplidar.launch.py',
             ]
         ),
@@ -93,13 +89,10 @@ def generate_launch_description():
         'namespace': LaunchConfiguration('namespace'),
     }.items()
 
-    # Launch files and Nodes #
     robot_description_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory('raspimouse_slam'), 'launch/'
-                ),
+                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
                 'description.launch.py',
             ]
         ),
@@ -153,17 +146,18 @@ def generate_launch_description():
         )
     )
 
-    ld = LaunchDescription()
-    ld.add_action(declare_arg_lidar)
-    ld.add_action(declare_arg_lidar_frame)
-    ld.add_action(declare_arg_namespace)
-
-    ld.add_action(mouse_node)
-    ld.add_action(lds_launch)
-    ld.add_action(urg_launch)
-    ld.add_action(rplidar_launch)
-    ld.add_action(robot_description_launch)
-    ld.add_action(register_activating_transition)
-    ld.add_action(register_shutting_down_transition)
-    ld.add_action(emit_configuring_event)
-    return ld
+    return LaunchDescription(
+        [
+            declare_arg_lidar,
+            declare_arg_lidar_frame,
+            declare_arg_namespace,
+            mouse_node,
+            lds_launch,
+            urg_launch,
+            rplidar_launch,
+            robot_description_launch,
+            register_activating_transition,
+            register_shutting_down_transition,
+            emit_configuring_event,
+        ]
+    )

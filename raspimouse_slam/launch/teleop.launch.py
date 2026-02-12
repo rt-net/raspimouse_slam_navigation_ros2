@@ -23,7 +23,6 @@ from launch_ros.actions import LifecycleNode, Node
 
 
 def generate_launch_description():
-    # Declare arguments #
     declare_arg_joydev = DeclareLaunchArgument(
         'joydev',
         default_value='/dev/input/js0',
@@ -52,7 +51,6 @@ def generate_launch_description():
         '.yml',
     ]
 
-    # Nodes #
     joy_node = Node(
         package='joy_linux',
         executable='joy_linux_node',
@@ -81,13 +79,13 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('mouse')),
     )
 
-    ld = LaunchDescription()
-    ld.add_action(declare_arg_joydev)
-    ld.add_action(declare_arg_joyconfig)
-    ld.add_action(declare_arg_mouse)
-
-    ld.add_action(joy_node)
-    ld.add_action(joystick_control_node)
-    ld.add_action(mouse_node)
-
-    return ld
+    return LaunchDescription(
+        [
+            declare_arg_joydev,
+            declare_arg_joyconfig,
+            declare_arg_mouse,
+            joy_node,
+            joystick_control_node,
+            mouse_node,
+        ]
+    )
