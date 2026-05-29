@@ -18,10 +18,12 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import EmitEvent, RegisterEventHandler
+from launch.conditions import IfCondition
 from launch.conditions import LaunchConfigurationEquals
 from launch.events import matches_action, Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch.substitutions import EqualsSubstitution
 from launch_ros.actions import LifecycleNode, Node
 from launch_ros.event_handlers import OnStateTransition
 from launch_ros.events import lifecycle
@@ -57,7 +59,7 @@ def generate_launch_description():
                 '/hlds_laser.launch.py',
             ]
         ),
-        condition=LaunchConfigurationEquals('lidar', 'lds'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'lds')),
     )
 
     urg_launch = Node(
@@ -66,7 +68,7 @@ def generate_launch_description():
         executable='urg_node_driver',
         output='screen',
         parameters=[{'serial_port': lidar_port}],
-        condition=LaunchConfigurationEquals('lidar', 'urg'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'urg')),
     )
 
     rplidar_launch = IncludeLaunchDescription(
@@ -80,7 +82,7 @@ def generate_launch_description():
             'serial_port': lidar_port,
             'frame_id': LaunchConfiguration('lidar_frame'),
         }.items(),
-        condition=LaunchConfigurationEquals('lidar', 'rplidar'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'rplidar')),
     )
 
     description_params = {
