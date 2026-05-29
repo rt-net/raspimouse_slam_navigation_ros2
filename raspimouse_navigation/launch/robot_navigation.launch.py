@@ -19,11 +19,10 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import EmitEvent, RegisterEventHandler
 from launch.conditions import IfCondition
-from launch.conditions import LaunchConfigurationEquals
 from launch.events import matches_action, Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
 from launch.substitutions import EqualsSubstitution
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import LifecycleNode, Node
 from launch_ros.event_handlers import OnStateTransition
 from launch_ros.events import lifecycle
