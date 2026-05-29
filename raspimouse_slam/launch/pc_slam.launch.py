@@ -71,9 +71,9 @@ def generate_launch_description():
     )
 
     slam_node = LifecycleNode(
+        name='slam_toolbox',
         package='slam_toolbox',
         executable='sync_slam_toolbox_node',
-        name='slam_toolbox',
         output='screen',
         parameters=[
             slam_config_file,
