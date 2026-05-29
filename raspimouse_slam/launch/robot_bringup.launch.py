@@ -125,13 +125,14 @@ def generate_launch_description():
     teleop_params = {
         'joydev': LaunchConfiguration('joydev'),
         'joyconfig': LaunchConfiguration('joyconfig'),
+        'mouse': 'false',
     }.items()
 
     teleop_joy_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
-                'teleop.launch.py',
+                os.path.join(get_package_share_directory('raspimouse_ros2_examples'), 'launch/'),
+                'teleop_joy.launch.py',
             ]
         ),
         launch_arguments=teleop_params,
