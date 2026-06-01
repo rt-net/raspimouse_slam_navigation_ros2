@@ -24,7 +24,6 @@ from launch_ros.actions import PushRosNamespace
 
 
 def generate_launch_description():
-    # Declare arguments #
     declare_arg_lidar = DeclareLaunchArgument(
         'lidar',
         default_value='none',
@@ -63,7 +62,6 @@ def generate_launch_description():
 
     push_ns = PushRosNamespace([LaunchConfiguration('namespace')])
 
-    # Nodes #
     robot_state_pub_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -77,14 +75,13 @@ def generate_launch_description():
         output='screen',
     )
 
-    ld = LaunchDescription()
-
-    ld.add_action(declare_arg_lidar)
-    ld.add_action(declare_arg_lidar_frame)
-    ld.add_action(declare_arg_namespace)
-
-    ld.add_action(push_ns)
-
-    ld.add_action(robot_state_pub_node)
-    ld.add_action(joint_state_pub_node)
-    return ld
+    return LaunchDescription(
+        [
+            declare_arg_lidar,
+            declare_arg_lidar_frame,
+            declare_arg_namespace,
+            push_ns,
+            robot_state_pub_node,
+            joint_state_pub_node,
+        ]
+    )

@@ -23,12 +23,6 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    # Declare arguments #
-    use_sim_time = LaunchConfiguration('use_sim_time', default='False')
-    map_yaml_file = LaunchConfiguration('map')
-    params_file = LaunchConfiguration('params_file')
-    rviz2_file = LaunchConfiguration('rviz2_file')
-
     declare_arg_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
         default_value='True',
@@ -59,15 +53,15 @@ def generate_launch_description():
         description='The full path to the rviz file',
     )
 
-    nav2_launch_file_dir = os.path.join(
-        get_package_share_directory('nav2_bringup'), 'launch'
-    )
+    use_sim_time = LaunchConfiguration('use_sim_time', default='False')
+    map_yaml_file = LaunchConfiguration('map')
+    params_file = LaunchConfiguration('params_file')
+    rviz2_file = LaunchConfiguration('rviz2_file')
 
-    # Launch files and Nodes #
+    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
+
     nav2_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            [nav2_launch_file_dir, '/bringup_launch.py']
-        ),
+        PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
         launch_arguments={
             'map': map_yaml_file,
             'params_file': params_file,
@@ -84,13 +78,13 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}],
     )
 
-    ld = LaunchDescription()
-    ld.add_action(declare_arg_use_sim_time)
-    ld.add_action(declare_arg_map)
-    ld.add_action(declare_arg_params_file)
-    ld.add_action(declare_arg_rviz2_config_path)
-
-    ld.add_action(nav2_node)
-    ld.add_action(rviz2_node)
-
-    return ld
+    return LaunchDescription(
+        [
+            declare_arg_use_sim_time,
+            declare_arg_map,
+            declare_arg_params_file,
+            declare_arg_rviz2_config_path,
+            nav2_node,
+            rviz2_node,
+        ]
+    )

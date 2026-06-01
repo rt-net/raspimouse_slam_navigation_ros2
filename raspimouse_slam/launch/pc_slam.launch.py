@@ -33,7 +33,6 @@ from lifecycle_msgs.msg import Transition
 
 
 def generate_launch_description():
-    # Declare arguments
     slam_config_file = LaunchConfiguration('slam_config_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
     autostart = LaunchConfiguration('autostart')
@@ -71,11 +70,10 @@ def generate_launch_description():
         description='The full path to the rviz file',
     )
 
-    # Nodes
     slam_node = LifecycleNode(
+        name='slam_toolbox',
         package='slam_toolbox',
         executable='sync_slam_toolbox_node',
-        name='slam_toolbox',
         output='screen',
         parameters=[
             slam_config_file,
@@ -89,9 +87,7 @@ def generate_launch_description():
             lifecycle_node_matcher=matches_action(slam_node),
             transition_id=Transition.TRANSITION_CONFIGURE,
         ),
-        condition=IfCondition(
-            AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))
-        ),
+        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))),
     )
 
     activate_event = RegisterEventHandler(
@@ -100,9 +96,7 @@ def generate_launch_description():
             start_state='configuring',
             goal_state='inactive',
             entities=[
-                LogInfo(
-                    msg='[LifecycleLaunch] Slamtoolbox node is activating.'
-                ),
+                LogInfo(msg='[LifecycleLaunch] Slamtoolbox node is activating.'),
                 EmitEvent(
                     event=ChangeState(
                         lifecycle_node_matcher=matches_action(slam_node),
@@ -111,9 +105,7 @@ def generate_launch_description():
                 ),
             ],
         ),
-        condition=IfCondition(
-            AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))
-        ),
+        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))),
     )
 
     rviz2_node = Node(
@@ -124,15 +116,15 @@ def generate_launch_description():
         arguments=['-d', rviz2_file],
     )
 
-    ld = LaunchDescription()
-
-    ld.add_action(declare_autostart_cmd)
-    ld.add_action(declare_use_lifecycle_manager)
-    ld.add_action(declare_arg_slam_config_file)
-    ld.add_action(declare_arg_rviz2_config_path)
-    ld.add_action(slam_node)
-    ld.add_action(rviz2_node)
-    ld.add_action(configure_event)
-    ld.add_action(activate_event)
-
-    return ld
+    return LaunchDescription(
+        [
+            declare_autostart_cmd,
+            declare_use_lifecycle_manager,
+            declare_arg_slam_config_file,
+            declare_arg_rviz2_config_path,
+            slam_node,
+            rviz2_node,
+            configure_event,
+            activate_event,
+        ]
+    )

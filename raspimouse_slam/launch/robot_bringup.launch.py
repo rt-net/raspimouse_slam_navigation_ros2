@@ -24,7 +24,6 @@ from launch_ros.actions import LifecycleNode, Node
 
 
 def generate_launch_description():
-    # Declare arguments #
     declare_arg_namespace = DeclareLaunchArgument(
         'namespace', default_value='', description='Set namespace for tf tree.'
     )
@@ -56,7 +55,6 @@ def generate_launch_description():
                      supported: f710, dualshock3, dualshock4',
     )
 
-    # Launch files and Nodes #
     mouse_node = LifecycleNode(
         name='raspimouse',
         namespace='',
@@ -97,9 +95,7 @@ def generate_launch_description():
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory('rplidar_ros'), 'launch'
-                ),
+                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
                 '/rplidar.launch.py',
             ]
         ),
@@ -119,9 +115,7 @@ def generate_launch_description():
     display_robot_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory('raspimouse_slam'), 'launch/'
-                ),
+                os.path.join(get_package_share_directory('raspimouse_slam'), 'launch/'),
                 'description.launch.py',
             ]
         ),
@@ -131,32 +125,31 @@ def generate_launch_description():
     teleop_params = {
         'joydev': LaunchConfiguration('joydev'),
         'joyconfig': LaunchConfiguration('joyconfig'),
+        'mouse': 'false',
     }.items()
 
     teleop_joy_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             [
-                os.path.join(
-                    get_package_share_directory('raspimouse_slam'), 'launch/'
-                ),
-                'teleop.launch.py',
+                os.path.join(get_package_share_directory('raspimouse_ros2_examples'), 'launch/'),
+                'teleop_joy.launch.py',
             ]
         ),
         launch_arguments=teleop_params,
     )
 
-    ld = LaunchDescription()
-    ld.add_action(declare_arg_namespace)
-    ld.add_action(declare_arg_lidar)
-    ld.add_action(declare_arg_lidar_frame)
-    ld.add_action(declare_arg_joyconfig)
-    ld.add_action(declare_arg_joydev)
-
-    ld.add_action(mouse_node)
-    ld.add_action(lds_launch)
-    ld.add_action(urg_launch)
-    ld.add_action(rplidar_launch)
-    ld.add_action(display_robot_launch)
-    ld.add_action(teleop_joy_launch)
-
-    return ld
+    return LaunchDescription(
+        [
+            declare_arg_namespace,
+            declare_arg_lidar,
+            declare_arg_lidar_frame,
+            declare_arg_joyconfig,
+            declare_arg_joydev,
+            mouse_node,
+            lds_launch,
+            urg_launch,
+            rplidar_launch,
+            display_robot_launch,
+            teleop_joy_launch,
+        ]
+    )
