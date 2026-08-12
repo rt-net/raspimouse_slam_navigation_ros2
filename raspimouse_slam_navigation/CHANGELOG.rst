@@ -2,6 +2,9 @@
 Changelog for package raspimouse_slam_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1.0 (2026-08-12)
+------------------
+
 3.0.0 (2024-11-28)
 ------------------
 * Support ROS 2 Jazzy (`#13 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/13>`_)
