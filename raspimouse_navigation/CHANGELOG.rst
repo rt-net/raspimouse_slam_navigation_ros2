@@ -2,6 +2,13 @@
 Changelog for package raspimouse_navigation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1.0 (2026-08-12)
+------------------
+* Fixed RPLIDAR startup on ROS 2 Jazzy (`#18 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/18>`_)
+* Added support for waypoint navigation examples (`#16 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/16>`_)
+* Refactored launch files (`#19 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/19>`_)
+* Contributors: Kazushi Kurasawa, YusukeKato
+
 3.0.0 (2024-11-28)
 ------------------
 * Support ROS 2 Jazzy (`#13 <https://github.com/rt-net/raspimouse_slam_navigation_ros2/issues/13>`_)
