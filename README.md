@@ -30,8 +30,10 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 
 ### ROS 2
 
-- [Humble Hawksbill](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble)
-- [Jazzy Jalisco](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/jazzy)
+| ROS 2 distribution | Ubuntu version | Branch |
+|---|---|---|
+| Humble Hawksbill | Ubuntu 22.04 | [`humble`](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble) |
+| Jazzy Jalisco | Ubuntu 24.04 | [`jazzy`](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/jazzy) (`main`) |
 
 ## Requirements
 
@@ -42,7 +44,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
     - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
 - Linux OS
-  - Ubuntu 24.04 Server
+  - Ubuntu 24.04 Server (for this `main` / Jazzy branch)
 - Device Driver
   - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
 - ROS 2
