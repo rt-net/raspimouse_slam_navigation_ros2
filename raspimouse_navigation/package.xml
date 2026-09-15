@@ -3,7 +3,7 @@
 <package format="3">
     <name>raspimouse_navigation</name>
     <version>3.1.0</version>
-    <description>Robot-specific Nav2 configuration for Raspberry Pi Mouse</description>
+    <description>Navigation package for Raspberry Pi Mouse</description>
     <maintainer email="shop@rt-net.jp">RT Corporation</maintainer>
 
     <license>Apache License 2.0</license>
