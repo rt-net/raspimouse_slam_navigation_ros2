@@ -12,20 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.descriptions import Parameter
+from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    package_share = FindPackageShare('raspimouse_navigation')
+
     declare_arg_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='True',
+        default_value='false',
         description='True: Simulate, False: Machine',
     )
 
@@ -35,38 +37,48 @@ def generate_launch_description():
 
     declare_arg_params_file = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(
-            get_package_share_directory('raspimouse_navigation'),
-            'params',
-            'raspimouse.yaml',
+        default_value=PathJoinSubstitution(
+            [package_share, 'params', 'raspimouse.yaml']
         ),
         description='The full path to the param file.',
     )
 
     declare_arg_rviz2_config_path = DeclareLaunchArgument(
         'rviz2_file',
-        default_value=os.path.join(
-            get_package_share_directory('raspimouse_navigation'),
-            'rviz',
-            'nav2_view.rviz',
+        default_value=PathJoinSubstitution(
+            [package_share, 'rviz', 'nav2_view.rviz']
         ),
         description='The full path to the rviz file',
     )
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='False')
+    declare_arg_use_rviz = DeclareLaunchArgument(
+        'use_rviz', default_value='true', description='Start RViz.'
+    )
+    declare_arg_autostart = DeclareLaunchArgument(
+        'autostart', default_value='true', description='Activate the Nav2 lifecycle nodes.'
+    )
+
+    use_sim_time = LaunchConfiguration('use_sim_time')
     map_yaml_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
-    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
-
-    nav2_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
-        launch_arguments={
-            'map': map_yaml_file,
-            'params_file': params_file,
-            'use_sim_time': use_sim_time,
-        }.items(),
+    common_arguments = {
+        'params_file': params_file,
+        'use_sim_time': use_sim_time,
+        'autostart': LaunchConfiguration('autostart'),
+    }
+    localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([package_share, 'launch', 'localization.launch.py'])
+        ),
+        launch_arguments={**common_arguments, 'map': map_yaml_file}.items(),
+    )
+    navigation = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            PathJoinSubstitution([package_share, 'launch', 'navigation.launch.py'])
+        ),
+        launch_arguments=common_arguments.items(),
     )
 
     rviz2_node = Node(
@@ -75,7 +87,8 @@ def generate_launch_description():
         executable='rviz2',
         output='screen',
         arguments=['-d', rviz2_file],
-        parameters=[{'use_sim_time': use_sim_time}],
+        parameters=[Parameter('use_sim_time', use_sim_time, value_type=bool)],
+        condition=IfCondition(LaunchConfiguration('use_rviz')),
     )
 
     return LaunchDescription(
@@ -84,7 +97,10 @@ def generate_launch_description():
             declare_arg_map,
             declare_arg_params_file,
             declare_arg_rviz2_config_path,
-            nav2_node,
+            declare_arg_use_rviz,
+            declare_arg_autostart,
+            localization,
+            navigation,
             rviz2_node,
         ]
     )
