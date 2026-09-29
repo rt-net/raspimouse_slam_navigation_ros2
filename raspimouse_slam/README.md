@@ -59,26 +59,39 @@ ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
 
 ```sh
 # キーボードで操作する場合
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true -p use_sim_time:=true
 # ジョイスティックコントローラで操作する場合
 ros2 launch raspimouse_ros2_examples teleop_joy.launch.py joydev:="/dev/input/js0" joyconfig:=f710 mouse:=false
 ```
 
+> [!NOTE]
+> 上記はどちらもGazebo用の操作手順です。キーボード操作は速度指令に現在時刻を付けるため、Gazeboでは`-p use_sim_time:=true`を指定します。実機をキーボードで操作する場合は、この指定を外します。
+> 現在の`raspimouse_ros2_examples`のジョイスティック操作は速度指令の時刻を未設定（0）のまま送り、Gazebo側の`diff_drive_controller`が受信時のシミュレーション時刻で補完します。そのため、このコマンドには時計の指定を追加していません。`teleop_joy.launch.py`も`use_sim_time`引数には対応していません。
+
 ### Running SLAM
 
-Remote PC上で次のコマンドを実行するとSLAMが開始されます。 RVizが立ち上がり、Raspberry Pi Mouseを動かすと地図が構築されていく様子が確認できます。実機とGazeboの両方で同一のコマンドです。
+Remote PC上で次のコマンドを実行するとSLAMとRVizが起動します。実機では引数なし、Gazeboでは`use_sim_time:=true`を指定します。この引数はSLAMとRVizの両方に適用されます。
 
 > [!NOTE]
 > Raspberry Pi MouseとRemote PCが通信するため、同一ネットワーク上で同じ`ROS_DOMAIN_ID`を指定する必要があります。詳しい設定方法は、[RT Software Tutorials](https://rt-net.github.io/tutorials/raspimouse/ros/samples.html#raspberry-pipcros)のROS 2タブを開いて参照してください。
 
 ```sh
+# 実機の場合（use_sim_timeの既定値はfalse）
 ros2 launch raspimouse_slam pc_slam.launch.py
+
+# Gazeboの場合
+ros2 launch raspimouse_slam pc_slam.launch.py use_sim_time:=true
 ```
 
-構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。
+選択したキーボードまたはジョイスティックでRaspberry Pi Mouseを走らせ、RVizで地図が作成されることを確認します。
+
+構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。実機とGazeboで共通です。
 
 ```sh
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
 
 コマンドを実行すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。
+
+`MAP_NAME`は任意の名前を指定できます。保存が完了するまでGazeboとSLAMは起動したままにしてください。
+保存後はSLAMとキーボードまたはジョイスティックの操作ノードを終了してから、[Navigation](../raspimouse_navigation/README.md#launching-navigation)へ進みます。
