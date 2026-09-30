@@ -93,5 +93,5 @@ ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 
 コマンドを実行すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。
 
-`MAP_NAME`は任意の名前を指定できます。保存が完了するまでGazeboとSLAMは起動したままにしてください。
+`MAP_NAME`は任意の名前を指定できます。保存が完了するまでSLAMとロボット側のノード（Gazeboの場合はシミュレータ）を起動したままにしてください。
 保存後はSLAMとキーボードまたはジョイスティックの操作ノードを終了してから、[Navigation](../raspimouse_navigation/README.md#launching-navigation)へ進みます。
