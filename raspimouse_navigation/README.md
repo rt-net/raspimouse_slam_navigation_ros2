@@ -67,6 +67,8 @@ ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.ya
 #### Using Gazebo
 
 Gazebo上のRaspberry Pi Mouseに対して実行する場合は`use_sim_time:=true`オプションを指定します。
+地図を保存した後は、SLAMとキーボードまたはジョイスティックの操作ノードを終了してください。Gazeboは起動したままでも使用できます。
+初期配置へ戻す場合は、Gazeboを終了し、同じワールドを再起動してから以下を実行します。
 
 ```sh
 ros2 launch raspimouse_navigation pc_navigation.launch.py map:=$HOME/MAP_NAME.yaml use_sim_time:=true 
