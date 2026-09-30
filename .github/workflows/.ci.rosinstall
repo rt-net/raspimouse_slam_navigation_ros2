@@ -10,3 +10,12 @@
     uri: https://github.com/rt-net/raspimouse_ros2_examples.git
     local-name: raspimouse_ros2_examples
     version: lyrical
+- git:
+    uri: https://github.com/rt-net/raspimouse_description.git
+    local-name: raspimouse_description
+    version: lyrical
+- git:
+    uri: https://github.com/rt-net/raspimouse_sim.git
+    local-name: raspimouse_sim
+    version: lyrical
+    
