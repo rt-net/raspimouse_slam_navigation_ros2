@@ -14,7 +14,7 @@ on:
 
 env:
   UPSTREAM_WORKSPACE: .github/workflows/.ci.rosinstall
-  ROSDEP_SKIP_KEYS: usb_cam  # for raspimouse_ros2_examples
+  ROSDEP_SKIP_KEYS: usb_cam rplidar_ros hls_lfcd_lds_driver
 
 jobs:
   industrial_ci:
