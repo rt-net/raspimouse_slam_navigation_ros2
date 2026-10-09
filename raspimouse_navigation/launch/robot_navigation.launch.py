@@ -22,10 +22,11 @@ from launch.conditions import IfCondition
 from launch.events import matches_action, Shutdown
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import EqualsSubstitution
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import LifecycleNode, Node
 from launch_ros.event_handlers import OnStateTransition
 from launch_ros.events import lifecycle
+from launch_ros.substitutions import FindPackageShare
 from lifecycle_msgs.msg import Transition
 
 
@@ -50,13 +51,13 @@ def generate_launch_description():
 
     lds_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [
-                os.path.join(
-                    get_package_share_directory('hls_lfcd_lds_driver'),
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('hls_lfcd_lds_driver'),
                     'launch',
-                ),
-                '/hlds_laser.launch.py',
-            ]
+                    'hlds_laser.launch.py',
+                ]
+            )
         ),
         condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'lds')),
     )
@@ -72,10 +73,13 @@ def generate_launch_description():
 
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [
-                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
-                '/rplidar.launch.py',
-            ]
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('rplidar_ros'),
+                    'launch',
+                    'rplidar.launch.py',
+                ]
+            )
         ),
         launch_arguments={
             'serial_port': lidar_port,

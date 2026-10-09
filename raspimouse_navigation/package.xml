@@ -17,13 +17,17 @@
 
     <buildtool_depend>ament_cmake</buildtool_depend>
 
-    <depend>hls_lfcd_lds_driver</depend>
-    <depend>nav2_bringup</depend>
-    <depend>raspimouse</depend>
-    <depend>raspimouse_slam</depend>
-    <depend>rplidar_ros</depend>
-    <depend>rviz2</depend>
-    <depend>urg_node</depend>
+    <exec_depend>ament_index_python</exec_depend>
+    <exec_depend>hls_lfcd_lds_driver</exec_depend>
+    <exec_depend>launch</exec_depend>
+    <exec_depend>launch_ros</exec_depend>
+    <exec_depend>lifecycle_msgs</exec_depend>
+    <exec_depend>nav2_bringup</exec_depend>
+    <exec_depend>raspimouse</exec_depend>
+    <exec_depend>raspimouse_slam</exec_depend>
+    <exec_depend>rplidar_ros</exec_depend>
+    <exec_depend>rviz2</exec_depend>
+    <exec_depend>urg_node</exec_depend>
 
     <test_depend>ament_lint_auto</test_depend>
     <test_depend>ament_lint_common</test_depend>
