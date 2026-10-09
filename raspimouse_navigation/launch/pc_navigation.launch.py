@@ -14,7 +14,6 @@
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -51,34 +50,25 @@ def generate_launch_description():
         description='The full path to the rviz file',
     )
 
-    declare_arg_use_rviz = DeclareLaunchArgument(
-        'use_rviz', default_value='true', description='Start RViz.'
-    )
-    declare_arg_autostart = DeclareLaunchArgument(
-        'autostart', default_value='true', description='Activate the Nav2 lifecycle nodes.'
-    )
-
     use_sim_time = LaunchConfiguration('use_sim_time')
     map_yaml_file = LaunchConfiguration('map')
     params_file = LaunchConfiguration('params_file')
     rviz2_file = LaunchConfiguration('rviz2_file')
 
-    common_arguments = {
-        'params_file': params_file,
-        'use_sim_time': use_sim_time,
-        'autostart': LaunchConfiguration('autostart'),
-    }
-    localization = IncludeLaunchDescription(
+    nav2_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([package_share, 'launch', 'localization.launch.py'])
+            PathJoinSubstitution(
+                [FindPackageShare('nav2_bringup'), 'launch', 'bringup_launch.py']
+            )
         ),
-        launch_arguments={**common_arguments, 'map': map_yaml_file}.items(),
-    )
-    navigation = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution([package_share, 'launch', 'navigation.launch.py'])
-        ),
-        launch_arguments=common_arguments.items(),
+        launch_arguments={
+            'map': map_yaml_file,
+            'params_file': params_file,
+            'use_sim_time': use_sim_time,
+            # This robot does not provide keepout or speed-zone mask maps.
+            'use_keepout_zones': 'false',
+            'use_speed_zones': 'false',
+        }.items(),
     )
 
     rviz2_node = Node(
@@ -88,7 +78,6 @@ def generate_launch_description():
         output='screen',
         arguments=['-d', rviz2_file],
         parameters=[Parameter('use_sim_time', use_sim_time, value_type=bool)],
-        condition=IfCondition(LaunchConfiguration('use_rviz')),
     )
 
     return LaunchDescription(
@@ -97,10 +86,7 @@ def generate_launch_description():
             declare_arg_map,
             declare_arg_params_file,
             declare_arg_rviz2_config_path,
-            declare_arg_use_rviz,
-            declare_arg_autostart,
-            localization,
-            navigation,
+            nav2_node,
             rviz2_node,
         ]
     )
