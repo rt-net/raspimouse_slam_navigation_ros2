@@ -27,6 +27,7 @@ from launch.substitutions import LaunchConfiguration
 from launch.substitutions import NotSubstitution
 from launch_ros.actions import LifecycleNode
 from launch_ros.actions import Node
+from launch_ros.descriptions import ParameterValue
 from launch_ros.event_handlers import OnStateTransition
 from launch_ros.events.lifecycle import ChangeState
 from lifecycle_msgs.msg import Transition
@@ -37,6 +38,7 @@ def generate_launch_description():
     rviz2_file = LaunchConfiguration('rviz2_file')
     autostart = LaunchConfiguration('autostart')
     use_lifecycle_manager = LaunchConfiguration('use_lifecycle_manager')
+    use_sim_time = ParameterValue(LaunchConfiguration('use_sim_time'), value_type=bool)
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart',
@@ -48,6 +50,12 @@ def generate_launch_description():
         'use_lifecycle_manager',
         default_value='false',
         description='Enable bond connection during node activation',
+    )
+
+    declare_arg_use_sim_time = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use the simulation clock for SLAM and RViz.',
     )
 
     declare_arg_slam_config_file = DeclareLaunchArgument(
@@ -77,7 +85,10 @@ def generate_launch_description():
         output='screen',
         parameters=[
             slam_config_file,
-            {'use_lifecycle_manager': use_lifecycle_manager},
+            {
+                'use_lifecycle_manager': use_lifecycle_manager,
+                'use_sim_time': use_sim_time,
+            },
         ],
         namespace='',
     )
@@ -114,12 +125,14 @@ def generate_launch_description():
         executable='rviz2',
         output='screen',
         arguments=['-d', rviz2_file],
+        parameters=[{'use_sim_time': use_sim_time}],
     )
 
     return LaunchDescription(
         [
             declare_autostart_cmd,
             declare_use_lifecycle_manager,
+            declare_arg_use_sim_time,
             declare_arg_slam_config_file,
             declare_arg_rviz2_config_path,
             slam_node,

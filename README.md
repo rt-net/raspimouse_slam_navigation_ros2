@@ -32,6 +32,7 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
 
 - [Humble Hawksbill](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/humble)
 - [Jazzy Jalisco](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/jazzy)
+- [Lyrical Luth](https://github.com/rt-net/raspimouse_slam_navigation_ros2/tree/lyrical)
 
 ## Requirements
 
@@ -42,11 +43,11 @@ Raspberry Pi MouseでSLAMとナビゲーションを実行するパッケージ�
     - [Raspberry Pi4用コネクタ](https://www.rt-shop.jp/index.php?main_page=product_info&products_id=3776)
     - [マルチLiDARマウント](https://www.rt-shop.jp/index.php?main_page=product_info&cPath=1299_1395&products_id=3867)
 - Linux OS
-  - Ubuntu 24.04 Server
+  - Ubuntu 26.04 Server
 - Device Driver
   - [rt-net/RaspberryPiMouse](https://github.com/rt-net/RaspberryPiMouse)
 - ROS 2
-  - [Jazzy Jalisco](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
+  - [Lyrical Luth](https://docs.ros.org/en/lyrical/Installation/Ubuntu-Install-Debs.html)
 
 ## Installation
 
@@ -76,7 +77,9 @@ source ~/ros2_ws/install/setup.bash
 
 ## QuickStart
 
-SLAMで地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
+実機でSLAMによる地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方やGazeboでの手順については[SLAM](./raspimouse_slam/README.md#slam)、[ナビゲーション](./raspimouse_navigation/README.md#navigation)を参照してください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
+
+ロボットとPCを同一ネットワークに接続し、同じ`ROS_DOMAIN_ID`を設定してください。各端末でROS 2と本パッケージの環境設定を読み込んでから実行します。実機では`use_sim_time`の既定値（`false`）を使用するため、指定は不要です。
 
 ### SLAM
 
@@ -91,7 +94,7 @@ ros2 launch raspimouse_slam pc_slam.launch.py
 ## MAP_NAMEを地図ファイルの名前に置き換えてください
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
-地図の保存が行えたら、各種ノードを終了して次に進んでください。
+地図の保存が完了したら、ロボット側の`robot_bringup.launch.py`とPC側の`pc_slam.launch.py`をそれぞれ`Ctrl+C`で終了してから、Navigationへ進んでください。
 
 ### Navigation
 
