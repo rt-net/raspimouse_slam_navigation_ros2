@@ -68,30 +68,29 @@ ros2 launch raspimouse_gazebo raspimouse_with_lakehouse.launch.py lidar:=urg
 
 ### Teleoperation
 
-キーボードまたはジョイスティックを選んで操作します。
+キーボードまたはジョイスティックを選んでRaspberry Pi Mouseを操作できるようにします。
+キーボードによる操作を行う場合は、このターミナルをアクティブにする必要があります。
 
 #### Using Raspberry Pi Mouse
 
-ジョイスティックで操作する場合は、Setupで操作ノードが起動しているため、追加のコマンドは不要です。
-
-キーボードで操作する場合は、Raspberry Pi Mouse上の別のターミナルで次のコマンドを実行します。操作中は、このターミナルにフォーカスを当ててください。
+別のターミナルを立ち上げ、以下のコマンドを実行します。
 
 ```sh
+# キーボードで操作する場合
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true
+# ジョイスティックコントローラで操作する場合
+ros2 launch raspimouse_ros2_examples teleop_joy.launch.py joydev:="/dev/input/js0" joyconfig:=f710 mouse:=false
 ```
 
 #### Using Gazebo
 
-ジョイスティックで操作する場合は、別のターミナルで次のコマンドを実行します。
+別のターミナルを立ち上げ、以下のコマンドを実行します。
 
 ```sh
-ros2 launch raspimouse_ros2_examples teleop_joy.launch.py joydev:="/dev/input/js0" joyconfig:=f710 mouse:=false
-```
-
-キーボードで操作する場合は、別のターミナルで次のコマンドを実行します。シミュレーション時刻を使用するため、`-p use_sim_time:=true`を指定します。操作中は、このターミナルにフォーカスを当ててください。
-
-```sh
+# キーボードで操作する場合
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true -p use_sim_time:=true
+# ジョイスティックコントローラで操作する場合
+ros2 launch raspimouse_ros2_examples teleop_joy.launch.py joydev:="/dev/input/js0" joyconfig:=f710 mouse:=false
 ```
 
 ### Running SLAM
@@ -116,24 +115,10 @@ ros2 launch raspimouse_slam pc_slam.launch.py use_sim_time:=true
 
 ### Saving Map
 
-構築した地図をファイルへ保存します。`MAP_NAME`には任意の名前を指定でき、保存すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。
-
-#### Using Raspberry Pi Mouse
-
-SLAMとロボット側のノードを起動したまま、Remote PC上の別のターミナルで次のコマンドを実行します。
+構築した地図をファイルへ保存するために、Remote PC 上で次のコマンドを実行します。本操作は、実機とGazebo　で共通です。
 
 ```sh
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
 
-保存が完了したら、SLAMとキーボードまたはジョイスティックの操作ノードを終了してから、[Navigation](../raspimouse_navigation/README.md#launching-navigation)へ進みます。
-
-#### Using Gazebo
-
-SLAMとシミュレータを起動したまま、Remote PC上の別のターミナルで次のコマンドを実行します。
-
-```sh
-ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
-```
-
-保存が完了したら、SLAMとキーボードまたはジョイスティックの操作ノードを終了してから、[Navigation](../raspimouse_navigation/README.md#launching-navigation)へ進みます。
+コマンドを実行すると`MAP_NAME.pgm`と`MAP_NAME.yaml`の2つのファイルが生成されます。
