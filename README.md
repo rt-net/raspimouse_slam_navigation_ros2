@@ -77,10 +77,7 @@ source ~/ros2_ws/install/setup.bash
 
 ## QuickStart
 
-実機でSLAMによる地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方やGazeboでの手順については[SLAM](./raspimouse_slam/README.md#slam)、[ナビゲーション](./raspimouse_navigation/README.md#navigation)を参照してください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
-
-ロボットとPCを同一ネットワークに接続し、同じ`ROS_DOMAIN_ID`を設定してください。各端末でROS 2と本パッケージの環境設定を読み込んでから実行します。実機では`use_sim_time`の既定値（`false`）を使用するため、指定は不要です。
-
+実機でSLAMによる地図生成を行い、その地図を利用してRaspberry Pi Mouseを自律移動させます。それぞれの詳しい動かし方などについては[SLAM](#slam)、[ナビゲーション](#navigation)を参照してください。ここでは例として、ゲームパッドのLogicool F710とレーザ測域センサのRPLIDAR A1を使用しています。
 ### SLAM
 
 ```sh
