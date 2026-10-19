@@ -26,7 +26,7 @@ def generate_launch_description():
 
     declare_arg_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='false',
+        default_value='False',
         description='True: Simulate, False: Machine',
     )
 
@@ -66,8 +66,8 @@ def generate_launch_description():
             'params_file': params_file,
             'use_sim_time': use_sim_time,
             # This robot does not provide keepout or speed-zone mask maps.
-            'use_keepout_zones': 'false',
-            'use_speed_zones': 'false',
+            'use_keepout_zones': 'False',
+            'use_speed_zones': 'False',
         }.items(),
     )
 

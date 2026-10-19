@@ -42,7 +42,7 @@ def generate_launch_description():
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart',
-        default_value='true',
+        default_value='True',
         description='Automatically startup the slamtoolbox. '
         'Ignored when use_lifecycle_manager is true.',
     )
@@ -54,7 +54,7 @@ def generate_launch_description():
 
     declare_arg_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='false',
+        default_value='False',
         description='Use the simulation clock for SLAM and RViz.',
     )
 
