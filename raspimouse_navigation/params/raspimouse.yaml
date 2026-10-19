@@ -64,8 +64,9 @@ controller_server:
     min_theta_velocity_threshold: 0.001
 
     # Added plugin for goal checking
-    goal_checker_plugins: ["goal_checker"]
-    goal_checker:
+    # Match the goal checker ID used by the standard NavigateThroughPoses BT.
+    goal_checker_plugins: ["general_goal_checker"]
+    general_goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.05
       yaw_goal_tolerance: 0.5
@@ -98,7 +99,6 @@ controller_server:
       sim_time: 1.5
       linear_granularity: 0.05
       angular_granularity: 0.025
-      transform_tolerance: 0.2
       xy_goal_tolerance: 0.05
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
