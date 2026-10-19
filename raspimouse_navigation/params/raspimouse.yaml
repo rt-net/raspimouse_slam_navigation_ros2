@@ -139,8 +139,6 @@ local_costmap:
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
-      # Lyrical Path Handler reads the TF tolerance from the local costmap.
-      transform_tolerance: 0.2
       rolling_window: true
       # Reduced costmap size to fit the Raspberry Pi Mouse
       width: 1 # meters
