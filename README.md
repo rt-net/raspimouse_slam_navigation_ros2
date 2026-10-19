@@ -92,7 +92,8 @@ ros2 launch raspimouse_slam pc_slam.launch.py
 ## MAP_NAMEを地図ファイルの名前に置き換えてください
 ros2 run nav2_map_server map_saver_cli -f ~/MAP_NAME
 ```
-地図の保存が完了したら、ロボット側の`robot_bringup.launch.py`とPC側の`pc_slam.launch.py`をそれぞれ`Ctrl+C`で終了してから、Navigationへ進んでください。
+
+地図の保存が完了したら、各種ノードを終了させ、次のNavigationへ進んでください。
 
 ### Navigation
 
