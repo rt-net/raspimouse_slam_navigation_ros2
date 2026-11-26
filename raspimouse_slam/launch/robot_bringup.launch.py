@@ -17,10 +17,11 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.conditions import LaunchConfigurationEquals
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import EqualsSubstitution, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import LifecycleNode, Node
+from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
@@ -72,15 +73,15 @@ def generate_launch_description():
 
     lds_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [
-                os.path.join(
-                    get_package_share_directory('hls_lfcd_lds_driver'),
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('hls_lfcd_lds_driver'),
                     'launch',
-                ),
-                '/hlds_laser.launch.py',
-            ]
+                    'hlds_laser.launch.py',
+                ]
+            )
         ),
-        condition=LaunchConfigurationEquals('lidar', 'lds'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'lds')),
     )
 
     urg_launch = Node(
@@ -89,21 +90,24 @@ def generate_launch_description():
         executable='urg_node_driver',
         output='screen',
         parameters=[{'serial_port': lidar_port}],
-        condition=LaunchConfigurationEquals('lidar', 'urg'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'urg')),
     )
 
     rplidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [
-                os.path.join(get_package_share_directory('rplidar_ros'), 'launch'),
-                '/rplidar.launch.py',
-            ]
+            PathJoinSubstitution(
+                [
+                    FindPackageShare('rplidar_ros'),
+                    'launch',
+                    'rplidar.launch.py',
+                ]
+            )
         ),
         launch_arguments={
             'serial_port': lidar_port,
             'frame_id': LaunchConfiguration('lidar_frame'),
         }.items(),
-        condition=LaunchConfigurationEquals('lidar', 'rplidar'),
+        condition=IfCondition(EqualsSubstitution(LaunchConfiguration('lidar'), 'rplidar')),
     )
 
     description_params = {
